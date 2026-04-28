@@ -26,4 +26,7 @@ Thumbs.db
 
 # Misc
 .cache/
-*.log
+*.lognode_modules/
+.next/
+dist/
+.env
