@@ -1,0 +1,10 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/diseases/page": "/diseases",
+  "/medicines/brands/[brandId]/page": "/medicines/brands/[brandId]",
+  "/medicines/page": "/medicines",
+  "/lab-tests/page": "/lab-tests",
+  "/medicines/warnings/page": "/medicines/warnings",
+  "/medicines/generics/[genericId]/page": "/medicines/generics/[genericId]",
+  "/page": "/"
+}
