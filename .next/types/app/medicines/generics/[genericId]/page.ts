@@ -1,4 +1,4 @@
-// File: /home/reza/codeing/doctor-prescription/medicine-backend/frontend/src/app/medicines/generics/[genericId]/page.tsx
+// File: /home/reza/codeing/doctor-prescription/medicine-frontend/src/app/medicines/generics/[genericId]/page.tsx
 import * as entry from '../../../../../../src/app/medicines/generics/[genericId]/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

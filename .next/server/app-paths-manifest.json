@@ -1,10 +1,10 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
   "/diseases/page": "app/diseases/page.js",
-  "/medicines/brands/[brandId]/page": "app/medicines/brands/[brandId]/page.js",
-  "/medicines/page": "app/medicines/page.js",
   "/lab-tests/page": "app/lab-tests/page.js",
-  "/medicines/warnings/page": "app/medicines/warnings/page.js",
+  "/medicines/brands/[brandId]/page": "app/medicines/brands/[brandId]/page.js",
   "/medicines/generics/[genericId]/page": "app/medicines/generics/[genericId]/page.js",
+  "/medicines/page": "app/medicines/page.js",
+  "/medicines/warnings/page": "app/medicines/warnings/page.js",
   "/page": "app/page.js"
 }

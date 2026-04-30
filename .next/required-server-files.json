@@ -99,7 +99,7 @@
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "/home/reza/codeing/doctor-prescription/medicine-backend",
+    "outputFileTracingRoot": "/home/reza/codeing/doctor-prescription/medicine-frontend",
     "experimental": {
       "useSkewCookie": false,
       "cacheLife": {
@@ -289,11 +289,11 @@
     "bundlePagesRouterDependencies": false,
     "configFileName": "next.config.ts",
     "turbopack": {
-      "root": "/home/reza/codeing/doctor-prescription/medicine-backend"
+      "root": "/home/reza/codeing/doctor-prescription/medicine-frontend"
     }
   },
-  "appDir": "/home/reza/codeing/doctor-prescription/medicine-backend/frontend",
-  "relativeAppDir": "frontend",
+  "appDir": "/home/reza/codeing/doctor-prescription/medicine-frontend",
+  "relativeAppDir": "",
   "files": [
     ".next/routes-manifest.json",
     ".next/server/pages-manifest.json",

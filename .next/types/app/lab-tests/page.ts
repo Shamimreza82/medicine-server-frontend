@@ -1,4 +1,4 @@
-// File: /home/reza/codeing/doctor-prescription/medicine-backend/frontend/src/app/lab-tests/page.tsx
+// File: /home/reza/codeing/doctor-prescription/medicine-frontend/src/app/lab-tests/page.tsx
 import * as entry from '../../../../src/app/lab-tests/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
