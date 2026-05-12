@@ -1,6 +1,6 @@
-# Frontend
+# Medicine Hub Frontend
 
-Separate Next.js frontend for the backend in this repository.
+Intelligent platform for medicine and lab test information.
 
 ## Stack
 

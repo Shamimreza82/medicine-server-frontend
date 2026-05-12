@@ -12,8 +12,8 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: 'Doctor Prescription Frontend',
-  description: 'Frontend console for lab tests and medicine prescribing workflows.',
+  title: 'Medicine Hub',
+  description: 'Intelligent platform for medicine and lab test information.',
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {

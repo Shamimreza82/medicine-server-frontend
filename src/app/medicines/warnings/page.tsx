@@ -9,7 +9,7 @@ export default function MedicineWarningsPage() {
         badge="POST /medicines/check-warnings"
         description="Select a candidate generic, add current medications, and inspect risk results."
         eyebrow="Warnings"
-        title="Prescription safety check"
+        title="Clinical safety check"
       />
       <WarningChecker />
     </AppShell>
