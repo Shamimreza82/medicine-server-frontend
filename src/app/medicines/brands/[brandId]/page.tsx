@@ -14,7 +14,6 @@ export default async function BrandDetailsPage({ params }: BrandDetailsPageProps
   return (
     <AppShell>
       <PageHeader
-        badge="GET /medicines/brands/:brandId/products"
         description="Full product list and shared dose information for a selected brand."
         eyebrow="Brand Details"
         title="Brand products"

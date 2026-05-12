@@ -43,10 +43,6 @@ export function HeroSearch() {
     <div className="w-full max-w-4xl mx-auto space-y-8">
       {/* Header Context */}
       <div className="text-center space-y-4 mb-2 animate-in fade-in slide-in-from-top-4 duration-1000">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold uppercase tracking-widest">
-          <Sparkles className="h-3 w-3" />
-          Clinical Intelligence Engine
-        </div>
         <h1 className="text-4xl md:text-5xl font-black tracking-tight text-foreground">
           What are you <span className="text-primary">looking for?</span>
         </h1>
@@ -69,7 +65,7 @@ export function HeroSearch() {
                     onChange={(e) => setActiveTab(e.target.value)}
                     className="h-16 pl-14 bg-transparent border-2 border-transparent focus:border-primary/20 rounded-2xl text-xs font-black uppercase tracking-widest appearance-none cursor-pointer transition-all"
                   >
-                    <option value="all">Unified Search</option>
+                    <option value="all">Default Search</option>
                     <option value="brands">Brand Library</option>
                     <option value="generics">Generic Catalog</option>
                     <option value="indications">Clinical Indications</option>

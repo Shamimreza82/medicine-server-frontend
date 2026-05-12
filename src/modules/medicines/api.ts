@@ -8,9 +8,12 @@ import type {
   GenericResponse,
   IndicationResponse,
   CompanyResponse,
+  CompanyDetails,
+  IndicationDetails,
   MedicineSearchResult,
   WarningRequest,
   WarningSummary,
+  DiseaseSuggestionResponse,
 } from './types';
 
 export async function searchMedicines(query: string, limit = 10) {
@@ -81,4 +84,10 @@ export async function checkWarnings(payload: WarningRequest) {
   const response = await http.post<ApiSuccess<WarningSummary>>('/medicines/check-warnings', payload);
 
   return response.data.data as WarningSummary;
+}
+
+export async function getDiseaseSuggestions(diseaseId: string) {
+  const response = await http.get<ApiSuccess<DiseaseSuggestionResponse>>(`/medicines/diseases/${diseaseId}/suggestions`);
+
+  return response.data.data;
 }

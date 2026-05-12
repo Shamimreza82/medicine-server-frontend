@@ -42,7 +42,7 @@ export interface IndicationResponse {
   name: string;
 }
 
-export interface IndicationDetails extends IndicationResponse {}
+export type IndicationDetails = IndicationResponse;
 
 export interface MedicineSearchResult {
   brands: BrandResponse[];
@@ -50,8 +50,6 @@ export interface MedicineSearchResult {
   indications: IndicationResponse[];
   companies: CompanyResponse[];
 }
-
-export interface BrandDetails extends BrandResponse {}
 
 export interface GenericDetails extends GenericResponse {
   administration: string | null;
@@ -63,6 +61,7 @@ export interface GenericDetails extends GenericResponse {
   precaution: string | null;
   renalDose: string | null;
   sideEffect: string | null;
+  pregnancyCategoryNote: string | null;
   pregnancyCategory: {
     id: number;
     name: string;
@@ -74,6 +73,17 @@ export interface GenericDetails extends GenericResponse {
       name: string;
     };
   }>;
+}
+
+export interface BrandDetails extends Omit<BrandResponse, 'generic'> {
+  generic: GenericDetails;
+  otherForms: Array<{
+    id: number;
+    name: string;
+    form: string | null;
+    strength: string | null;
+  }>;
+  genericAlternatives: Array<BrandResponse>;
 }
 
 export interface MedicineSearchQuery {
@@ -114,4 +124,26 @@ export interface WarningSummary {
     note: string | null;
   }>;
   allergyAdvisory: string | null;
+}
+
+export interface DiseaseSuggestionResponse {
+  disease: {
+    id: string;
+    name: string;
+    slug: string;
+  };
+  medicines: Array<{
+    genericId: number;
+    genericName: string;
+    isPrimary: boolean;
+    note: string | null;
+    commonDoseTemplate: {
+      adultDose: string | null;
+      childDose: string | null;
+    };
+    brands: Array<{
+      id: number;
+      name: string;
+    }>;
+  }>;
 }

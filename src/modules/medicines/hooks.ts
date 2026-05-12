@@ -5,7 +5,10 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import {
   checkWarnings,
   getBrandById,
+  getCompanyById,
+  getDiseaseSuggestions,
   getGenericById,
+  getIndicationById,
   searchBrands,
   searchCompanies,
   searchGenerics,
@@ -89,5 +92,13 @@ export function useIndicationDetails(indicationId: number) {
 export function useWarningCheck() {
   return useMutation({
     mutationFn: (payload: WarningRequest) => checkWarnings(payload),
+  });
+}
+
+export function useDiseaseSuggestions(diseaseId: string) {
+  return useQuery({
+    queryKey: ['medicines', 'disease-suggestions', diseaseId],
+    queryFn: () => getDiseaseSuggestions(diseaseId),
+    enabled: !!diseaseId,
   });
 }
