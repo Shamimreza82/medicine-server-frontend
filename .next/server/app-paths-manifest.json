@@ -1,10 +1,7 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/diseases/page": "app/diseases/page.js",
+  "/medicines/companies/page": "app/medicines/companies/page.js",
+  "/medicines/generics/page": "app/medicines/generics/page.js",
   "/lab-tests/page": "app/lab-tests/page.js",
-  "/medicines/brands/[brandId]/page": "app/medicines/brands/[brandId]/page.js",
-  "/medicines/generics/[genericId]/page": "app/medicines/generics/[genericId]/page.js",
-  "/medicines/page": "app/medicines/page.js",
-  "/medicines/warnings/page": "app/medicines/warnings/page.js",
+  "/medicines/indications/page": "app/medicines/indications/page.js",
   "/page": "app/page.js"
 }

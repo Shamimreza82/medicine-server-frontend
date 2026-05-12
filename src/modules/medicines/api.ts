@@ -3,10 +3,11 @@ import type { ApiSuccess } from '@/shared/api/types';
 
 import type {
   BrandDetails,
-  BrandSuggestion,
-  DiseaseSuggestionResult,
-  GenericDoseTemplate,
-  GenericSuggestion,
+  BrandResponse,
+  GenericDetails,
+  GenericResponse,
+  IndicationResponse,
+  CompanyResponse,
   MedicineSearchResult,
   WarningRequest,
   WarningSummary,
@@ -17,46 +18,63 @@ export async function searchMedicines(query: string, limit = 10) {
     params: { q: query, limit },
   });
 
-  return response.data.data ?? { brands: [], generics: [] };
+  return response.data.data ?? { brands: [], generics: [], indications: [], companies: [] };
 }
 
-export async function searchBrands(query: string, limit = 10) {
-  const response = await http.get<ApiSuccess<BrandSuggestion[]>>('/medicines/brands/search', {
-    params: { q: query, limit },
+export async function searchBrands(query: string, limit = 10, page = 1) {
+  const response = await http.get<ApiSuccess<BrandResponse[]>>('/medicines/brands', {
+    params: { q: query, limit, page },
   });
 
-  return response.data.data ?? [];
+  return response.data;
 }
 
-export async function searchGenerics(query: string, limit = 10) {
-  const response = await http.get<ApiSuccess<GenericSuggestion[]>>('/medicines/generics/search', {
-    params: { q: query, limit },
+export async function searchGenerics(query: string, limit = 10, page = 1) {
+  const response = await http.get<ApiSuccess<GenericResponse[]>>('/medicines/generics', {
+    params: { q: query, limit, page },
   });
 
-  return response.data.data ?? [];
+  return response.data;
 }
 
-export async function getBrandProducts(brandId: string) {
-  const response = await http.get<ApiSuccess<BrandDetails>>(`/medicines/brands/${brandId}/products`);
+export async function searchIndications(query: string, limit = 10, page = 1) {
+  const response = await http.get<ApiSuccess<IndicationResponse[]>>('/medicines/indications', {
+    params: { q: query, limit, page },
+  });
 
-  return response.data.data as BrandDetails;
+  return response.data;
 }
 
-export async function getGenericDoseTemplate(genericId: string) {
-  const response = await http.get<ApiSuccess<GenericDoseTemplate>>(
-    `/medicines/generics/${genericId}/dose-templates`,
-  );
+export async function searchCompanies(query: string, limit = 10, page = 1) {
+  const response = await http.get<ApiSuccess<CompanyResponse[]>>('/medicines/companies', {
+    params: { q: query, limit, page },
+  });
 
-  return response.data.data as GenericDoseTemplate;
+  return response.data;
 }
 
-export async function getDiseaseSuggestions(diseaseId: string, limit = 10) {
-  const response = await http.get<ApiSuccess<DiseaseSuggestionResult>>(
-    `/medicines/diseases/${diseaseId}/suggestions`,
-    { params: { limit } },
-  );
+export async function getBrandById(brandId: number) {
+  const response = await http.get<ApiSuccess<BrandDetails>>(`/medicines/brands/${brandId}`);
 
-  return response.data.data as DiseaseSuggestionResult;
+  return response.data.data;
+}
+
+export async function getGenericById(genericId: number) {
+  const response = await http.get<ApiSuccess<GenericDetails>>(`/medicines/generics/${genericId}`);
+
+  return response.data.data;
+}
+
+export async function getCompanyById(companyId: number) {
+  const response = await http.get<ApiSuccess<CompanyDetails>>(`/medicines/companies/${companyId}`);
+
+  return response.data.data;
+}
+
+export async function getIndicationById(indicationId: number) {
+  const response = await http.get<ApiSuccess<IndicationDetails>>(`/medicines/indications/${indicationId}`);
+
+  return response.data.data;
 }
 
 export async function checkWarnings(payload: WarningRequest) {

@@ -1,10 +1,9 @@
 import Link from 'next/link';
-import { Activity, FlaskConical, SearchCheck, ShieldAlert, ArrowRight } from 'lucide-react';
+import { Activity, FlaskConical, SearchCheck, ShieldAlert, ArrowRight, HeartPulse } from 'lucide-react';
 
-import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { AppShell } from '@/shared/components/app-shell';
-import { PageHeader } from '@/shared/components/page-header';
+import { HeroSearch } from '@/modules/medicines/components/hero-search';
 
 const cards = [
   {
@@ -40,40 +39,37 @@ const cards = [
 export default function HomePage() {
   return (
     <AppShell>
-      <PageHeader
-        badge="System v1.2"
-        description="A specialized clinical interface built for speed and precision. Navigate through modular workflows to search, review, and validate medical prescriptions with confidence."
-        eyebrow="Clinical Workspace"
-        title="Overview"
-      />
+      {/* Hero Section */}
+      <section className="relative py-12 md:py-20 overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-64 bg-primary/5 blur-[120px] rounded-full -z-10" />
+        
+        <div className="text-center space-y-6 mb-12">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold uppercase tracking-widest animate-in fade-in slide-in-from-bottom-2 duration-700">
+            <HeartPulse className="h-3 w-3" />
+            Clinical Workspace v1.2
+          </div>
+          
+          <h1 className="text-4xl md:text-6xl font-black tracking-tight text-foreground animate-in fade-in slide-in-from-bottom-3 duration-700 delay-100">
+            Precision <span className="text-primary">Clinical</span> Intelligence
+          </h1>
+          
+          <p className="max-w-2xl mx-auto text-lg text-muted-foreground leading-relaxed animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
+            Navigate through high-performance search modules to identify, review, and validate medical prescriptions with clinical confidence.
+          </p>
+        </div>
+
+        <div className="animate-in fade-in slide-in-from-bottom-5 duration-700 delay-300">
+          <HeroSearch />
+        </div>
+      </section>
 
       <div className="grid gap-6">
         <section>
-          <div className="mb-4 flex items-center gap-2 px-1">
-            <div className="h-4 w-1 rounded-full bg-primary" />
-            <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground/70">Standard Workflow</h3>
-          </div>
-          <div className="grid gap-4 md:grid-cols-3">
-            {[
-              { step: '01', title: 'Intake & Search', desc: 'Identify clinical targets using high-performance search modules.' },
-              { step: '02', title: 'Clinical Review', desc: 'Analyze product details and verify dose template alignment.' },
-              { step: '03', title: 'Risk Validation', desc: 'Execute safety checks against the live contraindication engine.' },
-            ].map((item) => (
-              <Card key={item.step} className="group relative overflow-hidden border-primary/5 bg-white transition-all hover:border-primary/20 hover:shadow-md">
-                <CardHeader>
-                  <span className="text-4xl font-black text-primary/5 transition-colors group-hover:text-primary/10">{item.step}</span>
-                  <CardTitle className="text-lg">{item.title}</CardTitle>
-                  <CardDescription className="text-sm leading-relaxed">{item.desc}</CardDescription>
-                </CardHeader>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        <section>
-          <div className="mb-4 flex items-center gap-2 px-1 mt-4">
-            <div className="h-4 w-1 rounded-full bg-primary" />
-            <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground/70">Core Modules</h3>
+          <div className="mb-6 flex items-center justify-between px-1">
+            <div className="flex items-center gap-2">
+              <div className="h-4 w-1 rounded-full bg-primary" />
+              <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground/70">Core Clinical Modules</h3>
+            </div>
           </div>
           <div className="grid gap-6 md:grid-cols-2">
             {cards.map((card) => {

@@ -1,119 +1,85 @@
-export interface MedicineProduct {
-  id: string;
-  strength: string;
-  dosageForm: string;
-  route: string | null;
-  packSize: string | null;
-  unitPerPack: number | null;
-  price: string | null;
-  isPrescriptionRequired: boolean;
-}
-
-export interface BrandSuggestion {
-  id: string;
+export interface BrandResponse {
+  id: number;
   name: string;
-  slug: string;
-  manufacturer: {
-    id: string;
+  form: string | null;
+  strength: string | null;
+  price: string | null;
+  packSize: string | null;
+  isSponsored: boolean;
+  company: {
+    id: number;
     name: string;
   };
   generic: {
-    id: string;
+    id: number;
     name: string;
-    slug: string;
   };
-  products: MedicineProduct[];
 }
 
-export interface GenericSuggestion {
-  id: string;
+export interface GenericResponse {
+  id: number;
   name: string;
-  slug: string;
-  scientificName: string | null;
-  drugClass: string | null;
-  therapeuticClass: string | null;
-  commonDoseTemplate: {
-    adultDose: string | null;
-    childDose: string | null;
-    dosageGuideline: string | null;
-    administration: string | null;
-  };
-  availableBrands: Array<{
-    id: string;
-    name: string;
+  indication: string | null;
+  therapeuticClass?: string | null;
+}
+
+export interface CompanyResponse {
+  id: number;
+  name: string;
+}
+
+export interface CompanyDetails extends CompanyResponse {
+  brands: Array<BrandResponse & {
+    generic: {
+      id: number;
+      name: string;
+    }
   }>;
 }
+
+export interface IndicationResponse {
+  id: number;
+  name: string;
+}
+
+export interface IndicationDetails extends IndicationResponse {}
 
 export interface MedicineSearchResult {
-  brands: BrandSuggestion[];
-  generics: GenericSuggestion[];
+  brands: BrandResponse[];
+  generics: GenericResponse[];
+  indications: IndicationResponse[];
+  companies: CompanyResponse[];
 }
 
-export interface BrandDetails {
-  brand: {
-    id: string;
-    name: string;
-    slug: string;
-  };
-  manufacturer: {
-    id: string;
-    name: string;
-  };
-  generic: {
-    id: string;
-    name: string;
-    slug: string;
-  };
-  commonDoseTemplate: {
-    adultDose: string | null;
-    childDose: string | null;
-    dosageGuideline: string | null;
-    administration: string | null;
-  };
-  products: MedicineProduct[];
-  strengths: string[];
-  dosageForms: string[];
-}
+export interface BrandDetails extends BrandResponse {}
 
-export interface GenericDoseTemplate {
-  genericId: string;
-  genericName: string;
+export interface GenericDetails extends GenericResponse {
+  administration: string | null;
   adultDose: string | null;
   childDose: string | null;
-  dosageGuideline: string | null;
-  administration: string | null;
-  monitoring: string | null;
+  contraIndication: string | null;
+  interaction: string | null;
+  modeOfAction: string | null;
   precaution: string | null;
+  renalDose: string | null;
+  sideEffect: string | null;
+  pregnancyCategory: {
+    id: number;
+    name: string;
+    description: string | null;
+  } | null;
+  therapeuticGenerics: Array<{
+    therapeutic: {
+      id: number;
+      name: string;
+    };
+  }>;
 }
 
-export interface DiseaseSuggestionResult {
-  disease: {
-    id: string;
-    name: string;
-    slug: string;
-  };
-  medicines: Array<{
-    genericId: string;
-    genericName: string;
-    genericSlug: string;
-    isPrimary: boolean;
-    note: string | null;
-    commonDoseTemplate: {
-      adultDose: string | null;
-      childDose: string | null;
-      dosageGuideline: string | null;
-      administration: string | null;
-    };
-    brands: Array<{
-      id: string;
-      name: string;
-      manufacturer: {
-        id: string;
-        name: string;
-      };
-      products: MedicineProduct[];
-    }>;
-  }>;
+export interface MedicineSearchQuery {
+  q?: string;
+  page?: number;
+  limit?: number;
 }
 
 export interface WarningRequest {

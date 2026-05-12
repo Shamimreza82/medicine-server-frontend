@@ -4,60 +4,85 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 
 import {
   checkWarnings,
-  getBrandProducts,
-  getDiseaseSuggestions,
-  getGenericDoseTemplate,
+  getBrandById,
+  getGenericById,
   searchBrands,
+  searchCompanies,
   searchGenerics,
+  searchIndications,
   searchMedicines,
 } from './api';
 import type { WarningRequest } from './types';
 
-export function useMedicineSearch(query: string) {
+export function useMedicineSearch(query: string, limit = 10) {
   return useQuery({
-    queryKey: ['medicines', 'search', query],
-    queryFn: () => searchMedicines(query),
+    queryKey: ['medicines', 'search', query, limit],
+    queryFn: () => searchMedicines(query, limit),
     enabled: query.trim().length > 0,
   });
 }
 
-export function useBrandSearch(query: string) {
+export function useBrandSearch(query: string, limit = 10, page = 1) {
   return useQuery({
-    queryKey: ['medicines', 'brands', query],
-    queryFn: () => searchBrands(query),
+    queryKey: ['medicines', 'brands', query, limit, page],
+    queryFn: () => searchBrands(query, limit, page),
     enabled: query.trim().length > 0,
   });
 }
 
-export function useGenericSearch(query: string) {
+export function useGenericSearch(query: string, limit = 10, page = 1) {
   return useQuery({
-    queryKey: ['medicines', 'generics', query],
-    queryFn: () => searchGenerics(query),
+    queryKey: ['medicines', 'generics', query, limit, page],
+    queryFn: () => searchGenerics(query, limit, page),
     enabled: query.trim().length > 0,
   });
 }
 
-export function useBrandProducts(brandId: string) {
+export function useIndicationSearch(query: string, limit = 10, page = 1) {
+  return useQuery({
+    queryKey: ['medicines', 'indications', query, limit, page],
+    queryFn: () => searchIndications(query, limit, page),
+    enabled: query.trim().length > 0,
+  });
+}
+
+export function useCompanySearch(query: string, limit = 10, page = 1) {
+  return useQuery({
+    queryKey: ['medicines', 'companies', query, limit, page],
+    queryFn: () => searchCompanies(query, limit, page),
+    enabled: query.trim().length > 0,
+  });
+}
+
+export function useBrandDetails(brandId: number) {
   return useQuery({
     queryKey: ['medicines', 'brand-details', brandId],
-    queryFn: () => getBrandProducts(brandId),
-    enabled: brandId.trim().length > 0,
+    queryFn: () => getBrandById(brandId),
+    enabled: !!brandId,
   });
 }
 
-export function useGenericDoseTemplate(genericId: string) {
+export function useGenericDetails(genericId: number) {
   return useQuery({
-    queryKey: ['medicines', 'generic-template', genericId],
-    queryFn: () => getGenericDoseTemplate(genericId),
-    enabled: genericId.trim().length > 0,
+    queryKey: ['medicines', 'generic-details', genericId],
+    queryFn: () => getGenericById(genericId),
+    enabled: !!genericId,
   });
 }
 
-export function useDiseaseSuggestions(diseaseId: string, limit = 10) {
+export function useCompanyDetails(companyId: number) {
   return useQuery({
-    queryKey: ['medicines', 'disease-suggestions', diseaseId, limit],
-    queryFn: () => getDiseaseSuggestions(diseaseId, limit),
-    enabled: diseaseId.trim().length > 0,
+    queryKey: ['medicines', 'company-details', companyId],
+    queryFn: () => getCompanyById(companyId),
+    enabled: !!companyId,
+  });
+}
+
+export function useIndicationDetails(indicationId: number) {
+  return useQuery({
+    queryKey: ['medicines', 'indication-details', indicationId],
+    queryFn: () => getIndicationById(indicationId),
+    enabled: !!indicationId,
   });
 }
 
