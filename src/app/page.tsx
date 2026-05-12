@@ -40,24 +40,9 @@ export default function HomePage() {
   return (
     <AppShell>
       {/* Hero Section */}
-      <section className="relative py-12 md:py-20 overflow-hidden">
+      <section className="relative py-8 md:py-12 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-64 bg-primary/5 blur-[120px] rounded-full -z-10" />
         
-        <div className="text-center space-y-6 mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold uppercase tracking-widest animate-in fade-in slide-in-from-bottom-2 duration-700">
-            <HeartPulse className="h-3 w-3" />
-            Clinical Workspace v1.2
-          </div>
-          
-          <h1 className="text-4xl md:text-6xl font-black tracking-tight text-foreground animate-in fade-in slide-in-from-bottom-3 duration-700 delay-100">
-            Precision <span className="text-primary">Clinical</span> Intelligence
-          </h1>
-          
-          <p className="max-w-2xl mx-auto text-lg text-muted-foreground leading-relaxed animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
-            Navigate through high-performance search modules to identify, review, and validate medical prescriptions with clinical confidence.
-          </p>
-        </div>
-
         <div className="animate-in fade-in slide-in-from-bottom-5 duration-700 delay-300">
           <HeroSearch />
         </div>

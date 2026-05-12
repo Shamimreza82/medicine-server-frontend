@@ -6,30 +6,10 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/page": [
+    "/medicines/generics/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
-    ],
-    "/medicines/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/medicines/page.js"
-    ],
-    "/medicines/brands/[brandId]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/medicines/brands/[brandId]/page.js"
-    ],
-    "/medicines/generics/[genericId]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/medicines/generics/[genericId]/page.js"
-    ],
-    "/lab-tests/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/lab-tests/page.js"
+      "static/chunks/app/medicines/generics/page.js"
     ],
     "/medicines/indications/page": [
       "static/chunks/webpack.js",
@@ -46,30 +26,35 @@
       "static/chunks/main-app.js",
       "static/chunks/app/medicines/companies/page.js"
     ],
-    "/medicines/generics/page": [
+    "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/medicines/generics/page.js"
+      "static/chunks/app/page.js"
+    ],
+    "/medicines/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/medicines/page.js"
     ],
     "/medicines/companies/[companyId]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/medicines/companies/[companyId]/page.js"
     ],
-    "/diseases/page": [
+    "/medicines/brands/[brandId]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/diseases/page.js"
+      "static/chunks/app/medicines/brands/[brandId]/page.js"
     ],
-    "/medicines/warnings/page": [
+    "/medicines/generics/[genericId]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/medicines/warnings/page.js"
+      "static/chunks/app/medicines/generics/[genericId]/page.js"
     ],
-    "/medicines/indications/[indicationId]/page": [
+    "/lab-tests/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/medicines/indications/[indicationId]/page.js"
+      "static/chunks/app/lab-tests/page.js"
     ]
   }
 }
