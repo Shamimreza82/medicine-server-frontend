@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useDeferredValue } from 'react';
-import { Search, Pill, Tag, Activity, Building2, ArrowRight, Loader2, ChevronDown, Sparkles, Globe } from 'lucide-react';
+import { Search, Pill, Tag, Activity, Building2, ArrowRight, Loader2, ChevronDown, Sprout, Globe } from 'lucide-react';
 import Link from 'next/link';
 
 import { Input } from '@/components/ui/input';
@@ -17,7 +17,8 @@ import {
   useGenericSearch, 
   useIndicationSearch, 
   useCompanySearch,
-  useMedicineSearch
+  useMedicineSearch,
+  useHerbalBrandSearch
 } from '../hooks';
 
 export function HeroSearch() {
@@ -30,13 +31,15 @@ export function HeroSearch() {
   const generics = useGenericSearch(deferredQuery, 20);
   const indications = useIndicationSearch(deferredQuery, 20);
   const companies = useCompanySearch(deferredQuery, 20);
+  const herbalBrands = useHerbalBrandSearch(deferredQuery, 20);
 
   const isFetching = (
     (activeTab === 'all' && allResults.isFetching) ||
     (activeTab === 'brands' && brands.isFetching) ||
     (activeTab === 'generics' && generics.isFetching) ||
     (activeTab === 'indications' && indications.isFetching) ||
-    (activeTab === 'companies' && companies.isFetching)
+    (activeTab === 'companies' && companies.isFetching) ||
+    (activeTab === 'herbal' && herbalBrands.isFetching)
   );
 
   return (
@@ -68,13 +71,15 @@ export function HeroSearch() {
                     <option value="all">Default Search</option>
                     <option value="brands">Brand Library</option>
                     <option value="generics">Generic Catalog</option>
+                    <option value="herbal">Herbal Medicine</option>
                     <option value="indications">Clinical Indications</option>
                     <option value="companies">Manufacturers</option>
                   </Select>
-                  <div className="absolute left-5 top-1/2 -translate-y-1/2 text-primary p-2 bg-white rounded-xl shadow-sm border border-primary/10 transition-transform group-hover/select:scale-110">
+                  <div className="absolute left-5 top-1/2 -translate-y-1/2 text-primary p-2 bg-white rounded-xl shadow-sm border border-primary/10 transition-transform group-hover/select:scale-110 pointer-events-none">
                     {activeTab === 'all' && <Globe className="h-5 w-5" />}
                     {activeTab === 'brands' && <Tag className="h-5 w-5" />}
                     {activeTab === 'generics' && <Pill className="h-5 w-5" />}
+                    {activeTab === 'herbal' && <Sprout className="h-5 w-5" />}
                     {activeTab === 'indications' && <Activity className="h-5 w-5" />}
                     {activeTab === 'companies' && <Building2 className="h-5 w-5" />}
                   </div>
@@ -146,6 +151,17 @@ export function HeroSearch() {
                             form={brand.form}
                           />
                         ))}
+                        {allResults.data?.herbalBrands?.map((brand) => (
+                          <SearchResultItem 
+                            key={`all-herbal-${brand.id}`}
+                            title={brand.name}
+                            subtitle={`${brand.generic.name} • ${brand.company.name}`}
+                            href={`/medicines/herbal/${brand.id}`}
+                            badge="Herbal"
+                            meta={`${brand.form} • ${brand.strength}`}
+                            form={brand.form}
+                          />
+                        ))}
                         {allResults.data?.generics?.map((generic) => (
                           <SearchResultItem 
                             key={`all-generic-${generic.id}`}
@@ -171,7 +187,7 @@ export function HeroSearch() {
                             href={`/medicines/companies/${company.id}`}
                           />
                         ))}
-                        {(!allResults.data?.brands?.length && !allResults.data?.generics?.length && !allResults.data?.indications?.length && !allResults.data?.companies?.length && !allResults.isLoading) && <NoResults tab="everything" />}
+                        {(!allResults.data?.brands?.length && !allResults.data?.herbalBrands?.length && !allResults.data?.generics?.length && !allResults.data?.indications?.length && !allResults.data?.companies?.length && !allResults.isLoading) && <NoResults tab="everything" />}
                       </TabsContent>
 
                       <TabsContent value="brands" className="mt-0 space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -187,6 +203,20 @@ export function HeroSearch() {
                           />
                         ))}
                         {brands.data?.data?.length === 0 && !brands.isLoading && <NoResults tab="brands" />}
+                      </TabsContent>
+
+                      <TabsContent value="herbal" className="mt-0 space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                        {herbalBrands.data?.data?.map((brand) => (
+                          <SearchResultItem 
+                            key={brand.id}
+                            title={brand.name}
+                            subtitle={`${brand.generic.name} • ${brand.company.name}`}
+                            href={`/medicines/herbal/${brand.id}`}
+                            meta={`${brand.form} • ${brand.strength}`}
+                            form={brand.form}
+                          />
+                        ))}
+                        {herbalBrands.data?.data?.length === 0 && !herbalBrands.isLoading && <NoResults tab="herbal medicines" />}
                       </TabsContent>
                       
                       <TabsContent value="generics" className="mt-0 space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-500">

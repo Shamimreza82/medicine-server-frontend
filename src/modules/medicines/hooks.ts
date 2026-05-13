@@ -15,6 +15,10 @@ import {
   searchGenerics,
   searchIndications,
   searchMedicines,
+  searchHerbalBrands,
+  searchHerbalGenerics,
+  getHerbalBrandById,
+  getHerbalGenericById,
 } from './api';
 import type { WarningRequest } from './types';
 
@@ -44,6 +48,27 @@ export function useGenericSearch(query: string, limit = 10, page = 1, filters?: 
     queryKey: ['medicines', 'generics', query, limit, page, filters],
     queryFn: () => searchGenerics(query, limit, page, filters),
     enabled: query.trim().length > 0 || !!filters?.therapeuticId,
+  });
+}
+
+export function useHerbalBrandSearch(
+  query: string,
+  limit = 10,
+  page = 1,
+  filters?: { companyId?: number; genericId?: number },
+) {
+  return useQuery({
+    queryKey: ['medicines', 'herbal-brands', query, limit, page, filters],
+    queryFn: () => searchHerbalBrands(query, limit, page, filters),
+    enabled: query.trim().length > 0 || !!filters?.companyId || !!filters?.genericId,
+  });
+}
+
+export function useHerbalGenericSearch(query: string, limit = 10, page = 1) {
+  return useQuery({
+    queryKey: ['medicines', 'herbal-generics', query, limit, page],
+    queryFn: () => searchHerbalGenerics(query, limit, page),
+    enabled: query.trim().length > 0,
   });
 }
 
@@ -82,6 +107,22 @@ export function useGenericDetails(genericId: number) {
   return useQuery({
     queryKey: ['medicines', 'generic-details', genericId],
     queryFn: () => getGenericById(genericId),
+    enabled: !!genericId,
+  });
+}
+
+export function useHerbalBrandDetails(brandId: number) {
+  return useQuery({
+    queryKey: ['medicines', 'herbal-brand-details', brandId],
+    queryFn: () => getHerbalBrandById(brandId),
+    enabled: !!brandId,
+  });
+}
+
+export function useHerbalGenericDetails(genericId: number) {
+  return useQuery({
+    queryKey: ['medicines', 'herbal-generic-details', genericId],
+    queryFn: () => getHerbalGenericById(genericId),
     enabled: !!genericId,
   });
 }

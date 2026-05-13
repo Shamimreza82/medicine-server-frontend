@@ -15,6 +15,8 @@ import type {
   WarningSummary,
   DiseaseSuggestionResponse,
   SystemicNode,
+  HerbalBrandDetails,
+  HerbalGenericDetails,
 } from './types';
 
 export async function searchMedicines(query: string, limit = 10) {
@@ -22,7 +24,7 @@ export async function searchMedicines(query: string, limit = 10) {
     params: { q: query, limit },
   });
 
-  return response.data.data ?? { brands: [], generics: [], indications: [], companies: [] };
+  return response.data.data ?? { brands: [], generics: [], indications: [], companies: [], herbalBrands: [] };
 }
 
 export async function searchBrands(
@@ -46,6 +48,31 @@ export async function searchGenerics(
 ) {
   const response = await http.get<ApiSuccess<GenericResponse[]>>('/medicines/generics', {
     params: { q: query, limit, page, ...filters },
+  });
+
+  return response.data;
+}
+
+export async function searchHerbalBrands(
+  query: string,
+  limit = 10,
+  page = 1,
+  filters?: { companyId?: number; genericId?: number },
+) {
+  const response = await http.get<ApiSuccess<BrandResponse[]>>('/medicines/herbal-brands', {
+    params: { q: query, limit, page, ...filters },
+  });
+
+  return response.data;
+}
+
+export async function searchHerbalGenerics(
+  query: string,
+  limit = 10,
+  page = 1,
+) {
+  const response = await http.get<ApiSuccess<GenericResponse[]>>('/medicines/herbal-generics', {
+    params: { q: query, limit, page },
   });
 
   return response.data;
@@ -81,6 +108,18 @@ export async function getBrandById(brandId: number) {
 
 export async function getGenericById(genericId: number) {
   const response = await http.get<ApiSuccess<GenericDetails>>(`/medicines/generics/${genericId}`);
+
+  return response.data.data;
+}
+
+export async function getHerbalBrandById(brandId: number) {
+  const response = await http.get<ApiSuccess<HerbalBrandDetails>>(`/medicines/herbal-brands/${brandId}`);
+
+  return response.data.data;
+}
+
+export async function getHerbalGenericById(genericId: number) {
+  const response = await http.get<ApiSuccess<HerbalGenericDetails>>(`/medicines/herbal-generics/${genericId}`);
 
   return response.data.data;
 }

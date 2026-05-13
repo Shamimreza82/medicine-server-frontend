@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Activity, FlaskConical, SearchCheck, ShieldAlert, ArrowRight, HeartPulse } from 'lucide-react';
+import { Activity, FlaskConical, SearchCheck, ShieldAlert, ArrowRight, Sprout } from 'lucide-react';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { AppShell } from '@/shared/components/app-shell';
@@ -19,6 +19,13 @@ const cards = [
     description: 'Deep search across brands, generics, and specialized dose templates.',
     icon: SearchCheck,
     color: 'bg-emerald-500/10 text-emerald-600',
+  },
+  {
+    href: '/medicines/herbal',
+    title: 'Herbal Repository',
+    description: 'Explore natural remedies and herbal medicine formulations.',
+    icon: Sprout,
+    color: 'bg-lime-500/10 text-lime-600',
   },
   {
     href: '/medicines/warnings',
@@ -56,7 +63,7 @@ export default function HomePage() {
               <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground/70">Core Clinical Modules</h3>
             </div>
           </div>
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {cards.map((card) => {
               const Icon = card.icon;
 

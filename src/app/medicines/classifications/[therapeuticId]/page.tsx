@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { PageHeader } from '@/shared/components/page-header';
 import { EmptyState } from '@/shared/components/empty-state';
 import { useGenericSearch, useClassificationTree } from '@/modules/medicines/hooks';
+import { SystemicNode, TherapeuticNode } from '@/modules/medicines/types';
 
 interface TherapeuticDetailsPageProps {
   params: Promise<{
@@ -28,9 +29,9 @@ export default function TherapeuticDetailsPage({ params }: TherapeuticDetailsPag
   // Find the therapeutic class name from the tree for the header
   let therapeuticName = 'Classification Details';
   if (tree) {
-    const findTherapeutic = (nodes: any[]): string | null => {
+    const findTherapeutic = (nodes: SystemicNode[]): string | null => {
       for (const node of nodes) {
-        const found = node.therapeutics.find((t: any) => t.id === Number(therapeuticId));
+        const found = node.therapeutics.find((t: TherapeuticNode) => t.id === Number(therapeuticId));
         if (found) return found.name;
         if (node.children) {
           const childFound = findTherapeutic(node.children);

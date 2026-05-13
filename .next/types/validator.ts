@@ -126,6 +126,24 @@ type LayoutConfig<Route extends LayoutRoutes = LayoutRoutes> = {
   type __Unused = __Check
 }
 
+// Validate ../../src/app/medicines/herbal/[brandId]/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/medicines/herbal/[brandId]">> = Specific
+  const handler = {} as typeof import("../../src/app/medicines/herbal/[brandId]/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../src/app/medicines/herbal/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/medicines/herbal">> = Specific
+  const handler = {} as typeof import("../../src/app/medicines/herbal/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../src/app/medicines/indications/[indicationId]/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/medicines/indications/[indicationId]">> = Specific

@@ -5,7 +5,7 @@ export interface BrandResponse {
   strength: string | null;
   price: string | null;
   packSize: string | null;
-  isSponsored: boolean;
+  isSponsored?: boolean;
   company: {
     id: number;
     name: string;
@@ -49,6 +49,8 @@ export interface MedicineSearchResult {
   generics: GenericResponse[];
   indications: IndicationResponse[];
   companies: CompanyResponse[];
+  herbalBrands?: BrandResponse[];
+  herbalGenerics?: GenericResponse[];
 }
 
 export interface GenericDetails extends GenericResponse {
@@ -84,6 +86,22 @@ export interface BrandDetails extends Omit<BrandResponse, 'generic'> {
     strength: string | null;
   }>;
   genericAlternatives: Array<BrandResponse>;
+}
+
+export interface HerbalGenericDetails extends GenericResponse {
+  composition: string | null;
+  contraindication: string | null;
+  description: string | null;
+  dosage: string | null;
+  drugInteraction: string | null;
+  modeOfActions: string | null;
+  precaution: string | null;
+  pregnancyLactation: string | null;
+  sideEffects: string | null;
+}
+
+export interface HerbalBrandDetails extends Omit<BrandResponse, 'generic'> {
+  generic: HerbalGenericDetails;
 }
 
 export interface TherapeuticNode {
