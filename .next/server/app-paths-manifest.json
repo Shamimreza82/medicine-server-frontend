@@ -1,4 +1,11 @@
 {
+  "/medicines/companies/page": "app/medicines/companies/page.js",
   "/medicines/brands/page": "app/medicines/brands/page.js",
-  "/medicines/brands/[brandId]/page": "app/medicines/brands/[brandId]/page.js"
+  "/lab-tests/page": "app/lab-tests/page.js",
+  "/medicines/brands/[brandId]/page": "app/medicines/brands/[brandId]/page.js",
+  "/medicines/indications/page": "app/medicines/indications/page.js",
+  "/medicines/generics/page": "app/medicines/generics/page.js",
+  "/page": "app/page.js",
+  "/medicines/classifications/page": "app/medicines/classifications/page.js",
+  "/medicines/classifications/[therapeuticId]/page": "app/medicines/classifications/[therapeuticId]/page.js"
 }
