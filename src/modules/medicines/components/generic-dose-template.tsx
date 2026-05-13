@@ -1,91 +1,110 @@
 'use client';
 
+import { useState } from 'react';
+import Link from 'next/link';
+import { ArrowRight, Tag, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
+
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { EmptyState } from '@/shared/components/empty-state';
 import { formatNullable } from '@/shared/lib/utils';
+import { Button } from '@/components/ui/button';
+import { MedicineFormIcon } from './form-icon';
 
-import { useGenericDetails } from '../hooks';
+import { useGenericDetails, useBrandSearch } from '../hooks';
 
 interface GenericDoseTemplateProps {
   genericId: string;
 }
 
 export function GenericDoseTemplateView({ genericId }: GenericDoseTemplateProps) {
-  const result = useGenericDetails(Number(genericId));
+  const [page, setPage] = useState(1);
+  const genericResult = useGenericDetails(Number(genericId));
+  const brandsResult = useBrandSearch('', 21, page, { genericId: Number(genericId) });
 
-  if (result.isLoading) {
+  if (genericResult.isLoading) {
     return <div className="h-72 animate-pulse rounded-3xl bg-muted" />;
   }
 
-  if (!result.data) {
+  if (!genericResult.data) {
     return <EmptyState description="The generic record was not found." title="No generic data" />;
   }
 
-  const generic = result.data;
+  const generic = genericResult.data;
+  const brands = brandsResult.data?.data || [];
+  const meta = brandsResult.data?.meta;
+  const totalPages = meta?.totalPages || 1;
 
   return (
-    <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-2xl">{generic.name}</CardTitle>
-            <Badge variant="outline">{generic.therapeuticClass}</Badge>
+    <div className="space-y-8">
+      <Card className="border-primary/10 shadow-lg shadow-primary/5 rounded-3xl overflow-hidden">
+        <CardHeader className="bg-gradient-to-br from-white to-primary/[0.02] p-6 sm:p-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <CardTitle className="text-3xl font-black tracking-tight">{generic.name}</CardTitle>
+              <p className="text-sm font-bold uppercase tracking-widest text-primary/70">Clinical Generic Profile</p>
+            </div>
+            {generic.therapeuticClass && (
+              <Badge variant="secondary" className="w-fit h-7 px-3 text-[10px] font-black uppercase tracking-widest bg-primary/5 text-primary border-primary/10">
+                {generic.therapeuticClass}
+              </Badge>
+            )}
           </div>
         </CardHeader>
-        <CardContent className="grid gap-4 md:grid-cols-2">
-          <div className="rounded-2xl border p-4 md:col-span-2">
-            <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Indication</p>
-            <p className="mt-2 text-sm">{formatNullable(generic.indication)}</p>
+        <CardContent className="grid gap-4 md:grid-cols-2 p-6 sm:p-8 pt-0">
+          <div className="rounded-2xl border bg-muted/5 p-5 md:col-span-2 shadow-sm">
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/70">Clinical Indication</p>
+            <p className="mt-3 text-sm leading-relaxed font-medium text-foreground/80">{formatNullable(generic.indication)}</p>
           </div>
-          <div className="rounded-2xl border p-4">
-            <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Adult dose</p>
-            <p className="mt-2 text-sm">{formatNullable(generic.adultDose)}</p>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:col-span-2 gap-4">
+            <div className="rounded-2xl border bg-white p-5 shadow-sm hover:shadow-md transition-shadow">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-600/70">Adult dose</p>
+              <p className="mt-2 text-sm font-bold text-slate-700">{formatNullable(generic.adultDose)}</p>
+            </div>
+            <div className="rounded-2xl border bg-white p-5 shadow-sm hover:shadow-md transition-shadow">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-600/70">Child dose</p>
+              <p className="mt-2 text-sm font-bold text-slate-700">{formatNullable(generic.childDose)}</p>
+            </div>
+            <div className="rounded-2xl border bg-white p-5 shadow-sm hover:shadow-md transition-shadow">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-orange-600/70">Administration</p>
+              <p className="mt-2 text-sm font-bold text-slate-700">{formatNullable(generic.administration)}</p>
+            </div>
+            <div className="rounded-2xl border bg-white p-5 shadow-sm hover:shadow-md transition-shadow">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-pink-600/70">Pregnancy Category</p>
+              <p className="mt-2 text-sm font-bold text-slate-700">
+                {generic.pregnancyCategory 
+                  ? `${generic.pregnancyCategory.name}: ${generic.pregnancyCategory.description}` 
+                  : 'Not assigned'}
+              </p>
+            </div>
           </div>
-          <div className="rounded-2xl border p-4">
-            <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Child dose</p>
-            <p className="mt-2 text-sm">{formatNullable(generic.childDose)}</p>
-          </div>
-          <div className="rounded-2xl border p-4">
-            <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Administration</p>
-            <p className="mt-2 text-sm">{formatNullable(generic.administration)}</p>
-          </div>
-          <div className="rounded-2xl border p-4">
-            <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Pregnancy Category</p>
-            <p className="mt-2 text-sm">
-              {generic.pregnancyCategory 
-                ? `${generic.pregnancyCategory.name}: ${generic.pregnancyCategory.description}` 
-                : 'Not assigned'}
-            </p>
-          </div>
-          <div className="rounded-2xl border p-4">
-            <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Side Effect</p>
-            <p className="mt-2 text-sm">{formatNullable(generic.sideEffect)}</p>
-          </div>
-          <div className="rounded-2xl border p-4">
-            <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Contra Indication</p>
-            <p className="mt-2 text-sm">{formatNullable(generic.contraIndication)}</p>
-          </div>
-          <div className="rounded-2xl border p-4">
-            <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Precaution</p>
-            <p className="mt-2 text-sm">{formatNullable(generic.precaution)}</p>
-          </div>
-          <div className="rounded-2xl border p-4">
-            <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Mode of Action</p>
-            <p className="mt-2 text-sm">{formatNullable(generic.modeOfAction)}</p>
+
+          <div className="rounded-2xl border bg-white p-5 shadow-sm md:col-span-2">
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-red-600/70">Pharmacological Summary</p>
+            <div className="grid sm:grid-cols-2 gap-6 mt-4">
+               <div>
+                  <p className="text-[9px] font-black uppercase text-muted-foreground mb-1">Side Effects</p>
+                  <p className="text-xs leading-relaxed text-slate-600 line-clamp-3">{formatNullable(generic.sideEffect)}</p>
+               </div>
+               <div>
+                  <p className="text-[9px] font-black uppercase text-muted-foreground mb-1">Contraindications</p>
+                  <p className="text-xs leading-relaxed text-slate-600 line-clamp-3">{formatNullable(generic.contraIndication)}</p>
+               </div>
+            </div>
           </div>
         </CardContent>
       </Card>
       
       {generic.therapeuticGenerics && generic.therapeuticGenerics.length > 0 && (
-        <Card>
-          <CardHeader>
-            <CardTitle>Therapeutic Classes</CardTitle>
+        <Card className="border-none shadow-md rounded-3xl overflow-hidden bg-white/50 backdrop-blur-sm">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-[11px] font-black uppercase tracking-[0.3em] text-primary">Therapeutic Classes</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-0">
             <div className="flex flex-wrap gap-2">
               {generic.therapeuticGenerics.map((tg) => (
-                <Badge key={tg.therapeutic.id} variant="secondary">
+                <Badge key={tg.therapeutic.id} variant="secondary" className="rounded-xl px-4 py-1.5 font-bold text-xs bg-muted/50 border-none shadow-sm">
                   {tg.therapeutic.name}
                 </Badge>
               ))}
@@ -93,6 +112,90 @@ export function GenericDoseTemplateView({ genericId }: GenericDoseTemplateProps)
           </CardContent>
         </Card>
       )}
+
+      {/* Commercial Brands List */}
+      <div className="space-y-6 pt-4">
+        <div className="flex items-center justify-between px-1">
+          <div className="flex items-center gap-2">
+            <div className="h-4 w-1 rounded-full bg-primary" />
+            <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground/70">
+              Commercial Brands {meta && meta.total !== undefined && `(${meta.total})`}
+            </h3>
+          </div>
+          {brandsResult.isFetching && <Loader2 className="h-4 w-4 animate-spin text-primary" />}
+        </div>
+
+        {brands.length > 0 ? (
+          <>
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {brands.map((brand) => (
+                <Link key={brand.id} href={`/medicines/brands/${brand.id}`} className="group">
+                  <Card className="h-full border-primary/5 hover:border-primary/20 hover:shadow-lg transition-all duration-300 rounded-2xl">
+                    <CardHeader className="p-5">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex items-center gap-4 min-w-0">
+                          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/5 text-primary group-hover:bg-primary group-hover:text-white transition-all flex-shrink-0">
+                            <MedicineFormIcon form={brand.form} className="h-5 w-5" />
+                          </div>
+                          <div className="space-y-1 min-w-0">
+                            <CardTitle className="text-lg group-hover:text-primary transition-colors truncate">{brand.name}</CardTitle>
+                            <p className="text-xs font-medium text-muted-foreground truncate">{brand.company.name}</p>
+                          </div>
+                        </div>
+                        <Tag className="h-4 w-4 text-primary/40 group-hover:text-primary transition-colors flex-shrink-0" />
+                      </div>
+                    </CardHeader>
+                    <CardContent className="px-5 pb-5">
+                      <div className="flex items-center justify-between mt-2">
+                        <div className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-wider">
+                          {brand.form} • {brand.strength}
+                        </div>
+                        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-muted/50 group-hover:bg-primary group-hover:text-white transition-colors">
+                          <ArrowRight className="h-3.5 w-3.5" />
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+
+            {totalPages > 1 && (
+              <div className="flex items-center justify-center gap-4 pt-8">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                  disabled={page === 1 || brandsResult.isFetching}
+                  className="h-9 w-9 rounded-xl p-0"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </Button>
+                <div className="text-sm font-medium">
+                  Page {page} of {totalPages}
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                  disabled={page === totalPages || brandsResult.isFetching}
+                  className="h-9 w-9 rounded-xl p-0"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+              </div>
+            )}
+          </>
+        ) : brandsResult.isLoading ? (
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="h-32 animate-pulse rounded-2xl bg-muted" />
+            ))}
+          </div>
+        ) : (
+          <EmptyState description="No commercial products found for this generic formulation." title="No related products" />
+        )}
+      </div>
     </div>
   );
 }

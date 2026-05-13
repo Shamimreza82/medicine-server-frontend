@@ -1,28 +1,46 @@
 'use client';
 
-import { Activity, Stethoscope } from 'lucide-react';
+import { useState } from 'react';
+import Link from 'next/link';
+import { Activity, Stethoscope, ArrowRight, Tag, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { EmptyState } from '@/shared/components/empty-state';
+import { Button } from '@/components/ui/button';
+import { MedicineFormIcon } from './form-icon';
 
-import { useIndicationDetails } from '../hooks';
+import { useIndicationDetails, useBrandSearch } from '../hooks';
 
 interface IndicationDetailsProps {
   indicationId: string;
 }
 
 export function IndicationDetailsView({ indicationId }: IndicationDetailsProps) {
-  const result = useIndicationDetails(Number(indicationId));
+  const [page, setPage] = useState(1);
+  const indicationResult = useIndicationDetails(Number(indicationId));
+  const brandsResult = useBrandSearch('', 21, page, { indicationId: Number(indicationId) });
 
-  if (result.isLoading) {
-    return <div className="h-64 animate-pulse rounded-3xl bg-muted" />;
+  if (indicationResult.isLoading) {
+    return (
+      <div className="space-y-6">
+        <div className="h-48 animate-pulse rounded-3xl bg-muted" />
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <div key={i} className="h-32 animate-pulse rounded-2xl bg-muted" />
+          ))}
+        </div>
+      </div>
+    );
   }
 
-  if (!result.data) {
+  if (!indicationResult.data) {
     return <EmptyState description="The indication was not found or is no longer active." title="No indication data" />;
   }
 
-  const indication = result.data;
+  const indication = indicationResult.data;
+  const brands = brandsResult.data?.data || [];
+  const meta = brandsResult.data?.meta;
+  const totalPages = meta?.totalPages || 1;
 
   return (
     <div className="space-y-8">
@@ -38,18 +56,88 @@ export function IndicationDetailsView({ indicationId }: IndicationDetailsProps) 
         </CardHeader>
       </Card>
 
-      <Card className="border-primary/5 rounded-3xl overflow-hidden bg-white shadow-sm">
-        <CardHeader>
+      <div className="space-y-6">
+        <div className="flex items-center justify-between px-1">
           <div className="flex items-center gap-2">
-            <Stethoscope className="h-5 w-5 text-primary" />
-            <CardTitle>About Indication</CardTitle>
+            <div className="h-4 w-1 rounded-full bg-primary" />
+            <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground/70">
+              Related Brands {meta && meta.total !== undefined && `(${meta.total})`}
+            </h3>
           </div>
-        </CardHeader>
-        <CardContent className="text-muted-foreground leading-relaxed">
-          This condition is a recognized clinical indication for several therapeutic agents. 
-          Use the global search to find specific generics or brands that address <span className="text-foreground font-bold">{indication.name}</span>.
-        </CardContent>
-      </Card>
+          {brandsResult.isFetching && <Loader2 className="h-4 w-4 animate-spin text-primary" />}
+        </div>
+
+        {brands.length > 0 ? (
+          <>
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {brands.map((brand) => (
+                <Link key={brand.id} href={`/medicines/brands/${brand.id}`} className="group">
+                  <Card className="h-full border-primary/5 hover:border-primary/20 hover:shadow-lg transition-all duration-300 rounded-2xl">
+                    <CardHeader className="p-5">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex items-center gap-4 min-w-0">
+                          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/5 text-primary group-hover:bg-primary group-hover:text-white transition-all flex-shrink-0">
+                            <MedicineFormIcon form={brand.form} className="h-5 w-5" />
+                          </div>
+                          <div className="space-y-1 min-w-0">
+                            <CardTitle className="text-lg group-hover:text-primary transition-colors truncate">{brand.name}</CardTitle>
+                            <p className="text-xs font-medium text-muted-foreground truncate">{brand.generic.name}</p>
+                          </div>
+                        </div>
+                        <Tag className="h-4 w-4 text-primary/40 group-hover:text-primary transition-colors flex-shrink-0" />
+                      </div>
+                    </CardHeader>
+                    <CardContent className="px-5 pb-5">
+                      <div className="flex items-center justify-between mt-2">
+                        <div className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-wider">
+                          {brand.form} • {brand.strength}
+                        </div>
+                        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-muted/50 group-hover:bg-primary group-hover:text-white transition-colors">
+                          <ArrowRight className="h-3.5 w-3.5" />
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+
+            {totalPages > 1 && (
+              <div className="flex items-center justify-center gap-4 pt-8">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                  disabled={page === 1 || brandsResult.isFetching}
+                  className="h-9 w-9 rounded-xl p-0"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </Button>
+                <div className="text-sm font-medium">
+                  Page {page} of {totalPages}
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                  disabled={page === totalPages || brandsResult.isFetching}
+                  className="h-9 w-9 rounded-xl p-0"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+              </div>
+            )}
+          </>
+        ) : brandsResult.isLoading ? (
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="h-32 animate-pulse rounded-2xl bg-muted" />
+            ))}
+          </div>
+        ) : (
+          <EmptyState description="No brands found for this clinical indication." title="No related products" />
+        )}
+      </div>
     </div>
   );
 }

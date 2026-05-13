@@ -24,9 +24,14 @@ export async function searchMedicines(query: string, limit = 10) {
   return response.data.data ?? { brands: [], generics: [], indications: [], companies: [] };
 }
 
-export async function searchBrands(query: string, limit = 10, page = 1) {
+export async function searchBrands(
+  query: string,
+  limit = 10,
+  page = 1,
+  filters?: { companyId?: number; genericId?: number; indicationId?: number },
+) {
   const response = await http.get<ApiSuccess<BrandResponse[]>>('/medicines/brands', {
-    params: { q: query, limit, page },
+    params: { q: query, limit, page, ...filters },
   });
 
   return response.data;

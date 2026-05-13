@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useDeferredValue } from 'react';
-import { Pill, Search, Loader2, ArrowRight } from 'lucide-react';
+import { useState, useDeferredValue, useEffect } from 'react';
+import { Pill, Search, Loader2, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
 import { Input } from '@/components/ui/input';
@@ -9,12 +9,23 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { AppShell } from '@/shared/components/app-shell';
 import { PageHeader } from '@/shared/components/page-header';
 import { EmptyState } from '@/shared/components/empty-state';
+import { Button } from '@/components/ui/button';
 import { useGenericSearch } from '@/modules/medicines/hooks';
 
 export default function GenericsPage() {
   const [query, setQuery] = useState('');
+  const [page, setPage] = useState(1);
   const deferredQuery = useDeferredValue(query);
-  const { data, isLoading, isFetching } = useGenericSearch(deferredQuery, 20);
+  const { data, isLoading, isFetching } = useGenericSearch(deferredQuery, 24, page);
+
+  // Reset page when query changes
+  useEffect(() => {
+    setPage(1);
+  }, [deferredQuery]);
+
+  const generics = data?.data || [];
+  const meta = data?.meta;
+  const totalPages = meta?.totalPages || 1;
 
   return (
     <AppShell>
@@ -48,34 +59,68 @@ export default function GenericsPage() {
             title="Search Generics"
           />
         ) : (
-          <div className="grid gap-4 md:grid-cols-2">
-            {data?.data?.map((generic) => (
-              <Link key={generic.id} href={`/medicines/generics/${generic.id}`}>
-                <Card className="h-full border-primary/5 hover:border-primary/20 hover:shadow-md transition-all rounded-2xl group">
-                  <CardHeader className="p-5">
-                    <div className="flex items-start justify-between">
-                      <div className="space-y-1">
-                        <CardTitle className="text-lg group-hover:text-primary transition-colors">{generic.name}</CardTitle>
-                        <CardDescription className="text-xs font-medium italic">
-                          {generic.therapeuticClass || "Clinical Generic"}
-                        </CardDescription>
+          <div className="space-y-8">
+            <div className="grid gap-4 md:grid-cols-2">
+              {generics.map((generic) => (
+                <Link key={generic.id} href={`/medicines/generics/${generic.id}`}>
+                  <Card className="h-full border-primary/5 hover:border-primary/20 hover:shadow-md transition-all rounded-2xl group">
+                    <CardHeader className="p-5">
+                      <div className="flex items-start justify-between">
+                        <div className="space-y-1">
+                          <CardTitle className="text-lg group-hover:text-primary transition-colors">{generic.name}</CardTitle>
+                          <CardDescription className="text-xs font-medium italic">
+                            {generic.therapeuticClass || "Clinical Generic"}
+                          </CardDescription>
+                        </div>
+                        <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary/5 text-primary group-hover:bg-primary group-hover:text-white transition-all">
+                          <ArrowRight className="h-4 w-4" />
+                        </div>
                       </div>
-                      <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary/5 text-primary group-hover:bg-primary group-hover:text-white transition-all">
-                        <ArrowRight className="h-4 w-4" />
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="px-5 pb-5">
-                    <p className="text-xs text-muted-foreground line-clamp-2">
-                      {generic.indication || "No indication data available for this generic."}
-                    </p>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
-            {data?.data?.length === 0 && !isLoading && (
-              <div className="col-span-full py-20 text-center">
-                <p className="text-muted-foreground font-medium">No matching generics found.</p>
+                    </CardHeader>
+                    <CardContent className="px-5 pb-5">
+                      <p className="text-xs text-muted-foreground line-clamp-2">
+                        {generic.indication || "No indication data available for this generic."}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+              {generics.length === 0 && !isLoading && (
+                <div className="col-span-full py-20 text-center">
+                  <p className="text-muted-foreground font-medium">No matching generics found.</p>
+                </div>
+              )}
+            </div>
+
+            {totalPages > 1 && (
+              <div className="flex items-center justify-center gap-4 pt-4 pb-8">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    setPage((p) => Math.max(1, p - 1));
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  disabled={page === 1 || isFetching}
+                  className="h-9 w-9 rounded-xl p-0"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </Button>
+                <div className="text-sm font-medium">
+                  Page {page} of {totalPages}
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    setPage((p) => Math.min(totalPages, p + 1));
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  disabled={page === totalPages || isFetching}
+                  className="h-9 w-9 rounded-xl p-0"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
               </div>
             )}
           </div>

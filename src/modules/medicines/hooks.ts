@@ -25,11 +25,16 @@ export function useMedicineSearch(query: string, limit = 10) {
   });
 }
 
-export function useBrandSearch(query: string, limit = 10, page = 1) {
+export function useBrandSearch(
+  query: string,
+  limit = 10,
+  page = 1,
+  filters?: { companyId?: number; genericId?: number; indicationId?: number },
+) {
   return useQuery({
-    queryKey: ['medicines', 'brands', query, limit, page],
-    queryFn: () => searchBrands(query, limit, page),
-    enabled: query.trim().length > 0,
+    queryKey: ['medicines', 'brands', query, limit, page, filters],
+    queryFn: () => searchBrands(query, limit, page, filters),
+    enabled: query.trim().length > 0 || !!filters?.companyId || !!filters?.genericId || !!filters?.indicationId,
   });
 }
 
