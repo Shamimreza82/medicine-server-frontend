@@ -1,97 +1,83 @@
 'use client';
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { ChevronRight, ChevronDown, Network, BookOpen, ArrowRight, Loader2 } from 'lucide-react';
-
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { AppShell } from '@/shared/components/app-shell';
+import { Network, Search, BookOpen, Layers } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
 import { PageHeader } from '@/shared/components/page-header';
-import { useClassificationTree } from '@/modules/medicines/hooks';
-import type { SystemicNode, TherapeuticNode } from '@/modules/medicines/types';
 
 export default function ClassificationsPage() {
-  const { data: tree, isLoading, isError } = useClassificationTree();
-
   return (
-    <AppShell>
+    <div className="space-y-10">
       <PageHeader
-        badge="Classification System"
-        description="Navigate through the systemic and therapeutic hierarchy of medicines."
+        badge="Pharmacology"
+        description="Navigate the systematic categorization of pharmaceutical substances by their therapeutic, pharmacological, and chemical properties."
         eyebrow="Drug Classifications"
-        title="Medicine Hierarchy"
+        title="Medical Hierarchy Browser"
       />
 
-      <div className="container py-8">
-        {isLoading ? (
-          <div className="flex h-64 items-center justify-center">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          </div>
-        ) : isError ? (
-          <Card className="border-destructive/20 bg-destructive/5">
-            <CardContent className="py-8 text-center text-destructive">
-              Failed to load classification tree. Please try again later.
-            </CardContent>
-          </Card>
-        ) : (
-          <div className="grid gap-6">
-            {tree?.map((node) => (
-              <SystemicAccordion key={node.id} node={node} level={0} />
-            ))}
-          </div>
-        )}
-      </div>
-    </AppShell>
-  );
-}
-
-function SystemicAccordion({ node, level }: { node: SystemicNode; level: number }) {
-  const [isOpen, setIsOpen] = useState(level === 0);
-  const hasChildren = node.children.length > 0 || node.therapeutics.length > 0;
-
-  return (
-    <Card className={`border-primary/5 transition-all duration-300 ${level === 0 ? 'shadow-md' : 'shadow-none border-l-2 border-l-primary/20 ml-4'}`}>
-      <div 
-        className={`flex cursor-pointer items-center justify-between p-4 hover:bg-muted/30 transition-colors ${isOpen ? 'bg-muted/20' : ''}`}
-        onClick={() => hasChildren && setIsOpen(!isOpen)}
-      >
-        <div className="flex items-center gap-3">
-          <div className={`flex h-8 w-8 items-center justify-center rounded-lg ${level === 0 ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'}`}>
-            {level === 0 ? <Network className="h-4 w-4" /> : <BookOpen className="h-3 w-3" />}
-          </div>
-          <span className={`font-bold ${level === 0 ? 'text-lg' : 'text-sm'}`}>{node.name}</span>
-        </div>
-        {hasChildren && (
-          isOpen ? <ChevronDown className="h-5 w-5 text-muted-foreground" /> : <ChevronRight className="h-5 w-5 text-muted-foreground" />
-        )}
+      <div className="grid gap-8 md:grid-cols-3">
+        <FeatureCard 
+          icon={<Network className="h-5 w-5" />}
+          title="Systemic View"
+          description="Browse drugs based on the physiological systems they target, such as Cardiovascular or Respiratory."
+        />
+        <FeatureCard 
+          icon={<Layers className="h-5 w-5" />}
+          title="Sub-Classifications"
+          description="Drill down into specific sub-groups to find precisely categorized medication classes."
+        />
+        <FeatureCard 
+          icon={<BookOpen className="h-5 w-5" />}
+          title="Clinical Links"
+          description="Connect directly to generic formulations and indications from any therapeutic class."
+        />
       </div>
 
-      {isOpen && hasChildren && (
-        <div className="p-2 space-y-2">
-          {node.children.map((child) => (
-            <SystemicAccordion key={child.id} node={child} level={level + 1} />
-          ))}
-          {node.therapeutics.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 p-2">
-              {node.therapeutics.map((t) => (
-                <TherapeuticLink key={t.id} t={t} />
-              ))}
+      <Card className="border-primary/10 bg-gradient-to-br from-white to-primary/[0.01] shadow-2xl shadow-primary/5 rounded-[2.5rem] overflow-hidden border-dashed">
+        <CardContent className="p-16 flex flex-col items-center text-center space-y-6">
+          <div className="relative">
+            <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full" />
+            <div className="relative flex h-24 w-24 items-center justify-center rounded-3xl bg-primary text-white shadow-xl shadow-primary/30">
+              <Search className="h-10 w-10" />
             </div>
-          )}
-        </div>
-      )}
-    </Card>
+          </div>
+          <div className="space-y-2">
+            <h3 className="text-3xl font-black tracking-tight text-foreground">
+              Begin Exploration
+            </h3>
+            <p className="text-muted-foreground max-w-lg mx-auto text-lg font-medium leading-relaxed">
+              The medical hierarchy is ready. Use the <span className="text-primary font-bold">Browse Hierarchy</span> tool 
+              to navigate through clinical drug classes.
+            </p>
+          </div>
+          
+          <div className="pt-8 grid grid-cols-2 gap-4 w-full max-w-md">
+            <div className="p-4 rounded-2xl bg-muted/30 border border-muted flex flex-col items-center gap-1">
+              <span className="text-2xl font-black text-primary">15+</span>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Systems</span>
+            </div>
+            <div className="p-4 rounded-2xl bg-muted/30 border border-muted flex flex-col items-center gap-1">
+              <span className="text-2xl font-black text-primary">500+</span>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Classes</span>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
 
-function TherapeuticLink({ t }: { t: TherapeuticNode }) {
+function FeatureCard({ icon, title, description }: { icon: React.ReactNode, title: string, description: string }) {
   return (
-    <Link 
-      href={`/medicines/classifications/${t.id}`}
-      className="group flex items-center justify-between p-3 rounded-xl border border-primary/5 bg-white hover:border-primary/20 hover:shadow-sm transition-all"
-    >
-      <span className="text-sm font-medium group-hover:text-primary transition-colors">{t.name}</span>
-      <ArrowRight className="h-3.5 w-3.5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
-    </Link>
+    <Card className="border-primary/5 bg-white/50 backdrop-blur-sm rounded-3xl hover:border-primary/20 transition-all duration-300">
+      <CardContent className="p-6 space-y-3">
+        <div className="h-10 w-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+          {icon}
+        </div>
+        <h4 className="font-bold text-foreground">{title}</h4>
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          {description}
+        </p>
+      </CardContent>
+    </Card>
   );
 }
