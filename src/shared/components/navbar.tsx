@@ -13,6 +13,7 @@ import {
   Activity,
   Tag,
   Building2,
+  Network,
   LucideIcon
 } from 'lucide-react';
 
@@ -32,6 +33,7 @@ interface NavItem {
 const navigation: NavItem[] = [
   { href: '/', label: 'Home', icon: LayoutDashboard },
   { href: '/lab-tests', label: 'Lab Tests', icon: FlaskConical },
+  { href: '/medicines/classifications', label: 'Classifications', icon: Network },
   { href: '/medicines/generics', label: 'Generics', icon: Pill },
   { href: '/medicines/indications', label: 'Indications', icon: Activity },
   { href: '/medicines/brands', label: 'Brands', icon: Tag },

@@ -5,6 +5,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import {
   checkWarnings,
   getBrandById,
+  getClassificationTree,
   getCompanyById,
   getDiseaseSuggestions,
   getGenericById,
@@ -38,11 +39,18 @@ export function useBrandSearch(
   });
 }
 
-export function useGenericSearch(query: string, limit = 10, page = 1) {
+export function useGenericSearch(query: string, limit = 10, page = 1, filters?: { therapeuticId?: number }) {
   return useQuery({
-    queryKey: ['medicines', 'generics', query, limit, page],
-    queryFn: () => searchGenerics(query, limit, page),
-    enabled: query.trim().length > 0,
+    queryKey: ['medicines', 'generics', query, limit, page, filters],
+    queryFn: () => searchGenerics(query, limit, page, filters),
+    enabled: query.trim().length > 0 || !!filters?.therapeuticId,
+  });
+}
+
+export function useClassificationTree() {
+  return useQuery({
+    queryKey: ['medicines', 'classifications'],
+    queryFn: getClassificationTree,
   });
 }
 

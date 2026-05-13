@@ -14,6 +14,7 @@ import type {
   WarningRequest,
   WarningSummary,
   DiseaseSuggestionResponse,
+  SystemicNode,
 } from './types';
 
 export async function searchMedicines(query: string, limit = 10) {
@@ -37,12 +38,23 @@ export async function searchBrands(
   return response.data;
 }
 
-export async function searchGenerics(query: string, limit = 10, page = 1) {
+export async function searchGenerics(
+  query: string,
+  limit = 10,
+  page = 1,
+  filters?: { therapeuticId?: number },
+) {
   const response = await http.get<ApiSuccess<GenericResponse[]>>('/medicines/generics', {
-    params: { q: query, limit, page },
+    params: { q: query, limit, page, ...filters },
   });
 
   return response.data;
+}
+
+export async function getClassificationTree() {
+  const response = await http.get<ApiSuccess<SystemicNode[]>>('/medicines/classifications');
+
+  return response.data.data ?? [];
 }
 
 export async function searchIndications(query: string, limit = 10, page = 1) {

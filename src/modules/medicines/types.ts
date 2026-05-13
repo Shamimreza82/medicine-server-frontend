@@ -86,10 +86,28 @@ export interface BrandDetails extends Omit<BrandResponse, 'generic'> {
   genericAlternatives: Array<BrandResponse>;
 }
 
+export interface TherapeuticNode {
+  id: number;
+  name: string;
+  systemicClassId: number;
+}
+
+export interface SystemicNode {
+  id: number;
+  name: string;
+  parentId: number | null;
+  children: SystemicNode[];
+  therapeutics: TherapeuticNode[];
+}
+
 export interface MedicineSearchQuery {
   q?: string;
   page?: number;
   limit?: number;
+  companyId?: number;
+  genericId?: number;
+  indicationId?: number;
+  therapeuticId?: number;
 }
 
 export interface WarningRequest {
