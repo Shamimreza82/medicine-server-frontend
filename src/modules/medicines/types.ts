@@ -13,6 +13,12 @@ export interface BrandResponse {
   generic: {
     id: number;
     name: string;
+    therapeuticGenerics?: Array<{
+      therapeutic: {
+        id: number;
+        name: string;
+      };
+    }>;
   };
 }
 
@@ -21,6 +27,12 @@ export interface GenericResponse {
   name: string;
   indication: string | null;
   therapeuticClass?: string | null;
+  therapeuticGenerics?: Array<{
+    therapeutic: {
+      id: number;
+      name: string;
+    };
+  }>;
 }
 
 export interface CompanyResponse {
@@ -42,7 +54,12 @@ export interface IndicationResponse {
   name: string;
 }
 
-export type IndicationDetails = IndicationResponse;
+export interface IndicationDetails extends IndicationResponse {
+  therapeutics: Array<{
+    id: number;
+    name: string;
+  }>;
+}
 
 export interface MedicineSearchResult {
   brands: BrandResponse[];

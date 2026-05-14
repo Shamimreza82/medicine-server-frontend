@@ -123,7 +123,7 @@ export function HeroSearch() {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <h3 className="text-base font-bold text-foreground">Awaiting clinical input...</h3>
+                      <h3 className="text-base font-bold text-foreground">Awaiting input...</h3>
                       <p className="text-xs text-muted-foreground max-w-[240px] leading-relaxed">
                         Specify a medical identifier above to retrieve detailed medical profiles.
                       </p>

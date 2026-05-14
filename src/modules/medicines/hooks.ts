@@ -47,7 +47,7 @@ export function useGenericSearch(
   query: string,
   limit = 10,
   page = 1,
-  filters?: { therapeuticId?: number; letter?: string },
+  filters?: { therapeuticId?: number; letter?: string; indicationId?: number },
 ) {
   return useQuery({
     queryKey: ['medicines', 'generics', query, limit, page, filters],
