@@ -126,6 +126,7 @@ export interface MedicineSearchQuery {
   genericId?: number;
   indicationId?: number;
   therapeuticId?: number;
+  letter?: string;
 }
 
 export interface WarningRequest {

@@ -43,65 +43,69 @@ export function GenericDoseTemplateView({ genericId }: GenericDoseTemplateProps)
   return (
     <div className="flex flex-col lg:flex-row items-start gap-8">
       {/* Main Content: Clinical Profile */}
-      <div className="flex-1 w-full space-y-8">
-        <Card className="border-primary/10 shadow-lg shadow-primary/5 rounded-3xl overflow-hidden">
-          <CardHeader className="bg-gradient-to-br from-white to-primary/[0.02] p-6 sm:p-8 border-b border-primary/5">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div className="space-y-1">
-                <CardTitle className="text-3xl font-black tracking-tight leading-tight">{generic.name}</CardTitle>
-                <p className="text-sm font-bold uppercase tracking-widest text-primary/70">Clinical Generic Profile</p>
-              </div>
-              {generic.therapeuticClass && (
-                <Badge variant="secondary" className="w-fit h-7 px-3 text-[10px] font-black uppercase tracking-widest bg-primary/5 text-primary border-primary/10">
-                  {generic.therapeuticClass}
-                </Badge>
-              )}
-            </div>
-          </CardHeader>
-          <CardContent className="grid gap-6 p-6 sm:p-8">
-            <div className="rounded-2xl border bg-muted/5 p-5 shadow-sm">
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/70">Clinical Indication</p>
-              <p className="mt-3 text-sm leading-relaxed font-medium text-foreground/80 whitespace-normal">{formatNullable(generic.indication)}</p>
-            </div>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="rounded-2xl border bg-white p-5 shadow-sm hover:shadow-md transition-all">
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-600/70">Adult dose</p>
-                <p className="mt-2 text-sm font-bold text-slate-700 whitespace-normal leading-relaxed">{formatNullable(generic.adultDose)}</p>
-              </div>
-              <div className="rounded-2xl border bg-white p-5 shadow-sm hover:shadow-md transition-all">
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-600/70">Child dose</p>
-                <p className="mt-2 text-sm font-bold text-slate-700 whitespace-normal leading-relaxed">{formatNullable(generic.childDose)}</p>
-              </div>
-              <div className="rounded-2xl border bg-white p-5 shadow-sm hover:shadow-md transition-all">
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-orange-600/70">Administration</p>
-                <p className="mt-2 text-sm font-bold text-slate-700 whitespace-normal leading-relaxed">{formatNullable(generic.administration)}</p>
-              </div>
-              <div className="rounded-2xl border bg-white p-5 shadow-sm hover:shadow-md transition-all">
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-pink-600/70">Pregnancy Category</p>
-                <p className="mt-2 text-sm font-bold text-slate-700 whitespace-normal leading-relaxed">
-                  {generic.pregnancyCategory 
-                    ? `${generic.pregnancyCategory.name}: ${generic.pregnancyCategory.description}` 
-                    : 'Not assigned'}
-                </p>
-              </div>
-            </div>
+      <div className="flex-1 w-full space-y-6">
+        <div className="space-y-1 pb-6 border-b">
+          <h2 className="text-3xl font-black tracking-tight leading-tight">{generic.name}</h2>
+          <div className="flex flex-wrap items-center gap-2 mt-2">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-primary/70 bg-primary/5 px-2 py-0.5 rounded">Clinical Generic Profile</span>
+            {generic.therapeuticClass && (
+              <Badge variant="secondary" className="h-5 px-2 text-[9px] font-black uppercase tracking-widest bg-slate-100 text-slate-600 border-none">
+                {generic.therapeuticClass}
+              </Badge>
+            )}
+          </div>
+        </div>
 
-            <div className="rounded-2xl border bg-white p-5 shadow-sm">
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-red-600/70">Pharmacological Summary</p>
-              <div className="grid gap-6 mt-4">
-                 <div>
-                    <p className="text-[9px] font-black uppercase text-muted-foreground mb-1">Side Effects</p>
-                    <p className="text-xs leading-relaxed text-slate-600 whitespace-normal">{formatNullable(generic.sideEffect)}</p>
-                 </div>
-                 <div>
-                    <p className="text-[9px] font-black uppercase text-muted-foreground mb-1">Contraindications</p>
-                    <p className="text-xs leading-relaxed text-slate-600 whitespace-normal">{formatNullable(generic.contraIndication)}</p>
-                 </div>
-              </div>
+        <div className="space-y-8 py-2">
+          {/* Layer: Clinical Indication */}
+          <section className="space-y-2">
+            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60">Clinical Indication</h3>
+            <p className="text-base leading-relaxed text-foreground/90 font-medium">{formatNullable(generic.indication)}</p>
+          </section>
+
+          {/* Layer: Adult Dose */}
+          <section className="space-y-2 pt-6 border-t border-dashed">
+            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-600/70">Adult Dose</h3>
+            <p className="text-sm leading-relaxed text-foreground/80">{formatNullable(generic.adultDose)}</p>
+          </section>
+
+          {/* Layer: Child Dose */}
+          <section className="space-y-2 pt-6 border-t border-dashed">
+            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-600/70">Child Dose</h3>
+            <p className="text-sm leading-relaxed text-foreground/80">{formatNullable(generic.childDose)}</p>
+          </section>
+
+          {/* Layer: Administration */}
+          <section className="space-y-2 pt-6 border-t border-dashed">
+            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-orange-600/70">Administration</h3>
+            <p className="text-sm leading-relaxed text-foreground/80">{formatNullable(generic.administration)}</p>
+          </section>
+
+          {/* Layer: Pregnancy Category */}
+          <section className="space-y-2 pt-6 border-t border-dashed">
+            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-pink-600/70">Pregnancy Category</h3>
+            <p className="text-sm leading-relaxed text-foreground/80 font-semibold">
+              {generic.pregnancyCategory 
+                ? `${generic.pregnancyCategory.name}: ${generic.pregnancyCategory.description}` 
+                : 'Not assigned'}
+            </p>
+          </section>
+
+          {/* Layer: Pharmacological Summary */}
+          <section className="space-y-4 pt-6 border-t border-dashed">
+            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-red-600/70">Pharmacological Summary</h3>
+            <div className="grid gap-6">
+               <div>
+                  <p className="text-[9px] font-bold uppercase text-muted-foreground/80 mb-1">Side Effects</p>
+                  <p className="text-xs leading-relaxed text-slate-600">{formatNullable(generic.sideEffect)}</p>
+               </div>
+               <div>
+                  <p className="text-[9px] font-bold uppercase text-muted-foreground/80 mb-1">Contraindications</p>
+                  <p className="text-xs leading-relaxed text-slate-600">{formatNullable(generic.contraIndication)}</p>
+               </div>
             </div>
-          </CardContent>
-        </Card>
+          </section>
+        </div>
       </div>
 
       {/* Side Content: Hierarchy & Brands */}
@@ -158,7 +162,7 @@ export function GenericDoseTemplateView({ genericId }: GenericDoseTemplateProps)
                       </CardHeader>
                       <CardContent className="px-4 pb-4 pt-0">
                         <div className="flex items-center justify-between mt-1">
-                          <div className="text-[9px] font-bold text-muted-foreground/60 uppercase tracking-widest">
+                          <div className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-wider">
                             {brand.form} • {brand.strength}
                           </div>
                           <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-muted/50 group-hover:bg-primary group-hover:text-white transition-colors">

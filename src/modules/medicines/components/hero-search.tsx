@@ -43,30 +43,30 @@ export function HeroSearch() {
   );
 
   return (
-    <div className="w-full max-w-4xl mx-auto space-y-8">
+    <div className="w-full max-w-4xl mx-auto space-y-6">
       {/* Header Context */}
-      <div className="text-center space-y-4 mb-2 animate-in fade-in slide-in-from-top-4 duration-1000">
-        <h1 className="text-4xl md:text-5xl font-black tracking-tight text-foreground">
+      <div className="text-center space-y-3 mb-2 animate-in fade-in slide-in-from-top-4 duration-1000">
+        <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground">
           What are you <span className="text-primary">looking for?</span>
         </h1>
-        <p className="text-muted-foreground max-w-xl mx-auto text-sm md:text-base font-medium">
+        <p className="text-muted-foreground max-w-xl mx-auto text-xs md:text-base font-medium">
           Access the national pharmaceutical database with semantic precision. Search through thousands of brands and clinical generics.
         </p>
       </div>
 
       <div className="relative group">
-        <div className="absolute -inset-1 bg-gradient-to-r from-primary/30 via-primary/10 to-primary/30 rounded-[2.5rem] blur-2xl opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-500"></div>
+        <div className="absolute -inset-1 bg-gradient-to-r from-primary/30 via-primary/10 to-primary/30 rounded-[2rem] blur-2xl opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-500"></div>
         
-        <Card className="relative border-primary/10 bg-white/70 backdrop-blur-2xl shadow-[0_32px_64px_-15px_rgba(0,0,0,0.1)] rounded-[2rem] overflow-hidden border-t-white/40 border-l-white/40">
-          <CardContent className="p-3 sm:p-6">
+        <Card className="relative border-primary/10 bg-white/70 backdrop-blur-2xl shadow-[0_32px_64px_-15px_rgba(0,0,0,0.1)] rounded-[1.5rem] overflow-hidden border-t-white/40 border-l-white/40">
+          <CardContent className="p-2 sm:p-4">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <div className="flex flex-col md:flex-row items-stretch gap-4">
-                <div className="relative w-full md:w-72 group/select">
-                  <div className="absolute inset-0 bg-primary/5 rounded-2xl scale-[0.98] group-hover/select:scale-100 transition-transform duration-300 -z-10" />
+              <div className="flex flex-col md:flex-row items-stretch gap-3">
+                <div className="relative w-full md:w-64 group/select">
+                  <div className="absolute inset-0 bg-primary/5 rounded-xl scale-[0.98] group-hover/select:scale-100 transition-transform duration-300 -z-10" />
                   <Select
                     value={activeTab}
                     onChange={(e) => setActiveTab(e.target.value)}
-                    className="h-16 pl-14 bg-transparent border-2 border-transparent focus:border-primary/20 rounded-2xl text-xs font-black uppercase tracking-widest appearance-none cursor-pointer transition-all"
+                    className="h-12 pl-12 bg-transparent border-2 border-transparent focus:border-primary/20 rounded-xl text-[10px] font-black uppercase tracking-widest appearance-none cursor-pointer transition-all"
                   >
                     <option value="all">Default Search</option>
                     <option value="brands">Brand Library</option>
@@ -75,26 +75,26 @@ export function HeroSearch() {
                     <option value="indications">Clinical Indications</option>
                     <option value="companies">Manufacturers</option>
                   </Select>
-                  <div className="absolute left-5 top-1/2 -translate-y-1/2 text-primary p-2 bg-white rounded-xl shadow-sm border border-primary/10 transition-transform group-hover/select:scale-110 pointer-events-none">
-                    {activeTab === 'all' && <Globe className="h-5 w-5" />}
-                    {activeTab === 'brands' && <Tag className="h-5 w-5" />}
-                    {activeTab === 'generics' && <Pill className="h-5 w-5" />}
-                    {activeTab === 'herbal' && <Sprout className="h-5 w-5" />}
-                    {activeTab === 'indications' && <Activity className="h-5 w-5" />}
-                    {activeTab === 'companies' && <Building2 className="h-5 w-5" />}
+                  <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-primary p-1.5 bg-white rounded-lg shadow-sm border border-primary/10 transition-transform group-hover/select:scale-110 pointer-events-none">
+                    {activeTab === 'all' && <Globe className="h-4 w-4" />}
+                    {activeTab === 'brands' && <Tag className="h-4 w-4" />}
+                    {activeTab === 'generics' && <Pill className="h-4 w-4" />}
+                    {activeTab === 'herbal' && <Sprout className="h-4 w-4" />}
+                    {activeTab === 'indications' && <Activity className="h-4 w-4" />}
+                    {activeTab === 'companies' && <Building2 className="h-4 w-4" />}
                   </div>
-                  <div className="absolute right-5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none group-hover/select:text-primary transition-colors">
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none group-hover/select:text-primary transition-colors">
                     <ChevronDown className="h-4 w-4" />
                   </div>
                 </div>
                 
                 <div className="relative flex-1 group/input">
-                  <div className="absolute inset-0 bg-muted/30 rounded-2xl scale-[0.98] group-focus-within/input:scale-100 group-focus-within/input:bg-muted/50 transition-all duration-300 -z-10" />
-                  <div className="absolute left-6 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within/input:text-primary transition-colors">
-                    {isFetching ? <Loader2 className="h-6 w-6 animate-spin" /> : <Search className="h-6 w-6" />}
+                  <div className="absolute inset-0 bg-muted/30 rounded-xl scale-[0.98] group-focus-within/input:scale-100 group-focus-within/input:bg-muted/50 transition-all duration-300 -z-10" />
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within/input:text-primary transition-colors">
+                    {isFetching ? <Loader2 className="h-5 w-5 animate-spin" /> : <Search className="h-5 w-5" />}
                   </div>
                   <Input
-                    className="h-16 pl-16 pr-6 bg-transparent border-2 border-transparent focus-visible:ring-0 focus:border-primary/20 rounded-2xl text-xl font-semibold placeholder:text-muted-foreground/40 placeholder:font-medium transition-all"
+                    className="h-12 pl-11 pr-4 bg-transparent border-2 border-transparent focus-visible:ring-0 focus:border-primary/20 rounded-xl text-base font-semibold placeholder:text-muted-foreground/40 placeholder:font-medium transition-all"
                     placeholder={activeTab === 'all' ? "Search brands, generics, indications..." : `Type ${activeTab.slice(0, -1)} name...`}
                     onChange={(e) => setQuery(e.target.value)}
                     value={query}
@@ -102,7 +102,7 @@ export function HeroSearch() {
                   {query && (
                     <button 
                       onClick={() => setQuery('')}
-                      className="absolute right-6 top-1/2 -translate-y-1/2 text-[10px] font-bold uppercase tracking-tighter text-muted-foreground hover:text-primary transition-colors"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-[9px] font-bold uppercase tracking-tighter text-muted-foreground hover:text-primary transition-colors"
                     >
                       Clear
                     </button>

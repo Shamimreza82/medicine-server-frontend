@@ -44,7 +44,7 @@ export async function searchGenerics(
   query: string,
   limit = 10,
   page = 1,
-  filters?: { therapeuticId?: number },
+  filters?: { therapeuticId?: number; letter?: string },
 ) {
   const response = await http.get<ApiSuccess<GenericResponse[]>>('/medicines/generics', {
     params: { q: query, limit, page, ...filters },

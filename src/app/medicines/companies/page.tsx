@@ -37,14 +37,14 @@ export default function CompaniesPage() {
       />
 
       <div className="space-y-6">
-        <Card className="border-primary/10 shadow-lg shadow-primary/5 rounded-3xl overflow-hidden">
-          <CardContent className="p-4 sm:p-6">
+        <Card className="border-primary/10 shadow-lg shadow-primary/5 rounded-2xl overflow-hidden">
+          <CardContent className="p-3 sm:p-4">
             <div className="relative group">
-              <div className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors">
-                {isFetching ? <Loader2 className="h-5 w-5 animate-spin" /> : <Search className="h-5 w-5" />}
+              <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors">
+                {isFetching ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
               </div>
               <Input
-                className="h-14 pl-12 bg-muted/30 border-none focus-visible:ring-2 focus-visible:ring-primary/20 rounded-2xl text-lg font-medium"
+                className="h-11 pl-10 bg-muted/30 border-none focus-visible:ring-2 focus-visible:ring-primary/20 rounded-xl text-base font-medium"
                 placeholder="Search companies (e.g., Beximco, Square, Incepta)..."
                 onChange={(e) => setQuery(e.target.value)}
                 value={query}

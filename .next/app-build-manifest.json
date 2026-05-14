@@ -1,232 +1,60 @@
 {
   "pages": {
-    "/_not-found/page": [
-      "static/chunks/webpack-01e7dd0b6d0e9da1.js",
-      "static/chunks/4bd1b696-c023c6e3521b1417.js",
-      "static/chunks/255-4f212684648fcab9.js",
-      "static/chunks/main-app-759fab0d914a6b93.js",
-      "static/chunks/app/_not-found/page-5f77ca2adda4a48d.js"
-    ],
     "/layout": [
-      "static/chunks/webpack-01e7dd0b6d0e9da1.js",
-      "static/chunks/4bd1b696-c023c6e3521b1417.js",
-      "static/chunks/255-4f212684648fcab9.js",
-      "static/chunks/main-app-759fab0d914a6b93.js",
-      "static/css/84e7b8af82d16f7c.css",
-      "static/chunks/854-cbb8029dd6279d34.js",
-      "static/chunks/397-747b21eb740cb2dc.js",
-      "static/chunks/app/layout-7a00bf9dafd64a6c.js"
-    ],
-    "/diseases/page": [
-      "static/chunks/webpack-01e7dd0b6d0e9da1.js",
-      "static/chunks/4bd1b696-c023c6e3521b1417.js",
-      "static/chunks/255-4f212684648fcab9.js",
-      "static/chunks/main-app-759fab0d914a6b93.js",
-      "static/chunks/999-4a8479b0aeb4f9fe.js",
-      "static/chunks/854-cbb8029dd6279d34.js",
-      "static/chunks/720-c6898271f58e9245.js",
-      "static/chunks/72-a93854ec1232c6e9.js",
-      "static/chunks/304-5bea5a770615ff5b.js",
-      "static/chunks/app/diseases/page-4fbd67c4a374a118.js"
-    ],
-    "/lab-tests/page": [
-      "static/chunks/webpack-01e7dd0b6d0e9da1.js",
-      "static/chunks/4bd1b696-c023c6e3521b1417.js",
-      "static/chunks/255-4f212684648fcab9.js",
-      "static/chunks/main-app-759fab0d914a6b93.js",
-      "static/chunks/999-4a8479b0aeb4f9fe.js",
-      "static/chunks/854-cbb8029dd6279d34.js",
-      "static/chunks/720-c6898271f58e9245.js",
-      "static/chunks/72-a93854ec1232c6e9.js",
-      "static/chunks/304-5bea5a770615ff5b.js",
-      "static/chunks/app/lab-tests/page-62648d3730a50e2d.js"
-    ],
-    "/medicines/brands/[brandId]/page": [
-      "static/chunks/webpack-01e7dd0b6d0e9da1.js",
-      "static/chunks/4bd1b696-c023c6e3521b1417.js",
-      "static/chunks/255-4f212684648fcab9.js",
-      "static/chunks/main-app-759fab0d914a6b93.js",
-      "static/chunks/999-4a8479b0aeb4f9fe.js",
-      "static/chunks/854-cbb8029dd6279d34.js",
-      "static/chunks/720-c6898271f58e9245.js",
-      "static/chunks/72-a93854ec1232c6e9.js",
-      "static/chunks/211-a631443c5db17751.js",
-      "static/chunks/798-fe0c1f9a3e9878ad.js",
-      "static/chunks/app/medicines/brands/[brandId]/page-80e1dd84e86f0eea.js"
-    ],
-    "/medicines/brands/page": [
-      "static/chunks/webpack-01e7dd0b6d0e9da1.js",
-      "static/chunks/4bd1b696-c023c6e3521b1417.js",
-      "static/chunks/255-4f212684648fcab9.js",
-      "static/chunks/main-app-759fab0d914a6b93.js",
-      "static/chunks/999-4a8479b0aeb4f9fe.js",
-      "static/chunks/854-cbb8029dd6279d34.js",
-      "static/chunks/720-c6898271f58e9245.js",
-      "static/chunks/72-a93854ec1232c6e9.js",
-      "static/chunks/984-4b2fa50b512f0e06.js",
-      "static/chunks/app/medicines/brands/page-3c0f5ec2a2cdea09.js"
-    ],
-    "/medicines/companies/[companyId]/page": [
-      "static/chunks/webpack-01e7dd0b6d0e9da1.js",
-      "static/chunks/4bd1b696-c023c6e3521b1417.js",
-      "static/chunks/255-4f212684648fcab9.js",
-      "static/chunks/main-app-759fab0d914a6b93.js",
-      "static/chunks/999-4a8479b0aeb4f9fe.js",
-      "static/chunks/854-cbb8029dd6279d34.js",
-      "static/chunks/720-c6898271f58e9245.js",
-      "static/chunks/72-a93854ec1232c6e9.js",
-      "static/chunks/984-4b2fa50b512f0e06.js",
-      "static/chunks/app/medicines/companies/[companyId]/page-4cc0f44ad5ff495a.js"
-    ],
-    "/medicines/companies/page": [
-      "static/chunks/webpack-01e7dd0b6d0e9da1.js",
-      "static/chunks/4bd1b696-c023c6e3521b1417.js",
-      "static/chunks/255-4f212684648fcab9.js",
-      "static/chunks/main-app-759fab0d914a6b93.js",
-      "static/chunks/999-4a8479b0aeb4f9fe.js",
-      "static/chunks/854-cbb8029dd6279d34.js",
-      "static/chunks/720-c6898271f58e9245.js",
-      "static/chunks/72-a93854ec1232c6e9.js",
-      "static/chunks/984-4b2fa50b512f0e06.js",
-      "static/chunks/app/medicines/companies/page-05bd607eb33885d9.js"
-    ],
-    "/medicines/generics/[genericId]/page": [
-      "static/chunks/webpack-01e7dd0b6d0e9da1.js",
-      "static/chunks/4bd1b696-c023c6e3521b1417.js",
-      "static/chunks/255-4f212684648fcab9.js",
-      "static/chunks/main-app-759fab0d914a6b93.js",
-      "static/chunks/999-4a8479b0aeb4f9fe.js",
-      "static/chunks/854-cbb8029dd6279d34.js",
-      "static/chunks/720-c6898271f58e9245.js",
-      "static/chunks/72-a93854ec1232c6e9.js",
-      "static/chunks/984-4b2fa50b512f0e06.js",
-      "static/chunks/app/medicines/generics/[genericId]/page-36ec508acdbdc9a5.js"
-    ],
-    "/medicines/generics/page": [
-      "static/chunks/webpack-01e7dd0b6d0e9da1.js",
-      "static/chunks/4bd1b696-c023c6e3521b1417.js",
-      "static/chunks/255-4f212684648fcab9.js",
-      "static/chunks/main-app-759fab0d914a6b93.js",
-      "static/chunks/999-4a8479b0aeb4f9fe.js",
-      "static/chunks/854-cbb8029dd6279d34.js",
-      "static/chunks/720-c6898271f58e9245.js",
-      "static/chunks/72-a93854ec1232c6e9.js",
-      "static/chunks/984-4b2fa50b512f0e06.js",
-      "static/chunks/app/medicines/generics/page-f2baea58f61b6811.js"
-    ],
-    "/medicines/herbal/[brandId]/page": [
-      "static/chunks/webpack-01e7dd0b6d0e9da1.js",
-      "static/chunks/4bd1b696-c023c6e3521b1417.js",
-      "static/chunks/255-4f212684648fcab9.js",
-      "static/chunks/main-app-759fab0d914a6b93.js",
-      "static/chunks/999-4a8479b0aeb4f9fe.js",
-      "static/chunks/854-cbb8029dd6279d34.js",
-      "static/chunks/720-c6898271f58e9245.js",
-      "static/chunks/72-a93854ec1232c6e9.js",
-      "static/chunks/211-a631443c5db17751.js",
-      "static/chunks/798-fe0c1f9a3e9878ad.js",
-      "static/chunks/app/medicines/herbal/[brandId]/page-df7b7d9c58a99c95.js"
-    ],
-    "/medicines/herbal/page": [
-      "static/chunks/webpack-01e7dd0b6d0e9da1.js",
-      "static/chunks/4bd1b696-c023c6e3521b1417.js",
-      "static/chunks/255-4f212684648fcab9.js",
-      "static/chunks/main-app-759fab0d914a6b93.js",
-      "static/chunks/999-4a8479b0aeb4f9fe.js",
-      "static/chunks/854-cbb8029dd6279d34.js",
-      "static/chunks/720-c6898271f58e9245.js",
-      "static/chunks/72-a93854ec1232c6e9.js",
-      "static/chunks/304-5bea5a770615ff5b.js",
-      "static/chunks/app/medicines/herbal/page-67dc013f4d42ad1e.js"
-    ],
-    "/medicines/indications/page": [
-      "static/chunks/webpack-01e7dd0b6d0e9da1.js",
-      "static/chunks/4bd1b696-c023c6e3521b1417.js",
-      "static/chunks/255-4f212684648fcab9.js",
-      "static/chunks/main-app-759fab0d914a6b93.js",
-      "static/chunks/999-4a8479b0aeb4f9fe.js",
-      "static/chunks/854-cbb8029dd6279d34.js",
-      "static/chunks/720-c6898271f58e9245.js",
-      "static/chunks/72-a93854ec1232c6e9.js",
-      "static/chunks/984-4b2fa50b512f0e06.js",
-      "static/chunks/app/medicines/indications/page-26c9c815fd465516.js"
-    ],
-    "/medicines/indications/[indicationId]/page": [
-      "static/chunks/webpack-01e7dd0b6d0e9da1.js",
-      "static/chunks/4bd1b696-c023c6e3521b1417.js",
-      "static/chunks/255-4f212684648fcab9.js",
-      "static/chunks/main-app-759fab0d914a6b93.js",
-      "static/chunks/999-4a8479b0aeb4f9fe.js",
-      "static/chunks/854-cbb8029dd6279d34.js",
-      "static/chunks/720-c6898271f58e9245.js",
-      "static/chunks/72-a93854ec1232c6e9.js",
-      "static/chunks/984-4b2fa50b512f0e06.js",
-      "static/chunks/app/medicines/indications/[indicationId]/page-704b0b07d0107493.js"
-    ],
-    "/medicines/page": [
-      "static/chunks/webpack-01e7dd0b6d0e9da1.js",
-      "static/chunks/4bd1b696-c023c6e3521b1417.js",
-      "static/chunks/255-4f212684648fcab9.js",
-      "static/chunks/main-app-759fab0d914a6b93.js",
-      "static/chunks/999-4a8479b0aeb4f9fe.js",
-      "static/chunks/854-cbb8029dd6279d34.js",
-      "static/chunks/720-c6898271f58e9245.js",
-      "static/chunks/72-a93854ec1232c6e9.js",
-      "static/chunks/304-5bea5a770615ff5b.js",
-      "static/chunks/app/medicines/page-fe134aec7684323b.js"
-    ],
-    "/medicines/warnings/page": [
-      "static/chunks/webpack-01e7dd0b6d0e9da1.js",
-      "static/chunks/4bd1b696-c023c6e3521b1417.js",
-      "static/chunks/255-4f212684648fcab9.js",
-      "static/chunks/main-app-759fab0d914a6b93.js",
-      "static/chunks/999-4a8479b0aeb4f9fe.js",
-      "static/chunks/720-c6898271f58e9245.js",
-      "static/chunks/app/medicines/warnings/page-ff8cd44e92dfda6e.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
     ],
     "/page": [
-      "static/chunks/webpack-01e7dd0b6d0e9da1.js",
-      "static/chunks/4bd1b696-c023c6e3521b1417.js",
-      "static/chunks/255-4f212684648fcab9.js",
-      "static/chunks/main-app-759fab0d914a6b93.js",
-      "static/chunks/999-4a8479b0aeb4f9fe.js",
-      "static/chunks/854-cbb8029dd6279d34.js",
-      "static/chunks/720-c6898271f58e9245.js",
-      "static/chunks/72-a93854ec1232c6e9.js",
-      "static/chunks/211-a631443c5db17751.js",
-      "static/chunks/798-fe0c1f9a3e9878ad.js",
-      "static/chunks/app/page-4318e786f7f68c96.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
+    ],
+    "/medicines/brands/[brandId]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/medicines/brands/[brandId]/page.js"
     ],
     "/medicines/classifications/layout": [
-      "static/chunks/webpack-01e7dd0b6d0e9da1.js",
-      "static/chunks/4bd1b696-c023c6e3521b1417.js",
-      "static/chunks/255-4f212684648fcab9.js",
-      "static/chunks/main-app-759fab0d914a6b93.js",
-      "static/chunks/999-4a8479b0aeb4f9fe.js",
-      "static/chunks/854-cbb8029dd6279d34.js",
-      "static/chunks/720-c6898271f58e9245.js",
-      "static/chunks/72-a93854ec1232c6e9.js",
-      "static/chunks/984-4b2fa50b512f0e06.js",
-      "static/chunks/app/medicines/classifications/layout-da8c16d3e1a11410.js"
-    ],
-    "/medicines/classifications/[therapeuticId]/page": [
-      "static/chunks/webpack-01e7dd0b6d0e9da1.js",
-      "static/chunks/4bd1b696-c023c6e3521b1417.js",
-      "static/chunks/255-4f212684648fcab9.js",
-      "static/chunks/main-app-759fab0d914a6b93.js",
-      "static/chunks/999-4a8479b0aeb4f9fe.js",
-      "static/chunks/854-cbb8029dd6279d34.js",
-      "static/chunks/720-c6898271f58e9245.js",
-      "static/chunks/72-a93854ec1232c6e9.js",
-      "static/chunks/app/medicines/classifications/[therapeuticId]/page-b90aea5987f1617b.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/medicines/classifications/layout.js"
     ],
     "/medicines/classifications/page": [
-      "static/chunks/webpack-01e7dd0b6d0e9da1.js",
-      "static/chunks/4bd1b696-c023c6e3521b1417.js",
-      "static/chunks/255-4f212684648fcab9.js",
-      "static/chunks/main-app-759fab0d914a6b93.js",
-      "static/chunks/999-4a8479b0aeb4f9fe.js",
-      "static/chunks/app/medicines/classifications/page-6ef646ecda27506c.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/medicines/classifications/page.js"
+    ],
+    "/medicines/generics/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/medicines/generics/page.js"
+    ],
+    "/medicines/indications/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/medicines/indications/page.js"
+    ],
+    "/lab-tests/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/lab-tests/page.js"
+    ],
+    "/medicines/brands/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/medicines/brands/page.js"
+    ],
+    "/medicines/companies/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/medicines/companies/page.js"
+    ],
+    "/medicines/generics/[genericId]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/medicines/generics/[genericId]/page.js"
     ]
   }
 }

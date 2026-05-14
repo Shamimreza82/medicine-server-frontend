@@ -43,11 +43,15 @@ export function useBrandSearch(
   });
 }
 
-export function useGenericSearch(query: string, limit = 10, page = 1, filters?: { therapeuticId?: number }) {
+export function useGenericSearch(
+  query: string,
+  limit = 10,
+  page = 1,
+  filters?: { therapeuticId?: number; letter?: string },
+) {
   return useQuery({
     queryKey: ['medicines', 'generics', query, limit, page, filters],
     queryFn: () => searchGenerics(query, limit, page, filters),
-    enabled: query.trim().length > 0 || !!filters?.therapeuticId,
   });
 }
 

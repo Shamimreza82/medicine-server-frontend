@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useDeferredValue, useEffect } from 'react';
-import { Tag, Search, Loader2, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Tag, Search, Loader2, ArrowRight, ChevronLeft, ChevronRight, Building2 } from 'lucide-react';
 import Link from 'next/link';
 
 import { Input } from '@/components/ui/input';
@@ -40,14 +40,14 @@ export default function BrandsPage() {
       />
 
       <div className="space-y-6">
-        <Card className="border-primary/10 shadow-lg shadow-primary/5 rounded-3xl overflow-hidden">
-          <CardContent className="p-4 sm:p-6">
+        <Card className="border-primary/10 shadow-lg shadow-primary/5 rounded-2xl overflow-hidden">
+          <CardContent className="p-3 sm:p-4">
             <div className="relative group">
-              <div className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors">
-                {isFetching ? <Loader2 className="h-5 w-5 animate-spin" /> : <Search className="h-5 w-5" />}
+              <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors">
+                {isFetching ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
               </div>
               <Input
-                className="h-14 pl-12 bg-muted/30 border-none focus-visible:ring-2 focus-visible:ring-primary/20 rounded-2xl text-lg font-medium"
+                className="h-11 pl-10 bg-muted/30 border-none focus-visible:ring-2 focus-visible:ring-primary/20 rounded-xl text-base font-medium"
                 placeholder="Search brands (e.g., Napa, Ace, Sergel)..."
                 onChange={(e) => setQuery(e.target.value)}
                 value={query}
@@ -63,40 +63,41 @@ export default function BrandsPage() {
           />
         ) : (
           <div className="space-y-8">
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
               {brands.map((brand) => (
                 <Link key={brand.id} href={`/medicines/brands/${brand.id}`}>
-                  <Card className="h-full border-primary/5 hover:border-primary/20 hover:shadow-md transition-all rounded-2xl group">
-                    <CardHeader className="p-5">
+                  <Card className="h-full border-primary/5 hover:border-primary/20 hover:shadow-md transition-all rounded-xl group">
+                    <CardHeader className="p-4 pb-2">
                       <div className="flex items-start justify-between gap-3">
-                        <div className="flex items-center gap-4 min-w-0">
-                          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/5 text-primary group-hover:bg-primary group-hover:text-white transition-all flex-shrink-0">
-                            <MedicineFormIcon form={brand.form} className="h-6 w-6" />
+                        <div className="flex items-center gap-3 min-w-0">
+                          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/5 text-primary group-hover:bg-primary group-hover:text-white transition-all flex-shrink-0">
+                            <MedicineFormIcon form={brand.form} className="h-5 w-5" />
                           </div>
-                          <div className="space-y-1 min-w-0">
+                          <div className="space-y-0.5 min-w-0">
                             <div className="flex items-center gap-2">
-                              <CardTitle className="text-lg group-hover:text-primary transition-colors truncate">{brand.name}</CardTitle>
+                              <CardTitle className="text-base font-bold group-hover:text-primary transition-colors truncate">{brand.name}</CardTitle>
                               {brand.isSponsored && (
-                                <Badge variant="secondary" className="h-4 px-1 text-[8px] uppercase tracking-tighter bg-primary/5 text-primary border-primary/10">
-                                  Sponsored
+                                <Badge variant="secondary" className="h-4 px-1 text-[7px] uppercase tracking-tighter bg-primary/5 text-primary border-primary/10">
+                                  Ads
                                 </Badge>
                               )}
                             </div>
-                            <CardDescription className="text-xs font-medium truncate">
-                              {brand.generic.name}
+                            <CardDescription className="text-[10px] font-medium truncate flex items-center gap-1 text-muted-foreground/80">
+                              <span className="truncate">{brand.generic.name}</span>
+                              <span className="text-primary/30">•</span>
+                              <span className="truncate">{brand.company.name}</span>
                             </CardDescription>
                           </div>
                         </div>
-                        <Tag className="h-4 w-4 text-primary/40 group-hover:text-primary transition-colors flex-shrink-0" />
                       </div>
                     </CardHeader>
-                    <CardContent className="px-5 pb-5">
-                      <div className="flex items-center justify-between mt-2">
-                        <div className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-wider truncate">
+                    <CardContent className="px-4 pb-4">
+                      <div className="flex items-center justify-between mt-1">
+                        <div className="text-[9px] font-bold text-muted-foreground/50 uppercase tracking-widest truncate">
                           {brand.form} • {brand.strength}
                         </div>
-                        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-muted/50 group-hover:bg-primary group-hover:text-white transition-all">
-                          <ArrowRight className="h-3.5 w-3.5" />
+                        <div className="flex h-6 w-6 items-center justify-center rounded-md bg-muted/50 group-hover:bg-primary group-hover:text-white transition-all">
+                          <ArrowRight className="h-3 w-3" />
                         </div>
                       </div>
                     </CardContent>

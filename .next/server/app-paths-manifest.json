@@ -1,20 +1,8 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/diseases/page": "app/diseases/page.js",
-  "/lab-tests/page": "app/lab-tests/page.js",
-  "/medicines/brands/[brandId]/page": "app/medicines/brands/[brandId]/page.js",
-  "/medicines/brands/page": "app/medicines/brands/page.js",
-  "/medicines/companies/[companyId]/page": "app/medicines/companies/[companyId]/page.js",
-  "/medicines/companies/page": "app/medicines/companies/page.js",
-  "/medicines/generics/[genericId]/page": "app/medicines/generics/[genericId]/page.js",
   "/medicines/generics/page": "app/medicines/generics/page.js",
-  "/medicines/herbal/[brandId]/page": "app/medicines/herbal/[brandId]/page.js",
-  "/medicines/herbal/page": "app/medicines/herbal/page.js",
+  "/medicines/generics/[genericId]/page": "app/medicines/generics/[genericId]/page.js",
+  "/medicines/brands/page": "app/medicines/brands/page.js",
   "/medicines/indications/page": "app/medicines/indications/page.js",
-  "/medicines/indications/[indicationId]/page": "app/medicines/indications/[indicationId]/page.js",
-  "/medicines/page": "app/medicines/page.js",
-  "/medicines/warnings/page": "app/medicines/warnings/page.js",
-  "/page": "app/page.js",
-  "/medicines/classifications/[therapeuticId]/page": "app/medicines/classifications/[therapeuticId]/page.js",
+  "/medicines/brands/[brandId]/page": "app/medicines/brands/[brandId]/page.js",
   "/medicines/classifications/page": "app/medicines/classifications/page.js"
 }
