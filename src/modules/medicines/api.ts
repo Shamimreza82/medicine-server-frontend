@@ -31,7 +31,7 @@ export async function searchBrands(
   query: string,
   limit = 10,
   page = 1,
-  filters?: { companyId?: number; genericId?: number; indicationId?: number },
+  filters?: { companyId?: number; genericId?: number; indicationId?: number; form?: string },
 ) {
   const response = await http.get<ApiSuccess<BrandResponse[]>>('/medicines/brands', {
     params: { q: query, limit, page, ...filters },
@@ -82,6 +82,14 @@ export async function getClassificationTree() {
   const response = await http.get<ApiSuccess<SystemicNode[]>>('/medicines/classifications');
 
   return response.data.data ?? [];
+}
+
+export async function getDosageForms(query = '', limit = 20, page = 1) {
+  const response = await http.get<ApiSuccess<string[]>>('/medicines/dosage-forms', {
+    params: { q: query, limit, page },
+  });
+
+  return response.data;
 }
 
 export async function searchIndications(query: string, limit = 10, page = 1) {

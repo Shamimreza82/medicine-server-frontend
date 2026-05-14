@@ -58,13 +58,13 @@ export function HerbalBrandDetailsView({ brandId }: HerbalBrandDetailsProps) {
               <Sprout className="h-32 w-32 rotate-12 text-lime-600" />
             </div>
             
-            <div className="flex h-20 w-20 sm:h-24 sm:w-24 items-center justify-center rounded-2xl bg-white shadow-xl border border-lime-500/10 shrink-0 z-10">
-              <MedicineFormIcon form={brand.form} className="h-10 w-10 sm:h-12 sm:w-12 text-lime-600" />
+            <div className="flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-2xl bg-white shadow-xl border border-lime-500/10 shrink-0 z-10">
+              <MedicineFormIcon form={brand.form} className="h-8 w-8 sm:h-10 sm:w-10 text-lime-600" />
             </div>
             
             <div className="space-y-2 z-10 text-center sm:text-left min-w-0">
               <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-                <CardTitle className="text-2xl sm:text-3xl font-black tracking-tight text-foreground leading-tight">{brand.name}</CardTitle>
+                <CardTitle className="text-xl sm:text-2xl font-black tracking-tight text-foreground leading-tight">{brand.name}</CardTitle>
                 <Badge className="bg-lime-600 text-white border-none px-2 py-0.5 text-[9px] font-black uppercase tracking-tighter shadow-sm">
                   Herbal
                 </Badge>
@@ -88,27 +88,27 @@ export function HerbalBrandDetailsView({ brandId }: HerbalBrandDetailsProps) {
 
         {/* Clinical Info */}
         <div className="space-y-6">
-          <div className="border-l-4 border-lime-500 bg-lime-50/10 p-5 rounded-r-2xl">
-            <div className="flex items-center gap-2 mb-3 text-lime-600">
-              <Stethoscope className="h-5 w-5" />
-              <span className="text-[10px] font-black uppercase tracking-[0.2em]">Therapeutic Indication</span>
-            </div>
-            <p className="text-base sm:text-lg font-bold text-lime-950 leading-relaxed whitespace-normal">
-              {brand.generic.indication || 'No specific indications reported.'}
-            </p>
-          </div>
-
           {brand.generic.contraindication && (
             <div className="border-l-4 border-red-500 bg-red-50/10 p-5 rounded-r-2xl">
               <div className="flex items-center gap-2 mb-3 text-red-600">
                 <ShieldAlert className="h-5 w-5" />
-                <span className="text-[10px] font-black uppercase tracking-[0.2em]">Contraindications</span>
+                <span className="text-xs sm:text-sm font-black uppercase tracking-[0.2em]">Contraindications</span>
               </div>
               <p className="text-base sm:text-lg font-bold text-red-950 leading-relaxed whitespace-normal">
                 {brand.generic.contraindication}
               </p>
             </div>
           )}
+
+          <div className="border-l-4 border-lime-500 bg-lime-50/10 p-5 rounded-r-2xl">
+            <div className="flex items-center gap-2 mb-3 text-lime-600">
+              <Stethoscope className="h-5 w-5" />
+              <span className="text-xs sm:text-sm font-black uppercase tracking-[0.2em]">Therapeutic Indication</span>
+            </div>
+            <p className="text-base sm:text-lg font-bold text-lime-950 leading-relaxed whitespace-normal">
+              {brand.generic.indication || 'No specific indications reported.'}
+            </p>
+          </div>
         </div>
 
         <Tabs defaultValue="clinical" className="w-full">

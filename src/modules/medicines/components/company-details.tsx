@@ -55,11 +55,11 @@ export function CompanyDetailsView({ companyId }: CompanyDetailsProps) {
     <div className="space-y-8">
       <Card className="border-primary/10 bg-gradient-to-br from-white to-primary/[0.02] shadow-xl shadow-primary/5 rounded-3xl overflow-hidden">
         <CardHeader className="flex flex-col md:flex-row md:items-center gap-6 p-8">
-          <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-            <Building2 className="h-10 w-10" />
+          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+            <Building2 className="h-8 w-8" />
           </div>
           <div className="space-y-1">
-            <CardTitle className="text-3xl font-black tracking-tight">{company.name}</CardTitle>
+            <CardTitle className="text-2xl font-black tracking-tight">{company.name}</CardTitle>
             <CardDescription className="text-base font-medium">Pharmaceutical Manufacturer</CardDescription>
           </div>
         </CardHeader>

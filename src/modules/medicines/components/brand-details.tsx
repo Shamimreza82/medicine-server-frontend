@@ -57,14 +57,14 @@ export function BrandDetailsView({ brandId }: BrandDetailsProps) {
         {/* Product Identity Header */}
         <div className="space-y-6 pb-8 border-b">
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
-            <div className="flex h-20 w-20 sm:h-24 sm:w-24 items-center justify-center rounded-2xl bg-white shadow-lg border border-primary/10 shrink-0">
-              <MedicineFormIcon form={brand.form} className="h-10 w-10 sm:h-12 sm:w-12" />
+            <div className="flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-2xl bg-white shadow-lg border border-primary/10 shrink-0">
+              <MedicineFormIcon form={brand.form} className="h-8 w-8 sm:h-10 sm:w-10" />
             </div>
             <div className="space-y-2 text-center sm:text-left min-w-0">
               <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-                <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-foreground leading-tight">{brand.name}</h2>
+                <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-foreground leading-tight">{brand.name}</h2>
                 {brand.isSponsored && (
-                  <Badge className="bg-amber-500 text-white border-none px-2 py-0.5 text-[9px] font-black uppercase tracking-tighter shadow-sm">
+                  <Badge className="bg-amber-500 text-white border-none px-2 py-0.5 text-[12px] font-black uppercase tracking-tighter shadow-sm">
                     Premium
                   </Badge>
                 )}
@@ -92,52 +92,19 @@ export function BrandDetailsView({ brandId }: BrandDetailsProps) {
 
         {/* Layered Clinical View */}
         <div className="space-y-10 py-2">
-          {/* Layer: Indications */}
-          <section className="space-y-3">
-            <div className="flex items-center gap-2 text-muted-foreground/60">
-              <Stethoscope className="h-4 w-4" />
-              <h3 className="text-[10px] font-black uppercase tracking-[0.2em]">Indications & Clinical Usage</h3>
-            </div>
-            <p className="text-base sm:text-lg leading-relaxed text-foreground/90 font-medium italic border-l-4 border-primary/20 pl-6">
-              {formatNullable(brand.generic.indication)}
-            </p>
-          </section>
-
-          {/* Layer: Dosing */}
-          <section className="space-y-6 pt-8 border-t border-dashed">
-            <div className="flex items-center gap-2 text-blue-600/70">
-              <Pill className="h-4 w-4" />
-              <h3 className="text-[10px] font-black uppercase tracking-[0.2em]">Dose Registry</h3>
-            </div>
-            <div className="grid gap-8">
-              <div className="space-y-2">
-                <p className="text-[9px] font-black uppercase text-blue-600/50">Adult Population</p>
-                <p className="text-sm leading-relaxed text-foreground/80 font-semibold">{formatNullable(brand.generic.adultDose)}</p>
-              </div>
-              <div className="space-y-2">
-                <p className="text-[9px] font-black uppercase text-emerald-600/50">Pediatric Population</p>
-                <p className="text-sm leading-relaxed text-foreground/80 font-semibold">{formatNullable(brand.generic.childDose)}</p>
-              </div>
-              <div className="space-y-2">
-                <p className="text-[9px] font-black uppercase text-orange-600/50">Administration Protocol</p>
-                <p className="text-sm leading-relaxed text-foreground/80 font-semibold">{formatNullable(brand.generic.administration)}</p>
-              </div>
-            </div>
-          </section>
-
           {/* Layer: Safety */}
-          <section className="space-y-8 pt-8 border-t border-dashed">
+          <section className="space-y-8">
             <div className="flex items-center gap-2 text-red-600/70">
-              <ShieldAlert className="h-4 w-4" />
-              <h3 className="text-[10px] font-black uppercase tracking-[0.2em]">Safety & Contraindications</h3>
+              <ShieldAlert className="h-5 w-5" />
+              <h3 className="text-xs sm:text-sm font-black uppercase tracking-[0.2em]">Safety & Contraindications</h3>
             </div>
             <div className="space-y-8">
               <div className="space-y-2">
-                <p className="text-[9px] font-black uppercase text-red-600/50">Absolute Contraindications</p>
-                <p className="text-sm leading-relaxed text-red-950 font-bold">{formatNullable(brand.generic.contraIndication)}</p>
+                <p className="text-[12px] font-black uppercase text-red-600/50">Absolute Contraindications:</p>
+                <p className="text-base leading-relaxed text-red-950 font-bold">{formatNullable(brand.generic.contraIndication)}</p>
               </div>
               <div className="space-y-4">
-                <p className="text-[9px] font-black uppercase text-pink-600/50">Pregnancy & Obstetric Safety</p>
+                <p className="text-[12px] font-black uppercase text-pink-600/50">Pregnancy & Obstetric Safety</p>
                 <div className="flex items-start gap-4">
                   <Badge className="bg-pink-600 text-white font-black px-2 py-0.5 text-xs shadow-sm shrink-0">CAT {brand.generic.pregnancyCategory?.name || 'N/A'}</Badge>
                   <div className="space-y-3 min-w-0">
@@ -152,29 +119,62 @@ export function BrandDetailsView({ brandId }: BrandDetailsProps) {
                 </div>
               </div>
               <div className="space-y-2">
-                <p className="text-[9px] font-black uppercase text-amber-600/50">Precautions & Warnings</p>
+                <p className="text-[12px] font-black uppercase text-amber-600/50">Precautions & Warnings</p>
                 <p className="text-sm leading-relaxed text-foreground/80">{formatNullable(brand.generic.precaution)}</p>
               </div>
             </div>
           </section>
 
-          {/* Layer: Pharmacology */}
-          <section className="space-y-6 pt-8 border-t border-dashed pb-10">
-            <div className="flex items-center gap-2 text-indigo-600/70">
-              <Zap className="h-4 w-4" />
-              <h3 className="text-[10px] font-black uppercase tracking-[0.2em]">Pharmacological Summary</h3>
+          {/* Layer: Dosing */}
+          <section className="space-y-6 pt-8 border-t border-dashed">
+            <div className="flex items-center gap-2 text-blue-600/70">
+              <Pill className="h-5 w-5" />
+              <h3 className="text-xs sm:text-sm font-black uppercase tracking-[0.2em]">Dose Registry</h3>
             </div>
             <div className="grid gap-8">
               <div className="space-y-2">
-                <p className="text-[9px] font-black uppercase text-indigo-600/50">Adverse Effects</p>
+                <p className="text-[12px] font-black uppercase text-blue-600/50">Adult Population</p>
+                <p className="text-sm leading-relaxed text-foreground/80 font-semibold">{formatNullable(brand.generic.adultDose)}</p>
+              </div>
+              <div className="space-y-2">
+                <p className="text-[12px] font-black uppercase text-emerald-600/50">Pediatric Population</p>
+                <p className="text-sm leading-relaxed text-foreground/80 font-semibold">{formatNullable(brand.generic.childDose)}</p>
+              </div>
+              <div className="space-y-2">
+                <p className="text-[12px] font-black uppercase text-orange-600/50">Administration Protocol</p>
+                <p className="text-sm leading-relaxed text-foreground/80 font-semibold">{formatNullable(brand.generic.administration)}</p>
+              </div>
+            </div>
+          </section>
+
+          {/* Layer: Indications */}
+          <section className="space-y-3 pt-8 border-t border-dashed">
+            <div className="flex items-center gap-2 text-muted-foreground/60">
+              <Stethoscope className="h-5 w-5" />
+              <h3 className="text-xs sm:text-sm font-black uppercase tracking-[0.2em]">Indications & Clinical Usage</h3>
+            </div>
+            <p className="text-base sm:text-lg leading-relaxed text-foreground/90 font-medium  border-l-4 border-primary/20 pl-6">
+              {formatNullable(brand.generic.indication)}
+            </p>
+          </section>
+
+          {/* Layer: Pharmacology */}
+          <section className="space-y-6 pt-8 border-t border-dashed pb-10">
+            <div className="flex items-center gap-2 text-indigo-600/70">
+              <Zap className="h-5 w-5" />
+              <h3 className="text-xs sm:text-sm font-black uppercase tracking-[0.2em]">Pharmacological Summary</h3>
+            </div>
+            <div className="grid gap-8">
+              <div className="space-y-2">
+                <p className="text-[12px] font-black uppercase text-indigo-600/50">Adverse Effects</p>
                 <p className="text-sm leading-relaxed text-foreground/80">{formatNullable(brand.generic.sideEffect)}</p>
               </div>
               <div className="space-y-2">
-                <p className="text-[9px] font-black uppercase text-cyan-600/50">Mode of Action</p>
+                <p className="text-[12px] font-black uppercase text-cyan-600/50">Mode of Action</p>
                 <p className="text-sm leading-relaxed text-foreground/80">{formatNullable(brand.generic.modeOfAction)}</p>
               </div>
               <div className="space-y-2">
-                <p className="text-[9px] font-black uppercase text-emerald-600/50">Drug Interactions</p>
+                <p className="text-[12px] font-black uppercase text-emerald-600/50">Drug Interactions</p>
                 <p className="text-sm leading-relaxed text-foreground/80">{formatNullable(brand.generic.interaction)}</p>
               </div>
             </div>
@@ -198,7 +198,7 @@ export function BrandDetailsView({ brandId }: BrandDetailsProps) {
                   </div>
                   <div className="min-w-0">
                     <p className="font-bold text-xs text-foreground/80 group-hover:text-primary transition-colors leading-tight">{form.strength}</p>
-                    <p className="text-[9px] uppercase font-black text-muted-foreground/40 tracking-tighter leading-tight mt-0.5">{form.form}</p>
+                    <p className="text-[12px] uppercase font-black text-muted-foreground/40 tracking-tighter leading-tight mt-0.5">{form.form}</p>
                   </div>
                 </Link>
               ))}
@@ -217,9 +217,9 @@ export function BrandDetailsView({ brandId }: BrandDetailsProps) {
                 >
                   <div className="flex items-start justify-between gap-2">
                     <p className="font-bold text-xs text-foreground/80 group-hover:text-blue-600 transition-colors leading-snug">{alt.name}</p>
-                    <span className="text-[9px] font-black opacity-40 shrink-0 mt-0.5">{alt.price}</span>
+                    <span className="text-[12px] font-black opacity-40 shrink-0 mt-0.5">{alt.price}</span>
                   </div>
-                  <p className="text-[9px] font-bold text-muted-foreground/50 uppercase tracking-tight leading-normal">{alt.company.name}</p>
+                  <p className="text-[12px] font-bold text-muted-foreground/50 uppercase tracking-tight leading-normal">{alt.company.name}</p>
                 </Link>
               ))}
             </div>
@@ -227,7 +227,7 @@ export function BrandDetailsView({ brandId }: BrandDetailsProps) {
         )}
 
         <div className="rounded-3xl bg-slate-900 p-6 text-white shadow-xl">
-          <p className="text-[9px] font-black uppercase tracking-[0.4em] text-slate-500 mb-4">Therapeutic Identity</p>
+          <p className="text-[12px] font-black uppercase tracking-[0.4em] text-slate-500 mb-4">Therapeutic Identity</p>
           <div className="flex flex-wrap gap-2">
             {brand.generic.therapeuticGenerics.map((tg) => (
               <Badge key={tg.therapeutic.id} variant="outline" className="bg-white/5 border-white/10 text-white py-1 px-2 text-[10px] font-bold whitespace-normal text-left h-auto leading-tight">

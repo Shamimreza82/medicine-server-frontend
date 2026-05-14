@@ -19,6 +19,7 @@ import {
   searchHerbalGenerics,
   getHerbalBrandById,
   getHerbalGenericById,
+  getDosageForms,
 } from './api';
 import type { WarningRequest } from './types';
 
@@ -34,12 +35,12 @@ export function useBrandSearch(
   query: string,
   limit = 10,
   page = 1,
-  filters?: { companyId?: number; genericId?: number; indicationId?: number },
+  filters?: { companyId?: number; genericId?: number; indicationId?: number; form?: string },
 ) {
   return useQuery({
     queryKey: ['medicines', 'brands', query, limit, page, filters],
     queryFn: () => searchBrands(query, limit, page, filters),
-    enabled: query.trim().length > 0 || !!filters?.companyId || !!filters?.genericId || !!filters?.indicationId,
+    enabled: query.trim().length > 0 || !!filters?.companyId || !!filters?.genericId || !!filters?.indicationId || !!filters?.form,
   });
 }
 
@@ -80,6 +81,13 @@ export function useClassificationTree() {
   return useQuery({
     queryKey: ['medicines', 'classifications'],
     queryFn: getClassificationTree,
+  });
+}
+
+export function useDosageForms(query = '', limit = 20, page = 1) {
+  return useQuery({
+    queryKey: ['medicines', 'dosage-forms', query, limit, page],
+    queryFn: () => getDosageForms(query, limit, page),
   });
 }
 

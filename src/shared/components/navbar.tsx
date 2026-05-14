@@ -13,7 +13,8 @@ import {
   Tag,
   Building2,
   Network,
-  LucideIcon
+  LucideIcon,
+  Shapes
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -32,8 +33,9 @@ interface NavItem {
 const navigation: NavItem[] = [
   { href: '/', label: 'Home', icon: LayoutDashboard },
   { href: '/medicines/classifications', label: 'Classifications', icon: Network },
-  { href: '/medicines/generics', label: 'Generics', icon: Pill },
   { href: '/medicines/indications', label: 'Indications', icon: Activity },
+  { href: '/medicines/generics', label: 'Generics', icon: Pill },
+  { href: '/medicines/dosage-forms', label: 'Dosage Forms', icon: Shapes },
   { href: '/medicines/brands', label: 'Brands', icon: Tag },
   { href: '/medicines/companies', label: 'Companies', icon: Building2 },
 ];
