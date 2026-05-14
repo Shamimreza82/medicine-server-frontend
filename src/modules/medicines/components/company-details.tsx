@@ -86,6 +86,7 @@ export function CompanyDetailsView({ companyId }: CompanyDetailsProps) {
             placeholder="Search by brand or generic name..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
+            autoFocus
           />
           {query && (
             <button

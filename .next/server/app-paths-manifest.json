@@ -1,8 +1,8 @@
 {
-  "/medicines/indications/page": "app/medicines/indications/page.js",
   "/page": "app/page.js",
-  "/medicines/generics/page": "app/medicines/generics/page.js",
   "/medicines/companies/page": "app/medicines/companies/page.js",
+  "/medicines/dosage-forms/page": "app/medicines/dosage-forms/page.js",
   "/medicines/brands/[brandId]/page": "app/medicines/brands/[brandId]/page.js",
+  "/medicines/indications/page": "app/medicines/indications/page.js",
   "/medicines/classifications/page": "app/medicines/classifications/page.js"
 }

@@ -46,7 +46,7 @@ export function HeroSearch() {
     <div className="w-full max-w-4xl mx-auto space-y-6">
       {/* Header Context */}
       <div className="text-center space-y-3 mb-2 animate-in fade-in slide-in-from-top-4 duration-1000">
-        <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground">
+        <h1 className="text-2xl md:text-4xl -mt-10 font-black tracking-tight text-foreground">
           What are you <span className="text-primary">looking for?</span>
         </h1>
         <p className="text-muted-foreground max-w-xl mx-auto text-xs md:text-base font-medium">
@@ -98,6 +98,7 @@ export function HeroSearch() {
                     placeholder={activeTab === 'all' ? "Search brands, generics, indications..." : `Type ${activeTab.slice(0, -1)} name...`}
                     onChange={(e) => setQuery(e.target.value)}
                     value={query}
+                    autoFocus
                   />
                   {query && (
                     <button 
