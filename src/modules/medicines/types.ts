@@ -1,3 +1,8 @@
+export interface DosageFormResponse {
+  form: string;
+  count: number;
+}
+
 export interface BrandResponse {
   id: number;
   name: string;

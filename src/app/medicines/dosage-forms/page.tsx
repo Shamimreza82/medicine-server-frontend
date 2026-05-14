@@ -67,7 +67,7 @@ function DosageFormsContent() {
         ) : (
           <div className="space-y-8">
             <div className="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-              {forms.map((form) => (
+              {forms.map(({ form, count }) => (
                 <Link key={form} href={`/medicines/brands?form=${encodeURIComponent(form)}`}>
                   <Card className="group h-full border-primary/5 bg-white/50 backdrop-blur-sm rounded-3xl hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 overflow-hidden">
                     <CardHeader className="p-6 pb-2">
@@ -79,9 +79,11 @@ function DosageFormsContent() {
                       <h3 className="font-black text-foreground group-hover:text-primary transition-colors truncate">
                         {form}
                       </h3>
-                      <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground/60 mt-1">
-                        Medical Format
-                      </p>
+                      <div className="flex items-center gap-2 mt-1">
+                        <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground/60">
+                          {count} Brands Available
+                        </p>
+                      </div>
                     </CardContent>
                   </Card>
                 </Link>

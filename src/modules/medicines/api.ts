@@ -17,6 +17,7 @@ import type {
   SystemicNode,
   HerbalBrandDetails,
   HerbalGenericDetails,
+  DosageFormResponse,
 } from './types';
 
 export async function searchMedicines(query: string, limit = 10) {
@@ -85,7 +86,7 @@ export async function getClassificationTree() {
 }
 
 export async function getDosageForms(query = '', limit = 20, page = 1) {
-  const response = await http.get<ApiSuccess<string[]>>('/medicines/dosage-forms', {
+  const response = await http.get<ApiSuccess<DosageFormResponse[]>>('/medicines/dosage-forms', {
     params: { q: query, limit, page },
   });
 
