@@ -8,7 +8,6 @@ import {
   Menu, 
   X, 
   LayoutDashboard,
-  FlaskConical,
   Pill,
   Activity,
   Tag,
@@ -32,7 +31,6 @@ interface NavItem {
 
 const navigation: NavItem[] = [
   { href: '/', label: 'Home', icon: LayoutDashboard },
-  { href: '/lab-tests', label: 'Lab Tests', icon: FlaskConical },
   { href: '/medicines/classifications', label: 'Classifications', icon: Network },
   { href: '/medicines/generics', label: 'Generics', icon: Pill },
   { href: '/medicines/indications', label: 'Indications', icon: Activity },

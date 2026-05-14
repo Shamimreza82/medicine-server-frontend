@@ -1,12 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useDeferredValue, useEffect } from 'react';
 import Link from 'next/link';
-import { Building2, ArrowRight, Tag, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
+import { Building2, ArrowRight, Tag, ChevronLeft, ChevronRight, Loader2, Search } from 'lucide-react';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { EmptyState } from '@/shared/components/empty-state';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { MedicineFormIcon } from './form-icon';
 
 import { useCompanyDetails, useBrandSearch } from '../hooks';
@@ -17,8 +18,16 @@ interface CompanyDetailsProps {
 
 export function CompanyDetailsView({ companyId }: CompanyDetailsProps) {
   const [page, setPage] = useState(1);
+  const [query, setQuery] = useState('');
+  const deferredQuery = useDeferredValue(query);
+
   const companyResult = useCompanyDetails(Number(companyId));
-  const brandsResult = useBrandSearch('', 21, page, { companyId: Number(companyId) });
+  const brandsResult = useBrandSearch(deferredQuery, 21, page, { companyId: Number(companyId) });
+
+  // Reset to first page when search query changes
+  useEffect(() => {
+    setPage(1);
+  }, [deferredQuery]);
 
   if (companyResult.isLoading) {
     return (
@@ -41,8 +50,6 @@ export function CompanyDetailsView({ companyId }: CompanyDetailsProps) {
   const brands = brandsResult.data?.data || [];
   const meta = brandsResult.data?.meta;
   const totalPages = meta?.totalPages || 1;
-
-  const isLoadingBrands = brandsResult.isLoading || (brandsResult.isFetching && page !== meta?.page);
 
   return (
     <div className="space-y-8">
@@ -67,6 +74,27 @@ export function CompanyDetailsView({ companyId }: CompanyDetailsProps) {
             </h3>
           </div>
           {brandsResult.isFetching && <Loader2 className="h-4 w-4 animate-spin text-primary" />}
+        </div>
+
+        <div className="relative group/search max-w-md">
+          <div className="absolute inset-0 bg-primary/5 rounded-xl scale-[0.98] group-focus-within/search:scale-100 transition-all duration-300 -z-10" />
+          <div className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within/search:text-primary transition-colors">
+            <Search className="h-5 w-5" />
+          </div>
+          <Input
+            className="h-12 pl-11 pr-4 bg-white/50 border-2 border-primary/5 focus:border-primary/20 rounded-xl text-base font-semibold placeholder:text-muted-foreground/40 transition-all"
+            placeholder="Search by brand or generic name..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          {query && (
+            <button
+              onClick={() => setQuery('')}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors"
+            >
+              Clear
+            </button>
+          )}
         </div>
 
         {brandsResult.isError ? (

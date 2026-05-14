@@ -6,25 +6,15 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/medicines/indications/page": [
+    "/lab-tests/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/medicines/indications/page.js"
+      "static/chunks/app/lab-tests/page.js"
     ],
     "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/page.js"
-    ],
-    "/medicines/generics/[genericId]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/medicines/generics/[genericId]/page.js"
-    ],
-    "/medicines/generics/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/medicines/generics/page.js"
     ],
     "/medicines/classifications/layout": [
       "static/chunks/webpack.js",
@@ -36,6 +26,16 @@
       "static/chunks/main-app.js",
       "static/chunks/app/medicines/classifications/page.js"
     ],
+    "/medicines/generics/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/medicines/generics/page.js"
+    ],
+    "/medicines/indications/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/medicines/indications/page.js"
+    ],
     "/medicines/brands/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -46,30 +46,20 @@
       "static/chunks/main-app.js",
       "static/chunks/app/medicines/companies/page.js"
     ],
-    "/lab-tests/page": [
+    "/medicines/classifications/[therapeuticId]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/lab-tests/page.js"
+      "static/chunks/app/medicines/classifications/[therapeuticId]/page.js"
     ],
-    "/medicines/indications/[indicationId]/page": [
+    "/medicines/companies/[companyId]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/medicines/indications/[indicationId]/page.js"
+      "static/chunks/app/medicines/companies/[companyId]/page.js"
     ],
     "/medicines/brands/[brandId]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/medicines/brands/[brandId]/page.js"
-    ],
-    "/medicines/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/medicines/page.js"
-    ],
-    "/medicines/herbal/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/medicines/herbal/page.js"
     ]
   }
 }
