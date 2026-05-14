@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Activity, ArrowRight, Tag, ChevronLeft, ChevronRight, Loader2, Stethoscope, ChevronRight as ChevronRightIcon } from 'lucide-react';
+import { Activity, ArrowRight, ChevronLeft, ChevronRight, Loader2, Stethoscope, ChevronRight as ChevronRightIcon } from 'lucide-react';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { EmptyState } from '@/shared/components/empty-state';

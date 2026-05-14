@@ -5,7 +5,7 @@ import { Building2, Search, Loader2, ArrowRight, ChevronLeft, ChevronRight } fro
 import Link from 'next/link';
 
 import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { AppShell } from '@/shared/components/app-shell';
 import { PageHeader } from '@/shared/components/page-header';
 import { EmptyState } from '@/shared/components/empty-state';

@@ -7,7 +7,7 @@ import { ArrowRight, Tag, ChevronLeft, ChevronRight, Loader2 } from 'lucide-reac
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { EmptyState } from '@/shared/components/empty-state';
-import { formatNullable, cn } from '@/shared/lib/utils';
+import { formatNullable } from '@/shared/lib/utils';
 import { Button } from '@/components/ui/button';
 import { MedicineFormIcon } from './form-icon';
 

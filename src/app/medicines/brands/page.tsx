@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useDeferredValue, useEffect, Suspense } from 'react';
-import { Tag, Search, Loader2, ArrowRight, ChevronLeft, ChevronRight, Building2 } from 'lucide-react';
+import { Search, Loader2, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 

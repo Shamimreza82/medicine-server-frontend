@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { 
   AlertCircle, 
   Stethoscope, 
@@ -8,15 +7,14 @@ import {
   Zap,
   Building2,
   Info,
-  ChevronRight,
   Sprout
 } from 'lucide-react';
 
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { EmptyState } from '@/shared/components/empty-state';
-import { formatNullable, cn } from '@/shared/lib/utils';
+import { cn } from '@/shared/lib/utils';
 import { MedicineFormIcon } from './form-icon';
 
 import { useHerbalBrandDetails } from '../hooks';
@@ -78,7 +76,7 @@ export function HerbalBrandDetailsView({ brandId }: HerbalBrandDetailsProps) {
                 <Badge variant="outline" className="bg-lime-500/5 border-lime-500/20 text-lime-700 font-bold px-2 py-0.5 text-[11px]">
                   {brand.strength || 'Standard Strength'}
                 </Badge>
-                <Badge variant="outline" className="bg-muted/50 font-bold px-2 py-0.5 text-[11px]">
+                <Badge variant="outline" className="bg-muted/50 font-black px-2 py-0.5 text-[11px]">
                   {brand.form}
                 </Badge>
               </div>

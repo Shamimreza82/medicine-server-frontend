@@ -2,22 +2,17 @@
 
 import Link from 'next/link';
 import { 
-  AlertCircle, 
   Stethoscope, 
-  Baby, 
   ShieldAlert, 
   Info, 
   Zap,
   Activity,
   ArrowRightLeft,
-  DollarSign,
-  ClipboardCheck,
-  ChevronRight,
   Pill
 } from 'lucide-react';
 
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { EmptyState } from '@/shared/components/empty-state';
 import { formatNullable, cn } from '@/shared/lib/utils';
 import { MedicineFormIcon } from './form-icon';

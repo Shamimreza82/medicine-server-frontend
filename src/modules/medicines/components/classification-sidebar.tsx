@@ -3,13 +3,12 @@
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ChevronRight, Network, BookOpen, ArrowRight, ListTree, Search, X } from 'lucide-react';
+import { ChevronRight, Network, ArrowRight, ListTree, Search, X } from 'lucide-react';
 
 import { cn } from '@/shared/lib/utils';
 import { useClassificationTree } from '@/modules/medicines/hooks';
-import type { SystemicNode, TherapeuticNode } from '@/modules/medicines/types';
+import type { SystemicNode } from '@/modules/medicines/types';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 
 interface ClassificationSidebarProps {
   onItemClick?: () => void;
