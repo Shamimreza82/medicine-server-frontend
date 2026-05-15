@@ -1,6 +1,4 @@
-
-
-  {
+{
   "name": "medicine-hub-frontend",
   "version": "0.1.0",
   "private": true,
@@ -8,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky"
   },
   "dependencies": {
     "@radix-ui/react-tabs": "^1.1.13",
@@ -31,6 +30,7 @@
     "autoprefixer": "^10.4.20",
     "eslint": "^9.17.0",
     "eslint-config-next": "^15.3.2",
+    "husky": "^9.1.7",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.2"
