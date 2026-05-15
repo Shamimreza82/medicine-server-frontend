@@ -10,7 +10,7 @@ export interface AdminStat {
 }
 
 export interface AdminActivity {
-  id: number;
+  id: string | number;
   action: string;
   target: string;
   time: string;

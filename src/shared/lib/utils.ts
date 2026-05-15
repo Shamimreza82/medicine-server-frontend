@@ -13,14 +13,25 @@ export function formatNullable(value: string | null | undefined) {
   return value;
 }
 
-export function createQueryString(params: Record<string, string | number | undefined | null>) {
-  const searchParams = new URLSearchParams();
+export function formatTimeAgo(dateString: string) {
+  const date = new Date(dateString);
+  const now = new Date();
+  const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
 
-  Object.entries(params).forEach(([key, value]) => {
-    if (value !== undefined && value !== null && value !== '') {
-      searchParams.set(key, String(value));
-    }
-  });
-
-  return searchParams.toString();
+  let interval = seconds / 31536000;
+  if (interval > 1) return Math.floor(interval) + ' years ago';
+  
+  interval = seconds / 2592000;
+  if (interval > 1) return Math.floor(interval) + ' months ago';
+  
+  interval = seconds / 86400;
+  if (interval > 1) return Math.floor(interval) + ' days ago';
+  
+  interval = seconds / 3600;
+  if (interval > 1) return Math.floor(interval) + ' hours ago';
+  
+  interval = seconds / 60;
+  if (interval > 1) return Math.floor(interval) + ' mins ago';
+  
+  return 'just now';
 }

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Lock, User, Loader2, AlertCircle, Link } from 'lucide-react';
+import { Lock, User, Loader2, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -99,9 +99,13 @@ export default function LoginPage() {
         </Card>
 
         <div className="mt-8 text-center">
-          <Button variant="ghost" className="text-muted-foreground text-sm hover:text-primary" >
-            <Link target="_blank"
-             href="/">← Back to Public Site</Link>
+          <Button
+            type="button"
+            variant="ghost"
+            className="text-muted-foreground text-sm hover:text-primary"
+            onClick={() => router.push('/')}
+          >
+            ← Back to Public Site
           </Button>
         </div>
       </div>
