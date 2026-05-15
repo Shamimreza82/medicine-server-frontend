@@ -84,26 +84,34 @@ export function useClassificationTree() {
   });
 }
 
-export function useDosageForms(query = '', limit = 20, page = 1) {
+export function useDosageForms(query = '', limit = 20, page = 1, filters?: { letter?: string }) {
   return useQuery({
-    queryKey: ['medicines', 'dosage-forms', query, limit, page],
-    queryFn: () => getDosageForms(query, limit, page),
+    queryKey: ['medicines', 'dosage-forms', query, limit, page, filters],
+    queryFn: () => getDosageForms(query, limit, page, filters),
   });
 }
 
-export function useIndicationSearch(query: string, limit = 10, page = 1) {
+export function useIndicationSearch(
+  query: string, 
+  limit = 10, 
+  page = 1,
+  filters?: { letter?: string }
+) {
   return useQuery({
-    queryKey: ['medicines', 'indications', query, limit, page],
-    queryFn: () => searchIndications(query, limit, page),
-    enabled: query.trim().length > 0,
+    queryKey: ['medicines', 'indications', query, limit, page, filters],
+    queryFn: () => searchIndications(query, limit, page, filters),
   });
 }
 
-export function useCompanySearch(query: string, limit = 10, page = 1) {
+export function useCompanySearch(
+  query: string, 
+  limit = 10, 
+  page = 1,
+  filters?: { letter?: string }
+) {
   return useQuery({
-    queryKey: ['medicines', 'companies', query, limit, page],
-    queryFn: () => searchCompanies(query, limit, page),
-    enabled: query.trim().length > 0,
+    queryKey: ['medicines', 'companies', query, limit, page, filters],
+    queryFn: () => searchCompanies(query, limit, page, filters),
   });
 }
 

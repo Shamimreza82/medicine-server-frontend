@@ -1,37 +1,39 @@
 # Dependencies
 node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 
-# Production
-/build
-/dist
+# Next.js build
+.next/
+out/
+
+# Production build
+dist/
+build/
 
 # Environment variables
 .env
 .env.local
-.env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
 
 # IDE
 .vscode/
 .idea/
-*.swp
-*.swo
-*~
 
-# OS
+# OS files
 .DS_Store
 Thumbs.db
 
-# Misc
+# Cache
 .cache/
-*.lognode_modules/
-.next/
-dist/
-.env
 
-node_modules/
-.next/
-dist/
-.env
+# Optional
+*.swp
+*.swo
+*~

@@ -34,3 +34,35 @@ Common logic and reusable components live in `src/shared`:
 - Prefer `interface` for data structures and `type` for unions/aliases.
 - Maintain strict typing for all API responses in the respective `types.ts` of the module.
 - Follow the existing folder structure for new features.
+
+## Important Project Info
+
+### Current Routing & Pages
+- `/diseases`: Disease-wise suggestions (requires `diseaseId`).
+- `/lab-tests`: Search and filter lab tests.
+- `/medicines`: Main medicine search hub.
+    - `/medicines/brands/[brandId]`: Detailed view for specific medicine brands.
+    - `/medicines/generics/[genericId]`: Detailed view for generic medicines.
+    - `/medicines/companies/[companyId]`: Medicines by manufacturer.
+    - `/medicines/classifications`: Therapeutic classification tree.
+    - `/medicines/indications/[indicationId]`: Medicines by clinical indication.
+    - `/medicines/herbal`: Herbal medicine search and details.
+    - `/medicines/dosage-forms`: Filter by form (tablet, syrup, etc.).
+    - `/medicines/warnings`: Drug interaction and safety checker.
+
+### Key Components
+- `HeroSearch`: Global search component used on the landing page.
+- `AppShell`: Main layout wrapper with navigation and global UI elements.
+- `WarningChecker`: Specialized tool for interaction checking.
+
+## Useful Commands
+- `npm run dev`: Start the development server.
+- `npm run build`: Build the application for production.
+- `npm run lint`: Run ESLint checks.
+- `npm run start`: Start the production server after building.
+
+## Future Considerations
+- **Global Disease Search:** Implementation of a global search for diseases to populate `/diseases` more effectively.
+- **Enhanced Filtering:** Improved filtering for lab tests and medicine results.
+- **Offline Support:** Potential PWA features for clinical use in low-connectivity areas.
+- **Auth Integration:** Future implementation of user accounts for favorites and history.

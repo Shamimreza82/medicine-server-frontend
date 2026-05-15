@@ -11,7 +11,7 @@ export function AppShell({ children }: PropsWithChildren) {
       <div className="mx-auto max-w-7xl">
         {/* Main Content */}
         <main className="px-4 py-8 sm:px-6 lg:p-10 min-h-[calc(100vh-64px)]">
-          <div className="mx-auto max-w-5xl animate-in fade-in slide-in-from-bottom-2 duration-500">
+          <div className="mx-auto max-w-7xl animate-in fade-in slide-in-from-bottom-2 duration-500">
             {children}
           </div>
         </main>

@@ -85,25 +85,30 @@ export async function getClassificationTree() {
   return response.data.data ?? [];
 }
 
-export async function getDosageForms(query = '', limit = 20, page = 1) {
+export async function getDosageForms(query = '', limit = 20, page = 1, filters?: { letter?: string }) {
   const response = await http.get<ApiSuccess<DosageFormResponse[]>>('/medicines/dosage-forms', {
-    params: { q: query, limit, page },
+    params: { q: query, limit, page, ...filters },
   });
 
   return response.data;
 }
 
-export async function searchIndications(query: string, limit = 10, page = 1) {
+export async function searchIndications(
+  query: string,
+  limit = 10,
+  page = 1,
+  filters?: { letter?: string },
+) {
   const response = await http.get<ApiSuccess<IndicationResponse[]>>('/medicines/indications', {
-    params: { q: query, limit, page },
+    params: { q: query, limit, page, ...filters },
   });
 
   return response.data;
 }
 
-export async function searchCompanies(query: string, limit = 10, page = 1) {
+export async function searchCompanies(query: string, limit = 10, page = 1, filters?: { letter?: string }) {
   const response = await http.get<ApiSuccess<CompanyResponse[]>>('/medicines/companies', {
-    params: { q: query, limit, page },
+    params: { q: query, limit, page, ...filters },
   });
 
   return response.data;
