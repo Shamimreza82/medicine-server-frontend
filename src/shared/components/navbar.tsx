@@ -133,7 +133,7 @@ export function Navbar() {
   return (
     <>
       <nav className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="px-4 sm:px-6 max-w-7xl mx-auto lg:px-10">
           <div className="flex h-16 items-center justify-between gap-4">
             
             {/* Left: Logo */}
@@ -150,18 +150,18 @@ export function Navbar() {
                     isActive={checkIsActive(item.href)} 
                   />
                 ))}
-                <NavLink 
+                {/* <NavLink 
                   item={adminLink} 
                   isActive={checkIsActive(adminLink.href)} 
-                />
+                /> */}
               </div>
 
               <div className="flex items-center gap-2 sm:gap-3">
-                <div className="hidden sm:block">
+                {/* <div className="hidden sm:block">
                   <Button variant="ghost" size="sm" className="h-9 w-9 rounded-full p-0 overflow-hidden border border-primary/10 hover:border-primary/20 transition-colors">
                     <div className="h-full w-full bg-gradient-to-tr from-primary to-primary/60" />
                   </Button>
-                </div>
+                </div> */}
                 
                 <Button 
                   variant="ghost" 

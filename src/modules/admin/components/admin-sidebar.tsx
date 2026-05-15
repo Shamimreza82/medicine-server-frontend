@@ -77,18 +77,7 @@ export function AdminSidebar({ isOpen, onClose, navItems }: AdminSidebarProps) {
           </Button>
         </div>
 
-        {/* User Profile Summary */}
-        <div className="px-6 mb-6">
-          <div className="flex items-center gap-3 p-3 rounded-2xl bg-muted/30 border border-primary/5">
-            <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
-              <User className="h-5 w-5" />
-            </div>
-            <div className="flex flex-col min-w-0">
-              <span className="text-sm font-bold truncate">Administrator</span>
-              <span className="text-[10px] font-medium text-muted-foreground">Full Access</span>
-            </div>
-          </div>
-        </div>
+ 
 
         {/* Navigation */}
         <nav className="flex-1 px-4 space-y-1 overflow-y-auto pb-8">
@@ -198,7 +187,7 @@ export function AdminSidebar({ isOpen, onClose, navItems }: AdminSidebarProps) {
                 <Button 
                   onClick={handleLogout}
                   disabled={isLoggingOut}
-                  className="w-full h-12 rounded-2xl bg-destructive hover:bg-destructive/90 shadow-lg shadow-destructive/20 font-bold transition-all active:scale-95"
+                  className="w-full h-12 rounded-2xl text-black bg-destructive hover:bg-destructive/90 shadow-lg shadow-destructive/20 font-bold transition-all active:scale-95"
                 >
                   {isLoggingOut ? (
                     <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Logging out...</>
