@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useDeferredValue, useEffect } from 'react';
-import { Search, Loader2, ArrowRight, ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { Search, Loader2, ArrowRight, X } from 'lucide-react';
 import Link from 'next/link';
 
 import { Input } from '@/components/ui/input';
@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useGenericSearch } from '@/modules/medicines/hooks';
 import { cn } from '@/shared/lib/utils';
+import { Pagination } from '@/shared/components/pagination';
 
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
@@ -176,37 +177,15 @@ export default function GenericsPage() {
             )}
           </div>
 
-          {totalPages > 1 && (
-            <div className="flex items-center justify-center gap-4 pt-4 pb-8">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  setPage((p) => Math.max(1, p - 1));
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                disabled={page === 1 || isFetching}
-                className="h-10 w-10 rounded-xl p-0"
-              >
-                <ChevronLeft className="h-4 w-4" />
-              </Button>
-              <div className="text-sm font-semibold bg-muted/50 px-4 py-2 rounded-xl border border-primary/5">
-                Page {page} <span className="text-muted-foreground font-normal">of</span> {totalPages}
-              </div>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  setPage((p) => Math.min(totalPages, p + 1));
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                disabled={page === totalPages || isFetching}
-                className="h-10 w-10 rounded-xl p-0"
-              >
-                <ChevronRight className="h-4 w-4" />
-              </Button>
-            </div>
-          )}
+          <Pagination 
+            currentPage={page} 
+            totalPages={totalPages} 
+            onPageChange={(p) => {
+              setPage(p);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            isLoading={isFetching}
+          />
         </div>
       </div>
     </AppShell>

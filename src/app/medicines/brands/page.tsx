@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useDeferredValue, useEffect, Suspense } from 'react';
-import { Search, Loader2, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, Loader2, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
@@ -11,9 +11,9 @@ import { AppShell } from '@/shared/components/app-shell';
 import { PageHeader } from '@/shared/components/page-header';
 import { EmptyState } from '@/shared/components/empty-state';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { useBrandSearch } from '@/modules/medicines/hooks';
 import { MedicineFormIcon } from '@/modules/medicines/components/form-icon';
+import { Pagination } from '@/shared/components/pagination';
 
 function BrandsContent() {
   const searchParams = useSearchParams();
@@ -121,37 +121,15 @@ function BrandsContent() {
             )}
           </div>
 
-          {totalPages > 1 && (
-            <div className="flex items-center justify-center gap-4 pt-4 pb-8">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  setPage((p) => Math.max(1, p - 1));
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                disabled={page === 1 || isFetching}
-                className="h-9 w-9 rounded-xl p-0"
-              >
-                <ChevronLeft className="h-4 w-4" />
-              </Button>
-              <div className="text-sm font-medium">
-                Page {page} of {totalPages}
-              </div>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  setPage((p) => Math.min(totalPages, p + 1));
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                disabled={page === totalPages || isFetching}
-                className="h-9 w-9 rounded-xl p-0"
-              >
-                <ChevronRight className="h-4 w-4" />
-              </Button>
-            </div>
-          )}
+          <Pagination 
+            currentPage={page} 
+            totalPages={totalPages} 
+            onPageChange={(p) => {
+              setPage(p);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            isLoading={isFetching}
+          />
         </div>
       )}
     </div>

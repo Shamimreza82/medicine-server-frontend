@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Select } from '@/components/ui/select';
 import { EmptyState } from '@/shared/components/empty-state';
 import { formatNullable } from '@/shared/lib/utils';
+import { Pagination } from '@/shared/components/pagination';
 
 import { useLabTestsSearch } from '../hooks';
 
@@ -125,21 +126,6 @@ export function LabTestSearch() {
               {result.data?.meta?.total ?? 0} active lab tests found
             </CardDescription>
           </div>
-          <div className="flex items-center gap-3">
-            <Button disabled={page <= 1} onClick={() => setPage((current) => current - 1)} variant="outline">
-              Previous
-            </Button>
-            <span className="text-sm text-muted-foreground">
-              Page {page} of {Math.max(totalPages, 1)}
-            </span>
-            <Button
-              disabled={totalPages !== 0 && page >= totalPages}
-              onClick={() => setPage((current) => current + 1)}
-              variant="outline"
-            >
-              Next
-            </Button>
-          </div>
         </CardHeader>
         <CardContent>
           {result.isError ? (
@@ -199,6 +185,16 @@ export function LabTestSearch() {
               title="No lab tests found"
             />
           )}
+
+          <Pagination 
+            currentPage={page} 
+            totalPages={totalPages} 
+            onPageChange={(p) => {
+              setPage(p);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            isLoading={result.isFetching}
+          />
         </CardContent>
       </Card>
     </div>

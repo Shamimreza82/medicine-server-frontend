@@ -1,21 +1,31 @@
 'use client';
 
 import Link from 'next/link';
-import { useDeferredValue, useState } from 'react';
+import { useDeferredValue, useState, useEffect } from 'react';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { EmptyState } from '@/shared/components/empty-state';
 import { formatNullable } from '@/shared/lib/utils';
+import { Pagination } from '@/shared/components/pagination';
 
 import { useHerbalBrandSearch } from '../hooks';
 
 export function HerbalSearch() {
   const [query, setQuery] = useState('');
+  const [page, setPage] = useState(1);
   const deferredQuery = useDeferredValue(query);
-  const result = useHerbalBrandSearch(deferredQuery);
+  
+  const result = useHerbalBrandSearch(deferredQuery, 10, page);
   const quickSearches = ['Aloe Vera', 'Honey', 'Tulsi', 'Garlic', 'Ginseng'];
+
+  const totalPages = result.data?.meta?.totalPages ?? 0;
+
+  // Reset page when search changes
+  useEffect(() => {
+    setPage(1);
+  }, [deferredQuery]);
 
   return (
     <div className="space-y-6">
@@ -65,7 +75,7 @@ export function HerbalSearch() {
             <CardHeader>
               <CardTitle>Herbal Brands</CardTitle>
               <CardDescription>
-                {result.isFetching ? 'Refreshing...' : `${result.data?.data?.length ?? 0} matches`}
+                {result.isFetching ? 'Refreshing...' : `${result.data?.meta?.total ?? 0} matches`}
               </CardDescription>
             </CardHeader>
             <CardContent className="grid gap-4 md:grid-cols-2">
@@ -93,9 +103,20 @@ export function HerbalSearch() {
                 ))
               ) : (
                 <div className="col-span-full">
-                  <EmptyState description="No matching herbal brands." title="No results" />
+                  {!result.isLoading && <EmptyState description="No matching herbal brands." title="No results" />}
                 </div>
               )}
+            </CardContent>
+            <CardContent>
+              <Pagination 
+                currentPage={page} 
+                totalPages={totalPages} 
+                onPageChange={(p) => {
+                  setPage(p);
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                isLoading={result.isFetching}
+              />
             </CardContent>
           </Card>
         </div>
