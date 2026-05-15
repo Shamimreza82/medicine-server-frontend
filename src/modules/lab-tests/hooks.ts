@@ -1,9 +1,16 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { searchLabTests } from './api';
-import type { LabTestSearchParams } from './types';
+import { 
+  searchLabTests, 
+  createLabTest, 
+  updateLabTest, 
+  deleteLabTest,
+  bulkUploadLabTests,
+  exportLabTestsCsv 
+} from './api';
+import type { LabTest, LabTestSearchParams } from './types';
 
 export function useLabTestsSearch(params: LabTestSearchParams) {
   return useQuery({
@@ -11,3 +18,56 @@ export function useLabTestsSearch(params: LabTestSearchParams) {
     queryFn: () => searchLabTests(params),
   });
 }
+
+export function useExportLabTests() {
+  return useMutation({
+    mutationFn: () => exportLabTestsCsv(),
+  });
+}
+
+
+export function useBulkUploadLabTests() {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: (file: File) => bulkUploadLabTests(file),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['lab-tests'] });
+    },
+  });
+}
+
+
+export function useCreateLabTest() {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: (data: Partial<LabTest>) => createLabTest(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['lab-tests'] });
+    },
+  });
+}
+
+export function useUpdateLabTest() {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: ({ id, data }: { id: string; data: Partial<LabTest> }) => updateLabTest(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['lab-tests'] });
+    },
+  });
+}
+
+export function useDeleteLabTest() {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: (id: string) => deleteLabTest(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['lab-tests'] });
+    },
+  });
+}
+

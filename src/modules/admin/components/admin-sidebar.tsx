@@ -9,12 +9,15 @@ import {
   X,
   User,
   ChevronRight,
-  ChevronDown
+  ChevronDown,
+  AlertTriangle,
+  Loader2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/shared/lib/utils';
 import { logout } from '@/app/login/actions';
 import { NavItem } from '../types';
+import { toast } from 'sonner';
 
 interface AdminSidebarProps {
   isOpen: boolean;
@@ -25,6 +28,8 @@ interface AdminSidebarProps {
 export function AdminSidebar({ isOpen, onClose, navItems }: AdminSidebarProps) {
   const pathname = usePathname();
   const [expandedItems, setExpandedItems] = useState<string[]>(['Medicines']); // Medicine expanded by default
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const toggleExpanded = (label: string) => {
     setExpandedItems(prev => 
@@ -35,7 +40,14 @@ export function AdminSidebar({ isOpen, onClose, navItems }: AdminSidebarProps) {
   };
 
   const handleLogout = async () => {
-    await logout();
+    setIsLoggingOut(true);
+    try {
+      await logout();
+      toast.success('Logged out successfully');
+    } catch (error) {
+      toast.error('Failed to logout');
+      setIsLoggingOut(false);
+    }
   };
 
   return (
@@ -155,7 +167,7 @@ export function AdminSidebar({ isOpen, onClose, navItems }: AdminSidebarProps) {
         {/* Sidebar Footer */}
         <div className="p-4 mt-auto border-t border-primary/5 bg-muted/10">
           <Button 
-            onClick={handleLogout}
+            onClick={() => setIsLogoutModalOpen(true)}
             variant="ghost" 
             className="w-full flex items-center justify-start gap-3 px-4 py-6 rounded-2xl text-destructive hover:text-destructive hover:bg-destructive/10 transition-all font-bold"
           >
@@ -164,6 +176,49 @@ export function AdminSidebar({ isOpen, onClose, navItems }: AdminSidebarProps) {
           </Button>
         </div>
       </div>
+
+      {/* Logout Confirmation Modal */}
+      {isLogoutModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" onClick={() => !isLoggingOut && setIsLogoutModalOpen(false)} />
+          <div className="bg-white rounded-3xl shadow-2xl w-full max-w-sm overflow-hidden relative z-10 border border-primary/5 animate-in zoom-in-95 duration-200">
+            <div className="p-8 text-center space-y-6">
+              <div className="mx-auto w-16 h-16 rounded-2xl bg-destructive/10 flex items-center justify-center text-destructive animate-pulse">
+                <AlertTriangle className="h-8 w-8" />
+              </div>
+              
+              <div>
+                <h3 className="text-xl font-black tracking-tight text-primary">Confirm Logout</h3>
+                <p className="text-sm text-muted-foreground font-medium mt-1">
+                  Are you sure you want to end your administrative session?
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <Button 
+                  onClick={handleLogout}
+                  disabled={isLoggingOut}
+                  className="w-full h-12 rounded-2xl bg-destructive hover:bg-destructive/90 shadow-lg shadow-destructive/20 font-bold transition-all active:scale-95"
+                >
+                  {isLoggingOut ? (
+                    <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Logging out...</>
+                  ) : (
+                    "Yes, Logout"
+                  )}
+                </Button>
+                <Button 
+                  variant="ghost"
+                  disabled={isLoggingOut}
+                  onClick={() => setIsLogoutModalOpen(false)}
+                  className="w-full h-12 rounded-2xl font-bold hover:bg-primary/5 transition-all"
+                >
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </aside>
   );
 }

@@ -3,6 +3,7 @@ import '@/app/globals.css';
 import { Manrope } from 'next/font/google';
 
 import { QueryProvider } from '@/shared/providers/query-provider';
+import { Toaster } from 'sonner';
 
 import type { Metadata } from 'next';
 import type { PropsWithChildren } from 'react';
@@ -20,7 +21,10 @@ export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
       <body className={manrope.className}>
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          {children}
+          <Toaster position="top-right" richColors closeButton />
+        </QueryProvider>
       </body>
     </html>
   );
