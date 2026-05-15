@@ -1,68 +1,72 @@
 # Project: Medicine Frontend
 
-## Architecture & Conventions
+This document provides essential information about the `medicine-hub-frontend` project, the client-side companion to the `medicine-backen` API.
 
-### Modular Structure
-The project follows a modular architecture located in `src/modules`. Each module should contain:
-- `api.ts`: Axios-based API calls.
-- `hooks.ts`: TanStack Query hooks (useQuery, useMutation).
-- `types.ts`: TypeScript interfaces and types for the module.
-- `components/`: Module-specific UI components.
+## 1. Project Overview
 
-### Shared Directory
-Common logic and reusable components live in `src/shared`:
-- `api/`: Global HTTP client (Axios) and shared types.
-- `components/`: Layout and cross-feature components (AppShell, PageHeader, etc.).
-- `config/`: Environment variable configurations.
-- `lib/`: Utility functions and third-party client initializations (QueryClient).
-- `providers/`: React Context providers.
+`medicine-hub-frontend` is a modern, responsive web application built with **Next.js 15** and **React 19**. It provides a clinical interface for searching medicines, analyzing lab tests, and checking drug interactions.
 
-### Tech Stack Rules
-- **Framework:** Next.js 15 (App Router).
-- **State Management:** TanStack Query (v5) for server state.
-- **Styling:** Tailwind CSS. Use Vanilla CSS only for complex animations or overrides that Tailwind cannot easily handle.
-- **UI Components:** shadcn/ui patterns (Radix UI + Tailwind). Reusable components live in `src/components/ui`.
-- **HTTP Client:** Axios via `shared/api/http.ts`.
+### Core Capabilities:
+- **Global Medical Search**: Unified search for brands, generics, and lab tests.
+- **Clinical Decision Support**: Interactive drug interaction checker and disease-wise suggestions.
+- **Admin Dashboard**: Management interface for medical data and user activities.
+- **Responsive Design**: Optimized for both desktop and mobile clinical environments.
 
-### Feature-Specific Rules
-- **Lab Tests:** PostgreSQL-backed, does not require Meilisearch.
-- **Disease Suggestions:** Requires a `diseaseId`. Note: No global disease search endpoint exists yet.
-- **Warning Checker:** Uses generic medicine search to build the request payload.
+## 2. Tech Stack
 
-### Coding Standards
-- Use functional components and hooks.
-- Prefer `interface` for data structures and `type` for unions/aliases.
-- Maintain strict typing for all API responses in the respective `types.ts` of the module.
-- Follow the existing folder structure for new features.
+*   **Framework**: Next.js 15 (App Router)
+*   **Library**: React 19
+*   **State Management**: TanStack Query v5 (Server State)
+*   **Styling**: Tailwind CSS + shadcn/ui (Radix UI)
+*   **HTTP Client**: Axios
+*   **Form Management**: React Hook Form + Zod
+*   **Icons**: Lucide React
 
-## Important Project Info
+## 3. Architecture & Conventions
 
-### Current Routing & Pages
-- `/diseases`: Disease-wise suggestions (requires `diseaseId`).
-- `/lab-tests`: Search and filter lab tests.
-- `/medicines`: Main medicine search hub.
-    - `/medicines/brands/[brandId]`: Detailed view for specific medicine brands.
-    - `/medicines/generics/[genericId]`: Detailed view for generic medicines.
-    - `/medicines/companies/[companyId]`: Medicines by manufacturer.
-    - `/medicines/classifications`: Therapeutic classification tree.
-    - `/medicines/indications/[indicationId]`: Medicines by clinical indication.
-    - `/medicines/herbal`: Herbal medicine search and details.
-    - `/medicines/dosage-forms`: Filter by form (tablet, syrup, etc.).
-    - `/medicines/warnings`: Drug interaction and safety checker.
+### 3.1. Modular Structure (`src/modules`)
+The project follows a feature-based modular architecture. Each module typically contains:
+- `api.ts`: Feature-specific API definitions.
+- `hooks.ts`: Custom React hooks and TanStack Query logic.
+- `types.ts`: TypeScript interfaces for the domain.
+- `components/`: Feature-specific UI components.
 
-### Key Components
-- `HeroSearch`: Global search component used on the landing page.
-- `AppShell`: Main layout wrapper with navigation and global UI elements.
-- `WarningChecker`: Specialized tool for interaction checking.
+**Key Modules**:
+- `medicines`: Search, brands, generics, and interactions.
+- `lab-tests`: Directory and filtering for lab tests.
+- `admin`: Internal management and monitoring dashboard.
 
-## Useful Commands
-- `npm run dev`: Start the development server.
-- `npm run build`: Build the application for production.
-- `npm run lint`: Run ESLint checks.
-- `npm run start`: Start the production server after building.
+### 3.2. App Router Layout (`src/app`)
+- `/medicines`: Medicine search and navigation hub.
+- `/lab-tests`: Lab test listing and search.
+- `/diseases`: Clinical suggestions based on diagnosis.
+- `/admin`: Management protected routes.
+- `/login`: Authentication for administrative access.
 
-## Future Considerations
-- **Global Disease Search:** Implementation of a global search for diseases to populate `/diseases` more effectively.
-- **Enhanced Filtering:** Improved filtering for lab tests and medicine results.
-- **Offline Support:** Potential PWA features for clinical use in low-connectivity areas.
-- **Auth Integration:** Future implementation of user accounts for favorites and history.
+### 3.3. Shared Resources (`src/shared`)
+- `api/`: Global Axios instance and interceptors.
+- `components/`: Layout components (AppShell, PageHeader) and common UI.
+- `lib/`: Utilities, constants, and third-party initializations.
+- `providers/`: Context providers (QueryClient, Auth).
+
+## 4. Development Setup
+
+### 4.1. Prerequisites
+- Node.js 20+
+- Running `medicine-backen` API (check `.env.local` for `NEXT_PUBLIC_API_URL`)
+
+### 4.2. Common Commands
+| Command | Description |
+| :--- | :--- |
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm run start` | Run production build locally |
+| `npm run lint` | Run ESLint checks |
+
+## 5. Developer Guidelines
+
+- **Server State**: Always use TanStack Query for data fetching. Do not use `useEffect` for API calls.
+- **UI Components**: Check `src/components/ui` for existing shadcn components before building new ones.
+- **Strict Typing**: Maintain 1:1 mapping between backend response shapes and frontend `types.ts`.
+- **Styling**: Prefer Tailwind utility classes. Use `cn()` utility for conditional classes.
+- **Auth**: Use the shared Auth provider for protecting `/admin` routes.

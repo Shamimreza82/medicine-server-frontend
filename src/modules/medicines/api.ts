@@ -114,15 +114,40 @@ export async function searchCompanies(query: string, limit = 10, page = 1, filte
   return response.data;
 }
 
+export async function getPregnancyCategories() {
+  const response = await http.get<ApiSuccess<Array<{ id: number; name: string; description: string | null }>>>('/medicines/pregnancy-categories');
+  return response.data.data ?? [];
+}
+
 export async function getBrandById(brandId: number) {
   const response = await http.get<ApiSuccess<BrandDetails>>(`/medicines/brands/${brandId}`);
 
   return response.data.data;
 }
 
+export async function createBrand(payload: Partial<BrandResponse>) {
+  const response = await http.post<ApiSuccess<BrandResponse>>('/medicines/brands', payload);
+  return response.data.data;
+}
+
+export async function updateBrand(brandId: number, payload: Partial<BrandResponse>) {
+  const response = await http.patch<ApiSuccess<BrandResponse>>(`/medicines/brands/${brandId}`, payload);
+  return response.data.data;
+}
+
 export async function getGenericById(genericId: number) {
   const response = await http.get<ApiSuccess<GenericDetails>>(`/medicines/generics/${genericId}`);
 
+  return response.data.data;
+}
+
+export async function createGeneric(payload: Partial<GenericDetails>) {
+  const response = await http.post<ApiSuccess<GenericDetails>>('/medicines/generics', payload);
+  return response.data.data;
+}
+
+export async function updateGeneric(genericId: number, payload: Partial<GenericDetails>) {
+  const response = await http.patch<ApiSuccess<GenericDetails>>(`/medicines/generics/${genericId}`, payload);
   return response.data.data;
 }
 
@@ -144,9 +169,29 @@ export async function getCompanyById(companyId: number) {
   return response.data.data;
 }
 
+export async function createCompany(payload: { name: string; order?: number }) {
+  const response = await http.post<ApiSuccess<CompanyResponse>>('/medicines/companies', payload);
+  return response.data.data;
+}
+
+export async function updateCompany(companyId: number, payload: { name: string; order?: number }) {
+  const response = await http.patch<ApiSuccess<CompanyResponse>>(`/medicines/companies/${companyId}`, payload);
+  return response.data.data;
+}
+
 export async function getIndicationById(indicationId: number) {
   const response = await http.get<ApiSuccess<IndicationDetails>>(`/medicines/indications/${indicationId}`);
 
+  return response.data.data;
+}
+
+export async function createIndication(payload: { name: string }) {
+  const response = await http.post<ApiSuccess<IndicationResponse>>('/medicines/indications', payload);
+  return response.data.data;
+}
+
+export async function updateIndication(indicationId: number, payload: { name: string }) {
+  const response = await http.patch<ApiSuccess<IndicationResponse>>(`/medicines/indications/${indicationId}`, payload);
   return response.data.data;
 }
 

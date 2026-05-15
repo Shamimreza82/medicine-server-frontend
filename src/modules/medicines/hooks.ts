@@ -1,6 +1,6 @@
 'use client';
 
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import {
   checkWarnings,
@@ -20,8 +20,17 @@ import {
   getHerbalBrandById,
   getHerbalGenericById,
   getDosageForms,
+  createGeneric,
+  updateGeneric,
+  getPregnancyCategories,
+  createBrand,
+  updateBrand,
+  createIndication,
+  updateIndication,
+  createCompany,
+  updateCompany,
 } from './api';
-import type { WarningRequest } from './types';
+import type { BrandResponse, GenericDetails, WarningRequest } from './types';
 
 export function useMedicineSearch(query: string, limit = 10) {
   return useQuery({
@@ -36,11 +45,12 @@ export function useBrandSearch(
   limit = 10,
   page = 1,
   filters?: { companyId?: number; genericId?: number; indicationId?: number; form?: string },
+  enabled = true
 ) {
   return useQuery({
     queryKey: ['medicines', 'brands', query, limit, page, filters],
     queryFn: () => searchBrands(query, limit, page, filters),
-    enabled: query.trim().length > 0 || !!filters?.companyId || !!filters?.genericId || !!filters?.indicationId || !!filters?.form,
+    enabled: enabled && (query.trim().length > 0 || !!filters?.companyId || !!filters?.genericId || !!filters?.indicationId || !!filters?.form || enabled === true),
   });
 }
 
@@ -155,6 +165,13 @@ export function useCompanyDetails(companyId: number) {
   });
 }
 
+export function usePregnancyCategories() {
+  return useQuery({
+    queryKey: ['medicines', 'pregnancy-categories'],
+    queryFn: getPregnancyCategories,
+  });
+}
+
 export function useIndicationDetails(indicationId: number) {
   return useQuery({
     queryKey: ['medicines', 'indication-details', indicationId],
@@ -174,5 +191,89 @@ export function useDiseaseSuggestions(diseaseId: string) {
     queryKey: ['medicines', 'disease-suggestions', diseaseId],
     queryFn: () => getDiseaseSuggestions(diseaseId),
     enabled: !!diseaseId,
+  });
+}
+
+export function useCreateGeneric() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: Partial<GenericDetails>) => createGeneric(payload),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['medicines', 'generics'] });
+    },
+  });
+}
+
+export function useUpdateGeneric() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, data }: { id: number; data: Partial<GenericDetails> }) => updateGeneric(id, data),
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['medicines', 'generics'] });
+      queryClient.invalidateQueries({ queryKey: ['medicines', 'generic-details', variables.id] });
+    },
+  });
+}
+
+export function useCreateBrand() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: Partial<BrandResponse>) => createBrand(payload),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['medicines', 'brands'] });
+    },
+  });
+}
+
+export function useUpdateBrand() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, data }: { id: number; data: Partial<BrandResponse> }) => updateBrand(id, data),
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['medicines', 'brands'] });
+      queryClient.invalidateQueries({ queryKey: ['medicines', 'brand-details', variables.id] });
+    },
+  });
+}
+
+export function useCreateIndication() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: { name: string }) => createIndication(payload),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['medicines', 'indications'] });
+    },
+  });
+}
+
+export function useUpdateIndication() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, data }: { id: number; data: { name: string } }) => updateIndication(id, data),
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['medicines', 'indications'] });
+      queryClient.invalidateQueries({ queryKey: ['medicines', 'indication-details', variables.id] });
+    },
+  });
+}
+
+export function useCreateCompany() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: { name: string; order?: number }) => createCompany(payload),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['medicines', 'companies'] });
+    },
+  });
+}
+
+export function useUpdateCompany() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, data }: { id: number; data: { name: string; order?: number } }) => updateCompany(id, data),
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['medicines', 'companies'] });
+      queryClient.invalidateQueries({ queryKey: ['medicines', 'company-details', variables.id] });
+    },
   });
 }
