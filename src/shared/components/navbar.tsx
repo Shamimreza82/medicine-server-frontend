@@ -14,7 +14,8 @@ import {
   Building2,
   Network,
   LucideIcon,
-  Shapes
+  Shapes,
+  Lock
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -39,6 +40,8 @@ const navigation: NavItem[] = [
   { href: '/medicines/brands', label: 'Brands', icon: Tag },
   { href: '/medicines/companies', label: 'Companies', icon: Building2 },
 ];
+
+const adminLink: NavItem = { href: '/login', label: 'Admin', icon: Lock };
 
 // --- Sub-components ---
 
@@ -147,6 +150,10 @@ export function Navbar() {
                     isActive={checkIsActive(item.href)} 
                   />
                 ))}
+                <NavLink 
+                  item={adminLink} 
+                  isActive={checkIsActive(adminLink.href)} 
+                />
               </div>
 
               <div className="flex items-center gap-2 sm:gap-3">
@@ -224,6 +231,13 @@ export function Navbar() {
                 className="py-3.5 px-5 text-base"
               />
             ))}
+            <NavLink
+              item={adminLink}
+              isActive={checkIsActive(adminLink.href)}
+              onClick={() => setIsOpen(false)}
+              showIcon
+              className="py-3.5 px-5 text-base"
+            />
           </div>
           
           {/* Drawer Footer */}

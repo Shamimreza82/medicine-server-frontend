@@ -1,11 +1,11 @@
 'use client';
 
 import { useState, useDeferredValue, useEffect } from 'react';
-import { Activity, Search, Loader2, ArrowRight, ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { Activity, Search, Loader2, ArrowRight, X } from 'lucide-react';
 import Link from 'next/link';
 
 import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { AppShell } from '@/shared/components/app-shell';
 import { PageHeader } from '@/shared/components/page-header';
 import { Button } from '@/components/ui/button';
