@@ -4,8 +4,10 @@ import type { ApiSuccess } from '@/shared/api/types';
 import type {
   BrandDetails,
   BrandResponse,
+  BrandRequest,
   GenericDetails,
   GenericResponse,
+  GenericRequest,
   IndicationResponse,
   CompanyResponse,
   CompanyDetails,
@@ -125,12 +127,12 @@ export async function getBrandById(brandId: number) {
   return response.data.data;
 }
 
-export async function createBrand(payload: Partial<BrandResponse>) {
+export async function createBrand(payload: BrandRequest) {
   const response = await http.post<ApiSuccess<BrandResponse>>('/medicines/brands', payload);
   return response.data.data;
 }
 
-export async function updateBrand(brandId: number, payload: Partial<BrandResponse>) {
+export async function updateBrand(brandId: number, payload: Partial<BrandRequest>) {
   const response = await http.patch<ApiSuccess<BrandResponse>>(`/medicines/brands/${brandId}`, payload);
   return response.data.data;
 }
@@ -141,12 +143,12 @@ export async function getGenericById(genericId: number) {
   return response.data.data;
 }
 
-export async function createGeneric(payload: Partial<GenericDetails>) {
+export async function createGeneric(payload: GenericRequest) {
   const response = await http.post<ApiSuccess<GenericDetails>>('/medicines/generics', payload);
   return response.data.data;
 }
 
-export async function updateGeneric(genericId: number, payload: Partial<GenericDetails>) {
+export async function updateGeneric(genericId: number, payload: Partial<GenericRequest>) {
   const response = await http.patch<ApiSuccess<GenericDetails>>(`/medicines/generics/${genericId}`, payload);
   return response.data.data;
 }

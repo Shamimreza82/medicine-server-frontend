@@ -99,7 +99,7 @@ export default function AdminLabTestsPage() {
     try {
       const result = await bulkUploadMutation.mutateAsync(selectedFile);
       toast.success('Bulk upload completed successfully!', {
-        description: `Created: ${result.data.successCount} | Skipped: ${result.data.skippedCount}`,
+        description: `Created: ${result.data?.successCount ?? 0} | Skipped: ${result.data?.skippedCount ?? 0}`,
       });
       handleCloseBulkModal();
     } catch (err: unknown) {
@@ -443,10 +443,10 @@ export default function AdminLabTestsPage() {
           </table>
         </div>
 
-        {labTestsData?.meta && labTestsData.meta.total > 0 && (
+        {labTestsData?.meta && (labTestsData.meta.total ?? 0) > 0 && (
           <div className="p-4 border-t border-primary/5 flex items-center justify-between">
             <p className="text-sm text-muted-foreground font-medium">
-              Showing <span className="text-primary font-bold">{(page - 1) * limit + 1}</span> to <span className="text-primary font-bold">{Math.min(page * limit, labTestsData.meta.total)}</span> of <span className="text-primary font-bold">{labTestsData.meta.total}</span> lab tests
+              Showing <span className="text-primary font-bold">{(page - 1) * limit + 1}</span> to <span className="text-primary font-bold">{Math.min(page * limit, labTestsData.meta.total ?? 0)}</span> of <span className="text-primary font-bold">{labTestsData.meta.total}</span> lab tests
             </p>
             <div className="flex items-center gap-2">
               <Button 

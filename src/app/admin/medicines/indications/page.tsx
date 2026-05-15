@@ -16,6 +16,7 @@ import {
   useCreateIndication, 
   useUpdateIndication 
 } from '@/modules/medicines/hooks';
+import type { IndicationResponse } from '@/modules/medicines/types';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
@@ -25,7 +26,7 @@ export default function AdminIndicationsPage() {
   const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingIndication, setEditingIndication] = useState<any>(null);
+  const [editingIndication, setEditingIndication] = useState<IndicationResponse | null>(null);
 
   const { data: indicationsData, isLoading, error } = useIndicationSearch(query, 10, page);
   
@@ -49,7 +50,7 @@ export default function AdminIndicationsPage() {
     setIsModalOpen(true);
   };
 
-  const handleOpenEditModal = (indication: any) => {
+  const handleOpenEditModal = (indication: IndicationResponse) => {
     setEditingIndication(indication);
     setIsModalOpen(true);
   };
@@ -128,7 +129,7 @@ export default function AdminIndicationsPage() {
                     <td className="px-6 py-4"><div className="h-8 bg-muted rounded w-8 ml-auto" /></td>
                   </tr>
                 ))
-              ) : indicationsData?.data?.map((indication: any) => (
+              ) : (indicationsData?.data as IndicationResponse[])?.map((indication) => (
                 <tr key={indication.id} className="hover:bg-primary/[0.02] transition-colors group">
                   <td className="px-6 py-4 text-sm font-bold text-muted-foreground">#{indication.id}</td>
                   <td className="px-6 py-4">
@@ -150,10 +151,10 @@ export default function AdminIndicationsPage() {
           </table>
         </div>
 
-        {indicationsData?.meta && (
+        {indicationsData?.meta && (indicationsData.meta.total ?? 0) > 0 && (
           <div className="p-4 border-t border-primary/5 flex items-center justify-between">
             <p className="text-sm text-muted-foreground font-medium">
-              Showing <span className="text-primary font-bold">{(page - 1) * 10 + 1}</span> to <span className="text-primary font-bold">{Math.min(page * 10, indicationsData.meta.total)}</span> of <span className="text-primary font-bold">{indicationsData.meta.total}</span> indications
+              Showing <span className="text-primary font-bold">{(page - 1) * 10 + 1}</span> to <span className="text-primary font-bold">{Math.min(page * 10, indicationsData.meta.total ?? 0)}</span> of <span className="text-primary font-bold">{indicationsData.meta.total}</span> indications
             </p>
             <div className="flex items-center gap-2">
               <Button 

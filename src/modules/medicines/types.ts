@@ -27,6 +27,17 @@ export interface BrandResponse {
   };
 }
 
+export interface BrandRequest {
+  name: string;
+  companyId: number;
+  genericId: number;
+  form?: string | null;
+  strength?: string | null;
+  price?: string | null;
+  packSize?: string | null;
+  isSponsored?: boolean;
+}
+
 export interface GenericResponse {
   id: number;
   name: string;
@@ -38,6 +49,24 @@ export interface GenericResponse {
       name: string;
     };
   }>;
+}
+
+export interface GenericRequest {
+  name: string;
+  indication?: string | null;
+  therapeuticClass?: string | null;
+  administration?: string | null;
+  adultDose?: string | null;
+  childDose?: string | null;
+  contraIndication?: string | null;
+  interaction?: string | null;
+  modeOfAction?: string | null;
+  precaution?: string | null;
+  renalDose?: string | null;
+  sideEffect?: string | null;
+  pregnancyCategoryId?: number | null;
+  pregnancyCategoryNote?: string | null;
+  therapeuticIds?: number[];
 }
 
 export interface CompanyResponse {

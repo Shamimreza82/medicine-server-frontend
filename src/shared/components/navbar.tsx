@@ -77,15 +77,23 @@ function NavLink({ item, isActive, onClick, className, showIcon = false }: NavLi
       href={item.href}
       onClick={onClick}
       className={cn(
-        "flex items-center gap-3 px-4 py-2 text-sm font-semibold transition-all duration-200 rounded-xl",
+        "relative flex items-center gap-3 px-4 py-2 text-sm font-semibold transition-all duration-200 rounded-xl group",
         isActive 
-          ? "bg-primary text-primary-foreground lg:bg-primary/10 lg:text-primary" 
-          : "text-muted-foreground hover:text-foreground hover:bg-muted/50",
+          ? "bg-primary text-primary-foreground lg:bg-transparent lg:text-primary" 
+          : "text-muted-foreground hover:text-foreground lg:hover:bg-transparent hover:bg-muted/50",
         className
       )}
     >
-      {showIcon && <Icon className="h-4 w-4" />}
-      {item.label}
+      {showIcon && <Icon className="h-4 w-4 shrink-0" />}
+      <span className="relative">{item.label}</span>
+      
+      {/* Animated Underline for Desktop */}
+      <span 
+        className={cn(
+          "absolute bottom-1.5 left-4 right-4 h-0.5 bg-primary transition-all duration-300 origin-left hidden lg:block",
+          isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+        )}
+      />
     </Link>
   );
 }

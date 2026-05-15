@@ -17,16 +17,21 @@ import {
   useCreateCompany, 
   useUpdateCompany 
 } from '@/modules/medicines/hooks';
+import type { CompanyResponse } from '@/modules/medicines/types';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 
+interface AdminCompany extends CompanyResponse {
+  order?: number;
+}
+
 export default function AdminCompaniesPage() {
   const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingCompany, setEditingCompany] = useState<any>(null);
+  const [editingCompany, setEditingCompany] = useState<AdminCompany | null>(null);
 
   const { data: companiesData, isLoading, error } = useCompanySearch(query, 10, page);
   
@@ -50,7 +55,7 @@ export default function AdminCompaniesPage() {
     setIsModalOpen(true);
   };
 
-  const handleOpenEditModal = (company: any) => {
+  const handleOpenEditModal = (company: AdminCompany) => {
     setEditingCompany(company);
     setIsModalOpen(true);
   };
@@ -132,7 +137,7 @@ export default function AdminCompaniesPage() {
                     <td className="px-6 py-4"><div className="h-8 bg-muted rounded w-8 ml-auto" /></td>
                   </tr>
                 ))
-              ) : companiesData?.data?.map((company: any) => (
+              ) : (companiesData?.data as AdminCompany[])?.map((company) => (
                 <tr key={company.id} className="hover:bg-primary/[0.02] transition-colors group">
                   <td className="px-6 py-4 text-sm font-bold text-muted-foreground">#{company.id}</td>
                   <td className="px-6 py-4">
@@ -162,10 +167,10 @@ export default function AdminCompaniesPage() {
           </table>
         </div>
 
-        {companiesData?.meta && (
+        {companiesData?.meta && (companiesData.meta.total ?? 0) > 0 && (
           <div className="p-4 border-t border-primary/5 flex items-center justify-between">
             <p className="text-sm text-muted-foreground font-medium">
-              Showing <span className="text-primary font-bold">{(page - 1) * 10 + 1}</span> to <span className="text-primary font-bold">{Math.min(page * 10, companiesData.meta.total)}</span> of <span className="text-primary font-bold">{companiesData.meta.total}</span> companies
+              Showing <span className="text-primary font-bold">{(page - 1) * 10 + 1}</span> to <span className="text-primary font-bold">{Math.min(page * 10, companiesData.meta.total ?? 0)}</span> of <span className="text-primary font-bold">{companiesData.meta.total}</span> companies
             </p>
             <div className="flex items-center gap-2">
               <Button 

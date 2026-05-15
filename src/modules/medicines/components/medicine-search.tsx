@@ -13,13 +13,14 @@ import { EmptyState } from '@/shared/components/empty-state';
 import { formatNullable } from '@/shared/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
 
-import { useMedicineSearch } from '../hooks';
+import { useMedicineSearch, useMedicinePrefetch } from '../hooks';
 import { cn } from '@/shared/lib/utils';
 
 export function MedicineSearch() {
   const [query, setQuery] = useState('');
   const deferredQuery = useDeferredValue(query);
   const result = useMedicineSearch(deferredQuery);
+  const prefetch = useMedicinePrefetch();
   const quickSearches = ['Paracetamol', 'Cefixime', 'Napa', 'Omeprazole', 'Beximco', 'Square'];
 
   const brandsCount = result.data?.brands?.length ?? 0;
@@ -108,7 +109,12 @@ export function MedicineSearch() {
                   Array.from({ length: 4 }).map((_, i) => <ResultSkeleton key={i} />)
                 ) : result.data?.brands?.length ? (
                   result.data.brands.map((brand) => (
-                    <Link key={brand.id} href={`/medicines/brands/${brand.id}`} className="group">
+                    <Link 
+                      key={brand.id} 
+                      href={`/medicines/brands/${brand.id}`} 
+                      className="group"
+                      onMouseEnter={() => prefetch.prefetchBrand(brand.id)}
+                    >
                       <div className="rounded-[1.5rem] border border-primary/5 bg-white p-5 transition-all duration-300 hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5">
                         <div className="flex items-start justify-between gap-3">
                           <div className="min-w-0 flex-1">
@@ -150,7 +156,12 @@ export function MedicineSearch() {
                   Array.from({ length: 4 }).map((_, i) => <ResultSkeleton key={i} />)
                 ) : result.data?.generics?.length ? (
                   result.data.generics.map((generic) => (
-                    <Link key={generic.id} href={`/medicines/generics/${generic.id}`} className="group">
+                    <Link 
+                      key={generic.id} 
+                      href={`/medicines/generics/${generic.id}`} 
+                      className="group"
+                      onMouseEnter={() => prefetch.prefetchGeneric(generic.id)}
+                    >
                       <div className="rounded-[1.5rem] border border-primary/5 bg-white p-5 transition-all duration-300 hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5 h-full flex flex-col">
                         <div className="min-w-0 flex-1">
                           <h3 className="text-lg font-black text-foreground group-hover:text-primary transition-colors truncate">{generic.name}</h3>
@@ -185,7 +196,12 @@ export function MedicineSearch() {
                   Array.from({ length: 6 }).map((_, i) => <ResultSkeleton small key={i} />)
                 ) : result.data?.companies?.length ? (
                   result.data.companies.map((company) => (
-                    <Link key={company.id} href={`/medicines/companies/${company.id}`} className="group">
+                    <Link 
+                      key={company.id} 
+                      href={`/medicines/companies/${company.id}`} 
+                      className="group"
+                      onMouseEnter={() => prefetch.prefetchCompany(company.id)}
+                    >
                       <div className="rounded-2xl border border-primary/5 bg-white p-5 transition-all duration-300 hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5">
                         <div className="flex items-center justify-between">
                           <h3 className="font-bold text-foreground group-hover:text-primary transition-colors truncate pr-4">{company.name}</h3>
@@ -212,7 +228,12 @@ export function MedicineSearch() {
                   Array.from({ length: 6 }).map((_, i) => <ResultSkeleton small key={i} />)
                 ) : result.data?.indications?.length ? (
                   result.data.indications.map((indication) => (
-                    <Link key={indication.id} href={`/medicines/indications/${indication.id}`} className="group">
+                    <Link 
+                      key={indication.id} 
+                      href={`/medicines/indications/${indication.id}`} 
+                      className="group"
+                      onMouseEnter={() => prefetch.prefetchIndication(indication.id)}
+                    >
                       <div className="rounded-2xl border border-primary/5 bg-white p-5 transition-all duration-300 hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5">
                         <div className="flex items-center justify-between">
                           <h3 className="font-bold text-foreground group-hover:text-primary transition-colors truncate pr-4">{indication.name}</h3>

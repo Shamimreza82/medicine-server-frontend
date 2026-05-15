@@ -1,6 +1,6 @@
 'use client';
 
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import {
   checkWarnings,
@@ -30,13 +30,14 @@ import {
   createCompany,
   updateCompany,
 } from './api';
-import type { BrandResponse, GenericDetails, WarningRequest } from './types';
+import type { BrandRequest, GenericRequest, WarningRequest } from './types';
 
 export function useMedicineSearch(query: string, limit = 10) {
   return useQuery({
     queryKey: ['medicines', 'search', query, limit],
     queryFn: () => searchMedicines(query, limit),
     enabled: query.trim().length > 0,
+    placeholderData: keepPreviousData,
   });
 }
 
@@ -51,6 +52,7 @@ export function useBrandSearch(
     queryKey: ['medicines', 'brands', query, limit, page, filters],
     queryFn: () => searchBrands(query, limit, page, filters),
     enabled: enabled && (query.trim().length > 0 || !!filters?.companyId || !!filters?.genericId || !!filters?.indicationId || !!filters?.form || enabled === true),
+    placeholderData: keepPreviousData,
   });
 }
 
@@ -63,6 +65,7 @@ export function useGenericSearch(
   return useQuery({
     queryKey: ['medicines', 'generics', query, limit, page, filters],
     queryFn: () => searchGenerics(query, limit, page, filters),
+    placeholderData: keepPreviousData,
   });
 }
 
@@ -76,6 +79,7 @@ export function useHerbalBrandSearch(
     queryKey: ['medicines', 'herbal-brands', query, limit, page, filters],
     queryFn: () => searchHerbalBrands(query, limit, page, filters),
     enabled: query.trim().length > 0 || !!filters?.companyId || !!filters?.genericId,
+    placeholderData: keepPreviousData,
   });
 }
 
@@ -84,6 +88,7 @@ export function useHerbalGenericSearch(query: string, limit = 10, page = 1) {
     queryKey: ['medicines', 'herbal-generics', query, limit, page],
     queryFn: () => searchHerbalGenerics(query, limit, page),
     enabled: query.trim().length > 0,
+    placeholderData: keepPreviousData,
   });
 }
 
@@ -91,6 +96,7 @@ export function useClassificationTree() {
   return useQuery({
     queryKey: ['medicines', 'classifications'],
     queryFn: getClassificationTree,
+    staleTime: 60 * 60 * 1000, // 1 hour stale time for static tree
   });
 }
 
@@ -98,6 +104,7 @@ export function useDosageForms(query = '', limit = 20, page = 1, filters?: { let
   return useQuery({
     queryKey: ['medicines', 'dosage-forms', query, limit, page, filters],
     queryFn: () => getDosageForms(query, limit, page, filters),
+    placeholderData: keepPreviousData,
   });
 }
 
@@ -110,6 +117,7 @@ export function useIndicationSearch(
   return useQuery({
     queryKey: ['medicines', 'indications', query, limit, page, filters],
     queryFn: () => searchIndications(query, limit, page, filters),
+    placeholderData: keepPreviousData,
   });
 }
 
@@ -122,6 +130,7 @@ export function useCompanySearch(
   return useQuery({
     queryKey: ['medicines', 'companies', query, limit, page, filters],
     queryFn: () => searchCompanies(query, limit, page, filters),
+    placeholderData: keepPreviousData,
   });
 }
 
@@ -130,6 +139,7 @@ export function useBrandDetails(brandId: number) {
     queryKey: ['medicines', 'brand-details', brandId],
     queryFn: () => getBrandById(brandId),
     enabled: !!brandId,
+    staleTime: 15 * 60 * 1000, // 15 minutes
   });
 }
 
@@ -138,6 +148,7 @@ export function useGenericDetails(genericId: number) {
     queryKey: ['medicines', 'generic-details', genericId],
     queryFn: () => getGenericById(genericId),
     enabled: !!genericId,
+    staleTime: 15 * 60 * 1000, // 15 minutes
   });
 }
 
@@ -146,6 +157,7 @@ export function useHerbalBrandDetails(brandId: number) {
     queryKey: ['medicines', 'herbal-brand-details', brandId],
     queryFn: () => getHerbalBrandById(brandId),
     enabled: !!brandId,
+    staleTime: 15 * 60 * 1000, // 15 minutes
   });
 }
 
@@ -154,6 +166,7 @@ export function useHerbalGenericDetails(genericId: number) {
     queryKey: ['medicines', 'herbal-generic-details', genericId],
     queryFn: () => getHerbalGenericById(genericId),
     enabled: !!genericId,
+    staleTime: 15 * 60 * 1000, // 15 minutes
   });
 }
 
@@ -162,6 +175,7 @@ export function useCompanyDetails(companyId: number) {
     queryKey: ['medicines', 'company-details', companyId],
     queryFn: () => getCompanyById(companyId),
     enabled: !!companyId,
+    staleTime: 15 * 60 * 1000, // 15 minutes
   });
 }
 
@@ -169,6 +183,7 @@ export function usePregnancyCategories() {
   return useQuery({
     queryKey: ['medicines', 'pregnancy-categories'],
     queryFn: getPregnancyCategories,
+    staleTime: 24 * 60 * 60 * 1000, // 24 hours for very static data
   });
 }
 
@@ -180,12 +195,6 @@ export function useIndicationDetails(indicationId: number) {
   });
 }
 
-export function useWarningCheck() {
-  return useMutation({
-    mutationFn: (payload: WarningRequest) => checkWarnings(payload),
-  });
-}
-
 export function useDiseaseSuggestions(diseaseId: string) {
   return useQuery({
     queryKey: ['medicines', 'disease-suggestions', diseaseId],
@@ -194,10 +203,51 @@ export function useDiseaseSuggestions(diseaseId: string) {
   });
 }
 
+export function useWarningCheck() {
+  return useMutation({
+    mutationFn: (payload: WarningRequest) => checkWarnings(payload),
+  });
+}
+
+export function useMedicinePrefetch() {
+  const queryClient = useQueryClient();
+
+  return {
+    prefetchBrand: (brandId: number) => {
+      queryClient.prefetchQuery({
+        queryKey: ['medicines', 'brand-details', brandId],
+        queryFn: () => getBrandById(brandId),
+        staleTime: 15 * 60 * 1000,
+      });
+    },
+    prefetchGeneric: (genericId: number) => {
+      queryClient.prefetchQuery({
+        queryKey: ['medicines', 'generic-details', genericId],
+        queryFn: () => getGenericById(genericId),
+        staleTime: 15 * 60 * 1000,
+      });
+    },
+    prefetchCompany: (companyId: number) => {
+      queryClient.prefetchQuery({
+        queryKey: ['medicines', 'company-details', companyId],
+        queryFn: () => getCompanyById(companyId),
+        staleTime: 15 * 60 * 1000,
+      });
+    },
+    prefetchIndication: (indicationId: number) => {
+      queryClient.prefetchQuery({
+        queryKey: ['medicines', 'indication-details', indicationId],
+        queryFn: () => getIndicationById(indicationId),
+        staleTime: 15 * 60 * 1000,
+      });
+    },
+  };
+}
+
 export function useCreateGeneric() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (payload: Partial<GenericDetails>) => createGeneric(payload),
+    mutationFn: (payload: GenericRequest) => createGeneric(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['medicines', 'generics'] });
     },
@@ -207,7 +257,7 @@ export function useCreateGeneric() {
 export function useUpdateGeneric() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ id, data }: { id: number; data: Partial<GenericDetails> }) => updateGeneric(id, data),
+    mutationFn: ({ id, data }: { id: number; data: Partial<GenericRequest> }) => updateGeneric(id, data),
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ['medicines', 'generics'] });
       queryClient.invalidateQueries({ queryKey: ['medicines', 'generic-details', variables.id] });
@@ -218,7 +268,7 @@ export function useUpdateGeneric() {
 export function useCreateBrand() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (payload: Partial<BrandResponse>) => createBrand(payload),
+    mutationFn: (payload: BrandRequest) => createBrand(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['medicines', 'brands'] });
     },
@@ -228,7 +278,7 @@ export function useCreateBrand() {
 export function useUpdateBrand() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ id, data }: { id: number; data: Partial<BrandResponse> }) => updateBrand(id, data),
+    mutationFn: ({ id, data }: { id: number; data: Partial<BrandRequest> }) => updateBrand(id, data),
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ['medicines', 'brands'] });
       queryClient.invalidateQueries({ queryKey: ['medicines', 'brand-details', variables.id] });

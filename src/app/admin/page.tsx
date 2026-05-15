@@ -4,13 +4,10 @@ import {
   Pill, 
   TestTube, 
   Building2, 
-  Plus,
   Database
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { StatCard } from '@/modules/admin/components/stat-card';
 import { ActivityFeed } from '@/modules/admin/components/activity-feed';
-import { SystemHealth } from '@/modules/admin/components/system-health';
 import { AdminStat, AdminActivity } from '@/modules/admin/types';
 import { useDashboardData } from '@/modules/admin/hooks';
 import { Skeleton } from '@/components/ui/skeleton';

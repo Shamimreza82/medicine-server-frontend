@@ -41,7 +41,7 @@ export default function DisclaimerPage() {
             <section className="space-y-4 mt-8">
               <h3 className="text-lg font-bold text-foreground">2. No Doctor-Patient Relationship</h3>
               <p className="text-muted-foreground leading-relaxed">
-                Use of Medicine Hub does not create a doctor-patient relationship between you and any personnel associated with this platform. The information is provided "as is" and should not be relied upon as clinical decision support for specific individual cases without professional verification.
+                Use of Medicine Hub does not create a doctor-patient relationship between you and any personnel associated with this platform. The information is provided &quot;as is&quot; and should not be relied upon as clinical decision support for specific individual cases without professional verification.
               </p>
             </section>
 

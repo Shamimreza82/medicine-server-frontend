@@ -8,6 +8,7 @@ import {
   Pill
 } from 'lucide-react';
 import { useDosageForms } from '@/modules/medicines/hooks';
+import type { DosageFormResponse } from '@/modules/medicines/types';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
@@ -74,7 +75,7 @@ export default function AdminDosageFormsPage() {
                     <td className="px-6 py-4"><div className="h-4 bg-muted rounded w-16 ml-auto" /></td>
                   </tr>
                 ))
-              ) : formsData?.data?.map((item: any) => (
+              ) : (formsData?.data as DosageFormResponse[])?.map((item) => (
                 <tr key={item.form} className="hover:bg-primary/[0.02] transition-colors group">
                   <td className="px-6 py-4">
                     <div className="w-10 h-10 rounded-xl bg-primary/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
@@ -89,7 +90,7 @@ export default function AdminDosageFormsPage() {
                       <div className="flex-1 h-1.5 bg-muted rounded-full overflow-hidden max-w-[100px]">
                         <div 
                           className="h-full bg-primary" 
-                          style={{ width: `${Math.min((item.count / (formsData.meta?.total || 100)) * 100, 100)}%` }} 
+                          style={{ width: `${Math.min((item.count / (formsData?.meta?.total || 100)) * 100, 100)}%` }} 
                         />
                       </div>
                       <span className="text-sm font-bold text-muted-foreground">{item.count} Brands</span>
@@ -104,10 +105,10 @@ export default function AdminDosageFormsPage() {
           </table>
         </div>
 
-        {formsData?.meta && (
+        {formsData?.meta && (formsData.meta.total ?? 0) > 0 && (
           <div className="p-4 border-t border-primary/5 flex items-center justify-between">
             <p className="text-sm text-muted-foreground font-medium">
-              Showing <span className="text-primary font-bold">{(page - 1) * 10 + 1}</span> to <span className="text-primary font-bold">{Math.min(page * 10, formsData.meta.total)}</span> of <span className="text-primary font-bold">{formsData.meta.total}</span> forms
+              Showing <span className="text-primary font-bold">{(page - 1) * 10 + 1}</span> to <span className="text-primary font-bold">{Math.min(page * 10, formsData.meta.total ?? 0)}</span> of <span className="text-primary font-bold">{formsData.meta.total}</span> forms
             </p>
             <div className="flex items-center gap-2">
               <Button 

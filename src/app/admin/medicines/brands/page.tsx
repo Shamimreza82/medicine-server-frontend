@@ -20,20 +20,18 @@ import {
   useCompanySearch,
   useGenericSearch
 } from '@/modules/medicines/hooks';
-import type { BrandResponse } from '@/modules/medicines/types';
+import type { BrandResponse, BrandRequest, CompanyResponse, GenericResponse } from '@/modules/medicines/types';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Label } from '@/components/ui/label';
-import { Select } from '@/components/ui/select';
-import { cn } from '@/shared/lib/utils';
 
 export default function AdminBrandsPage() {
   const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingBrand, setEditingBrand] = useState<any>(null);
+  const [editingBrand, setEditingBrand] = useState<BrandResponse | null>(null);
 
   // Search for Companies and Generics in the modal
   const [companyQuery, setCompanyQuery] = useState('');
@@ -65,7 +63,7 @@ export default function AdminBrandsPage() {
     setIsModalOpen(true);
   };
 
-  const handleOpenEditModal = (brand: any) => {
+  const handleOpenEditModal = (brand: BrandResponse) => {
     setEditingBrand(brand);
     setCompanyQuery(brand.company.name);
     setGenericQuery(brand.generic.name);
@@ -81,7 +79,7 @@ export default function AdminBrandsPage() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     
-    const data: any = {
+    const data: BrandRequest = {
       name: formData.get('name') as string,
       companyId: Number(formData.get('companyId')),
       genericId: Number(formData.get('genericId')),
@@ -158,7 +156,7 @@ export default function AdminBrandsPage() {
                     <td className="px-6 py-4"><div className="h-8 bg-muted rounded w-8 ml-auto" /></td>
                   </tr>
                 ))
-              ) : brandsData?.data?.map((brand: any) => (
+              ) : (brandsData?.data as BrandResponse[])?.map((brand) => (
                 <tr key={brand.id} className="hover:bg-primary/[0.02] transition-colors group">
                   <td className="px-6 py-4">
                     <div className="flex flex-col">
@@ -201,10 +199,10 @@ export default function AdminBrandsPage() {
           </table>
         </div>
 
-        {brandsData?.meta && (
+        {brandsData?.meta && (brandsData.meta.total ?? 0) > 0 && (
           <div className="p-4 border-t border-primary/5 flex items-center justify-between">
             <p className="text-sm text-muted-foreground font-medium">
-              Showing <span className="text-primary font-bold">{(page - 1) * 10 + 1}</span> to <span className="text-primary font-bold">{Math.min(page * 10, brandsData.meta.total)}</span> of <span className="text-primary font-bold">{brandsData.meta.total}</span> brands
+              Showing <span className="text-primary font-bold">{(page - 1) * 10 + 1}</span> to <span className="text-primary font-bold">{Math.min(page * 10, brandsData.meta.total ?? 0)}</span> of <span className="text-primary font-bold">{brandsData.meta.total}</span> brands
             </p>
             <div className="flex items-center gap-2">
               <Button 
@@ -272,11 +270,11 @@ export default function AdminBrandsPage() {
                     />
                   </div>
                   <input type="hidden" name="companyId" value={
-                    companiesData?.data?.find((c: any) => c.name === companyQuery)?.id || editingBrand?.companyId || ''
+                    (companiesData?.data as CompanyResponse[])?.find((c) => c.name === companyQuery)?.id || editingBrand?.company.id || ''
                   } required />
-                  {companyQuery && companiesData?.data && companiesData.data.length > 0 && !companiesData.data.some((c: any) => c.name === companyQuery) && (
+                  {companyQuery && companiesData?.data && companiesData.data.length > 0 && !(companiesData.data as CompanyResponse[]).some((c) => c.name === companyQuery) && (
                     <div className="absolute z-20 w-full mt-1 bg-white border border-primary/5 rounded-2xl shadow-xl p-1 max-h-40 overflow-y-auto">
-                      {companiesData.data.map((company: any) => (
+                      {(companiesData.data as CompanyResponse[]).map((company) => (
                         <button
                           key={company.id}
                           type="button"
@@ -303,11 +301,11 @@ export default function AdminBrandsPage() {
                     />
                   </div>
                   <input type="hidden" name="genericId" value={
-                    genericsData?.data?.find((g: any) => g.name === genericQuery)?.id || editingBrand?.genericId || ''
+                    (genericsData?.data as GenericResponse[])?.find((g) => g.name === genericQuery)?.id || editingBrand?.generic.id || ''
                   } required />
-                  {genericQuery && genericsData?.data && genericsData.data.length > 0 && !genericsData.data.some((g: any) => g.name === genericQuery) && (
+                  {genericQuery && genericsData?.data && genericsData.data.length > 0 && !(genericsData.data as GenericResponse[]).some((g) => g.name === genericQuery) && (
                     <div className="absolute z-20 w-full mt-1 bg-white border border-primary/5 rounded-2xl shadow-xl p-1 max-h-40 overflow-y-auto">
-                      {genericsData.data.map((generic: any) => (
+                      {(genericsData.data as GenericResponse[]).map((generic) => (
                         <button
                           key={generic.id}
                           type="button"
@@ -323,22 +321,22 @@ export default function AdminBrandsPage() {
 
                 <div className="space-y-2">
                   <Label htmlFor="form" className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Dosage Form</Label>
-                  <Input id="form" name="form" defaultValue={editingBrand?.form} placeholder="e.g. Tablet" className="rounded-xl border-primary/10 focus-visible:ring-primary/20 h-11" />
+                  <Input id="form" name="form" defaultValue={editingBrand?.form || ''} placeholder="e.g. Tablet" className="rounded-xl border-primary/10 focus-visible:ring-primary/20 h-11" />
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="strength" className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Strength</Label>
-                  <Input id="strength" name="strength" defaultValue={editingBrand?.strength} placeholder="e.g. 500 mg" className="rounded-xl border-primary/10 focus-visible:ring-primary/20 h-11" />
+                  <Input id="strength" name="strength" defaultValue={editingBrand?.strength || ''} placeholder="e.g. 500 mg" className="rounded-xl border-primary/10 focus-visible:ring-primary/20 h-11" />
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="price" className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Price (Unit/Pack)</Label>
-                  <Input id="price" name="price" defaultValue={editingBrand?.price} placeholder="e.g. 10.00" className="rounded-xl border-primary/10 focus-visible:ring-primary/20 h-11" />
+                  <Input id="price" name="price" defaultValue={editingBrand?.price || ''} placeholder="e.g. 10.00" className="rounded-xl border-primary/10 focus-visible:ring-primary/20 h-11" />
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="packSize" className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Pack Size</Label>
-                  <Input id="packSize" name="packSize" defaultValue={editingBrand?.packSize} placeholder="e.g. 10's Pack" className="rounded-xl border-primary/10 focus-visible:ring-primary/20 h-11" />
+                  <Input id="packSize" name="packSize" defaultValue={editingBrand?.packSize || ''} placeholder="e.g. 10's Pack" className="rounded-xl border-primary/10 focus-visible:ring-primary/20 h-11" />
                 </div>
 
                 <div className="md:col-span-2 flex items-center space-x-3 bg-amber-50/50 p-4 rounded-2xl border border-amber-100/50">

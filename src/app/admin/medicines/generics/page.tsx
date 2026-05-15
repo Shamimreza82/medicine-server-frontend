@@ -17,7 +17,7 @@ import {
   useUpdateGeneric,
   usePregnancyCategories
 } from '@/modules/medicines/hooks';
-import type { GenericDetails } from '@/modules/medicines/types';
+import type { GenericDetails, GenericResponse, GenericRequest } from '@/modules/medicines/types';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
@@ -25,7 +25,6 @@ import { Badge } from '@/components/ui/badge';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select } from '@/components/ui/select';
-import { cn } from '@/shared/lib/utils';
 
 export default function AdminGenericsPage() {
   const [query, setQuery] = useState('');
@@ -56,7 +55,7 @@ export default function AdminGenericsPage() {
     setIsModalOpen(true);
   };
 
-  const handleOpenEditModal = (generic: any) => {
+  const handleOpenEditModal = (generic: GenericDetails) => {
     setEditingGeneric(generic);
     setIsModalOpen(true);
   };
@@ -69,7 +68,7 @@ export default function AdminGenericsPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const data: any = {
+    const data: GenericRequest = {
       name: formData.get('name') as string,
       indication: formData.get('indication') as string,
       administration: formData.get('administration') as string,
@@ -149,7 +148,7 @@ export default function AdminGenericsPage() {
                     <td className="px-6 py-4"><div className="h-8 bg-muted rounded w-8 ml-auto" /></td>
                   </tr>
                 ))
-              ) : genericsData?.data?.map((generic: any) => (
+              ) : (genericsData?.data as GenericResponse[])?.map((generic) => (
                 <tr key={generic.id} className="hover:bg-primary/[0.02] transition-colors group">
                   <td className="px-6 py-4">
                     <span className="font-bold text-primary group-hover:text-primary/80 transition-colors">{generic.name}</span>
@@ -159,8 +158,8 @@ export default function AdminGenericsPage() {
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex flex-wrap gap-1">
-                      {generic.therapeuticGenerics?.length > 0 ? (
-                        generic.therapeuticGenerics.map((tg: any) => (
+                      {generic.therapeuticGenerics && generic.therapeuticGenerics.length > 0 ? (
+                        generic.therapeuticGenerics.map((tg) => (
                           <Badge key={tg.therapeutic.id} variant="secondary" className="bg-primary/5 text-primary border-none text-[10px]">
                             {tg.therapeutic.name}
                           </Badge>
@@ -174,7 +173,7 @@ export default function AdminGenericsPage() {
                     <Button 
                       variant="ghost" 
                       size="icon" 
-                      onClick={() => handleOpenEditModal(generic)}
+                      onClick={() => handleOpenEditModal(generic as GenericDetails)}
                       className="rounded-xl hover:bg-primary/10 hover:text-primary transition-all active:scale-90"
                     >
                       <Edit2 className="w-4 h-4" />
@@ -186,11 +185,12 @@ export default function AdminGenericsPage() {
           </table>
         </div>
 
-        {genericsData?.meta && (
+        {genericsData?.meta && (genericsData.meta.total ?? 0) > 0 && (
           <div className="p-4 border-t border-primary/5 flex items-center justify-between">
             <p className="text-sm text-muted-foreground font-medium">
-              Showing <span className="text-primary font-bold">{(page - 1) * 10 + 1}</span> to <span className="text-primary font-bold">{Math.min(page * 10, genericsData.meta.total)}</span> of <span className="text-primary font-bold">{genericsData.meta.total}</span> generics
+              Showing <span className="text-primary font-bold">{(page - 1) * 10 + 1}</span> to <span className="text-primary font-bold">{Math.min(page * 10, genericsData.meta.total ?? 0)}</span> of <span className="text-primary font-bold">{genericsData.meta.total}</span> generics
             </p>
+
             <div className="flex items-center gap-2">
               <Button 
                 variant="outline" 
@@ -312,7 +312,7 @@ export default function AdminGenericsPage() {
                         defaultValue={editingGeneric?.pregnancyCategory?.id || ''}
                       >
                         <option value="">Select Category</option>
-                        {pregnancyCategories?.map((cat: any) => (
+                        {pregnancyCategories?.map((cat: { id: number; name: string }) => (
                           <option key={cat.id} value={cat.id}>{cat.name}</option>
                         ))}
                       </Select>

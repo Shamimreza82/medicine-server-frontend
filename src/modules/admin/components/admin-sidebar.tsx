@@ -7,7 +7,6 @@ import {
   LayoutDashboard, 
   LogOut, 
   X,
-  User,
   ChevronRight,
   ChevronDown,
   AlertTriangle,
@@ -44,7 +43,7 @@ export function AdminSidebar({ isOpen, onClose, navItems }: AdminSidebarProps) {
     try {
       await logout();
       toast.success('Logged out successfully');
-    } catch (error) {
+    } catch {
       toast.error('Failed to logout');
       setIsLoggingOut(false);
     }

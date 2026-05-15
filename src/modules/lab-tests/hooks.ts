@@ -1,6 +1,6 @@
 'use client';
 
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query';
 
 import { 
   searchLabTests, 
@@ -16,6 +16,7 @@ export function useLabTestsSearch(params: LabTestSearchParams) {
   return useQuery({
     queryKey: ['lab-tests', params],
     queryFn: () => searchLabTests(params),
+    placeholderData: keepPreviousData,
   });
 }
 
