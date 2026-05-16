@@ -67,7 +67,7 @@ export function IndicationDetailsView({ indicationId }: IndicationDetailsProps) 
 
       <div className="grid gap-8 lg:grid-cols-12 items-start">
         {/* Sidebar: Therapeutics & Generics */}
-        <div className="lg:col-span-5 space-y-8">
+        <div className="lg:col-span-8 space-y-8">
           {/* Therapeutics Sidebar Section */}
           {indication.therapeutics && indication.therapeutics.length > 0 && (
             <div className="space-y-4">
@@ -133,7 +133,7 @@ export function IndicationDetailsView({ indicationId }: IndicationDetailsProps) 
         </div>
 
         {/* Main Content: Brands List */}
-        <div className="lg:col-span-7 space-y-6">
+        <div className="lg:col-span-4 space-y-6">
           <div className="flex items-center justify-between px-1">
             <div className="flex items-center gap-2">
               <div className="h-4 w-1 rounded-full bg-primary" />
@@ -170,9 +170,9 @@ export function IndicationDetailsView({ indicationId }: IndicationDetailsProps) 
 
                         {/* Details & Action */}
                         <div className="flex items-center justify-between sm:justify-end gap-4 border-t sm:border-t-0 pt-2 sm:pt-0">
-                          <div className="text-left sm:text-right min-w-[80px]">
-                            <p className="text-[11px] font-bold text-foreground leading-none">{brand.strength}</p>
-                            <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mt-1 leading-none">{brand.form}</p>
+                          <div className="text-left sm:text-right min-w-[120px]">
+                            <p className="text-[11px] font-bold text-foreground leading-none">{brand.strength} • {brand.price ? `৳ ${brand.price}` : 'N/A'}</p>
+                            <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mt-1 leading-none">{brand.form} {brand.packSize && `• ${brand.packSize}`}</p>
                           </div>
                           <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-muted/50 group-hover:bg-primary group-hover:text-white transition-all">
                             <ArrowRight className="h-3.5 w-3.5" />

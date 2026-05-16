@@ -135,8 +135,8 @@ function DosageFormsContent() {
               forms.map(({ form, count }) => (
                 <Link key={form} href={`/medicines/brands?form=${encodeURIComponent(form)}`}>
                   <Card className="group h-full border-primary/5 bg-white/50 backdrop-blur-sm rounded-3xl hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 overflow-hidden">
-                    <CardHeader className="p-6 pb-2">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-lg border border-primary/5 group-hover:scale-110 transition-transform duration-500">
+                    <CardHeader className="p-4 pb-2">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white shadow-lg border border-primary/5 group-hover:scale-110 transition-transform duration-500">
                         <MedicineFormIcon form={form} className="h-6 w-6" />
                       </div>
                     </CardHeader>

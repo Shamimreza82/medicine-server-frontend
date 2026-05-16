@@ -271,14 +271,14 @@ export function HeroSearch() {
 function SearchResultItem({ title, subtitle, href, badge, meta, form }: { title: string; subtitle: string; href: string; badge?: string; meta?: string; form?: string | null }) {
   return (
     <Link href={href} className="group/item block">
-      <div className="flex items-center justify-between p-5 bg-muted/10 hover:bg-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-transparent hover:border-primary/10 rounded-2xl transition-all duration-300">
+      <div className="flex items-center justify-between p-2 bg-muted/10 hover:bg-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-transparent hover:border-primary/10 rounded-2xl transition-all duration-300">
         <div className="flex items-center gap-5 flex-1 min-w-0">
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white border border-muted shadow-sm group-hover/item:border-primary/20 group-hover/item:scale-110 transition-all duration-300">
             <MedicineFormIcon form={form} className="h-6 w-6 text-primary/70 group-hover/item:text-primary transition-colors" />
           </div>
           <div className="flex-1 min-w-0 pr-4">
             <div className="flex items-center gap-3">
-              <h3 className="text-base font-bold text-foreground group-hover/item:text-primary transition-colors truncate">{title}</h3>
+              <h3 className="text-base font-bold text-foreground group-hover/item:text-primary transition-colors truncate">{title} . <span className="text-[12px] text-muted-foreground/90 font-bold italic">{meta}</span></h3>
               {badge && (
                 <Badge className="h-5 px-2 text-[9px] font-black uppercase tracking-widest bg-primary text-white border-none shadow-sm shadow-primary/20">
                   {badge}
@@ -286,12 +286,12 @@ function SearchResultItem({ title, subtitle, href, badge, meta, form }: { title:
               )}
             </div>
             <p className="text-xs font-semibold text-muted-foreground/80 mt-1 truncate">{subtitle}</p>
-            {meta && (
+            {/* {meta && (
               <div className="flex items-center gap-1.5 mt-1.5">
                 <div className="h-1 w-1 rounded-full bg-primary/30" />
-                <p className="text-[10px] text-muted-foreground/50 font-medium line-clamp-1 uppercase tracking-tight">{meta}</p>
+                <p className="text-[10px] text-muted-foreground/90 font-bold line-clamp-1 uppercase tracking-tight">{meta}</p>
               </div>
-            )}
+            )} */}
           </div>
         </div>
         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/5 opacity-0 -translate-x-4 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all duration-300">

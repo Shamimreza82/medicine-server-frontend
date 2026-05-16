@@ -131,7 +131,7 @@ export function MedicineSearch() {
                         </div>
                         <div className="mt-4 flex items-center justify-between gap-3">
                           <div className="text-[10px] font-bold text-muted-foreground/50 bg-muted/50 px-3 py-1.5 rounded-lg border border-primary/5 uppercase tracking-tighter">
-                            {brand.form} • {brand.strength} • {formatNullable(brand.price)}
+                            {brand.form} • {brand.strength} • {brand.price ? `৳ ${brand.price}` : 'N/A'} {brand.packSize && `• ${brand.packSize}`}
                           </div>
                           <div className="text-[9px] font-black text-primary uppercase tracking-[0.2em] opacity-0 group-hover:opacity-100 transition-opacity">
                             View details

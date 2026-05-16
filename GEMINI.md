@@ -8,8 +8,10 @@ This document provides essential information about the `medicine-hub-frontend` p
 
 ### Core Capabilities:
 - **Global Medical Search**: Unified search for brands, generics, and lab tests.
+- **Herbal Medicine Search**: Dedicated directory and search for herbal/ayurvedic medicines.
 - **Clinical Decision Support**: Interactive drug interaction checker and disease-wise suggestions.
 - **Admin Dashboard**: Management interface for medical data and user activities.
+- **PDF Reports**: Exporting clinical data and prescriptions via `jspdf`.
 - **Responsive Design**: Optimized for both desktop and mobile clinical environments.
 
 ## 2. Tech Stack
@@ -21,6 +23,9 @@ This document provides essential information about the `medicine-hub-frontend` p
 *   **HTTP Client**: Axios
 *   **Form Management**: React Hook Form + Zod
 *   **Icons**: Lucide React
+*   **Notifications**: Sonner
+*   **Reporting**: jsPDF
+*   **Git Hooks**: Husky
 
 ## 3. Architecture & Conventions
 
@@ -32,21 +37,22 @@ The project follows a feature-based modular architecture. Each module typically 
 - `components/`: Feature-specific UI components.
 
 **Key Modules**:
-- `medicines`: Search, brands, generics, and interactions.
+- `medicines`: Search, brands, generics, interactions, and **herbal medicines**.
 - `lab-tests`: Directory and filtering for lab tests.
-- `admin`: Internal management and monitoring dashboard.
+- `admin`: Internal management, monitoring dashboard, and activity tracking.
 
 ### 3.2. App Router Layout (`src/app`)
 - `/medicines`: Medicine search and navigation hub.
+- `/medicines/herbal`: Dedicated herbal medicine search and details.
 - `/lab-tests`: Lab test listing and search.
 - `/diseases`: Clinical suggestions based on diagnosis.
-- `/admin`: Management protected routes.
+- `/admin`: Management protected routes (Statistics, Activity).
 - `/login`: Authentication for administrative access.
 
 ### 3.3. Shared Resources (`src/shared`)
 - `api/`: Global Axios instance and interceptors.
 - `components/`: Layout components (AppShell, PageHeader) and common UI.
-- `lib/`: Utilities, constants, and third-party initializations.
+- `lib/`: Utilities (`cn` helper), constants, and third-party initializations.
 - `providers/`: Context providers (QueryClient, Auth).
 
 ## 4. Development Setup
@@ -70,3 +76,4 @@ The project follows a feature-based modular architecture. Each module typically 
 - **Strict Typing**: Maintain 1:1 mapping between backend response shapes and frontend `types.ts`.
 - **Styling**: Prefer Tailwind utility classes. Use `cn()` utility for conditional classes.
 - **Auth**: Use the shared Auth provider for protecting `/admin` routes.
+- **Notifications**: Use `toast` from `sonner` for user feedback.

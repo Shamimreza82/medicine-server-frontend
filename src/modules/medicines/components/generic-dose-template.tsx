@@ -45,7 +45,7 @@ export function GenericDoseTemplateView({ genericId }: GenericDoseTemplateProps)
       {/* Main Content: Clinical Profile */}
       <div className="flex-1 w-full space-y-6">
         <div className="space-y-1 pb-6 border-b">
-          <h2 className="text-3xl font-black tracking-tight leading-tight">{generic.name}</h2>
+          <h2 className="text-3xl font-black tracking-tight text-green-900 leading-tight">{generic.name}</h2>
           <div className="flex flex-wrap items-center gap-2 mt-2">
             <span className="text-[10px] font-bold uppercase tracking-widest text-primary/70 bg-primary/5 px-2 py-0.5 rounded">Clinical Generic Profile</span>
             {generic.therapeuticClass && (
@@ -142,7 +142,7 @@ export function GenericDoseTemplateView({ genericId }: GenericDoseTemplateProps)
 
           {brands.length > 0 ? (
             <div className="space-y-4">
-              <div className="grid grid-cols-1 gap-3">
+              <div className="grid grid-cols-1 gap-2">
                 {brands.map((brand) => (
                   <Link key={brand.id} href={`/medicines/brands/${brand.id}`} className="group">
                     <Card className="h-full border-primary/5 hover:border-primary/20 hover:shadow-lg transition-all duration-300 rounded-2xl bg-white/80">
@@ -163,9 +163,9 @@ export function GenericDoseTemplateView({ genericId }: GenericDoseTemplateProps)
                       <CardContent className="px-4 pb-4 pt-0">
                         <div className="flex items-center justify-between mt-1">
                           <div className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-wider">
-                            {brand.form} • {brand.strength}
+                            {brand.strength} {brand.packSize ? `• ${brand.packSize}` : ''} {brand.price ? `• ৳${brand.price}` : ''}
                           </div>
-                          <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-muted/50 group-hover:bg-primary group-hover:text-white transition-colors">
+                          <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-muted/50 group-hover:bg-primary group-hover:text-hite transition-colors">
                             <ArrowRight className="h-3.5 w-3.5" />
                           </div>
                         </div>

@@ -14,7 +14,6 @@ export default async function GenericDetailsPage({ params }: GenericDetailsPageP
   return (
     <AppShell>
       <PageHeader
-        badge="GET /medicines/generics/:genericId/dose-templates"
         description="Clinical dose template fields for one generic medicine."
         eyebrow="Generic Details"
         title="Dose template"

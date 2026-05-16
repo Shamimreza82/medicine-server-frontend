@@ -128,7 +128,7 @@ export function CompanyDetailsView({ companyId }: CompanyDetailsProps) {
                     <CardContent className="px-5 pb-5">
                       <div className="flex items-center justify-between mt-2">
                         <div className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-wider">
-                          {brand.form} • {brand.strength}
+                          {brand.form} • {brand.strength} • {brand.price ? `৳ ${brand.price}` : 'N/A'} {brand.packSize && `• ${brand.packSize}`}
                         </div>
                         <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-muted/50 group-hover:bg-primary group-hover:text-white transition-colors">
                           <ArrowRight className="h-3.5 w-3.5" />

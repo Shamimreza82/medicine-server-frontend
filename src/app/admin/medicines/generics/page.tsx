@@ -237,7 +237,7 @@ export default function AdminGenericsPage() {
             </div>
 
             <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 space-y-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className=" gap-6">
                 {/* Basic Info */}
                 <div className="space-y-4">
                   <h3 className="text-sm font-bold uppercase tracking-widest text-primary/40">Basic Information</h3>
@@ -256,21 +256,21 @@ export default function AdminGenericsPage() {
                   <h3 className="text-sm font-bold uppercase tracking-widest text-primary/40">Dosage & Administration</h3>
                   <div className="space-y-2">
                     <Label htmlFor="administration" className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Administration</Label>
-                    <Input id="administration" name="administration" defaultValue={editingGeneric?.administration || ''} placeholder="e.g. Oral" className="rounded-xl border-primary/10 focus-visible:ring-primary/20" />
+                    <Textarea id="administration" name="administration" defaultValue={editingGeneric?.administration || ''} placeholder="e.g. Oral" className="rounded-xl border-primary/10 focus-visible:ring-primary/20 min-h-[60px]" />
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="adultDose" className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Adult Dose</Label>
-                      <Input id="adultDose" name="adultDose" defaultValue={editingGeneric?.adultDose || ''} className="rounded-xl border-primary/10 focus-visible:ring-primary/20" />
+                      <Textarea id="adultDose" name="adultDose" defaultValue={editingGeneric?.adultDose || ''} className="rounded-xl border-primary/10 focus-visible:ring-primary/20 min-h-[100px]" />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="childDose" className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Child Dose</Label>
-                      <Input id="childDose" name="childDose" defaultValue={editingGeneric?.childDose || ''} className="rounded-xl border-primary/10 focus-visible:ring-primary/20" />
+                      <Textarea id="childDose" name="childDose" defaultValue={editingGeneric?.childDose || ''} className="rounded-xl border-primary/10 focus-visible:ring-primary/20 min-h-[100px]" />
                     </div>
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="renalDose" className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Renal Dose Adjustment</Label>
-                    <Input id="renalDose" name="renalDose" defaultValue={editingGeneric?.renalDose || ''} className="rounded-xl border-primary/10 focus-visible:ring-primary/20" />
+                    <Textarea id="renalDose" name="renalDose" defaultValue={editingGeneric?.renalDose || ''} className="rounded-xl border-primary/10 focus-visible:ring-primary/20 min-h-[80px]" />
                   </div>
                 </div>
 

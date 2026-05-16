@@ -8,7 +8,9 @@ import {
   Zap,
   Activity,
   ArrowRightLeft,
-  Pill
+  Pill,
+  Banknote,
+  Package
 } from 'lucide-react';
 
 import { Badge } from '@/components/ui/badge';
@@ -80,6 +82,18 @@ export function BrandDetailsView({ brandId }: BrandDetailsProps) {
                 <Badge variant="outline" className="bg-muted/50 font-black px-2 py-0.5 text-[10px] uppercase">
                   {brand.form}
                 </Badge>
+                {brand.price && (
+                  <Badge variant="outline" className="bg-emerald-50 border-emerald-200 text-emerald-700 font-black px-2 py-0.5 text-[10px] uppercase flex items-center gap-1">
+                    <Banknote className="h-3 w-3" />
+                    ৳ {brand.price}
+                  </Badge>
+                )}
+                {brand.packSize && (
+                  <Badge variant="outline" className="bg-blue-50 border-blue-200 text-blue-700 font-black px-2 py-0.5 text-[10px] uppercase flex items-center gap-1">
+                    <Package className="h-3 w-3" />
+                    {brand.packSize}
+                  </Badge>
+                )}
               </div>
             </div>
           </div>

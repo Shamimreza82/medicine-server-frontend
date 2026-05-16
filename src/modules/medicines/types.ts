@@ -42,6 +42,10 @@ export interface GenericResponse {
   id: number;
   name: string;
   indication: string | null;
+  administration: string | null;
+  adultDose: string | null;
+  childDose: string | null;
+  renalDose: string | null;
   therapeuticClass?: string | null;
   therapeuticGenerics?: Array<{
     therapeutic: {
@@ -105,14 +109,10 @@ export interface MedicineSearchResult {
 }
 
 export interface GenericDetails extends GenericResponse {
-  administration: string | null;
-  adultDose: string | null;
-  childDose: string | null;
   contraIndication: string | null;
   interaction: string | null;
   modeOfAction: string | null;
   precaution: string | null;
-  renalDose: string | null;
   sideEffect: string | null;
   pregnancyCategoryNote: string | null;
   pregnancyCategory: {
