@@ -153,7 +153,7 @@ function BrandsContent() {
         {showSkeleton ? (
           <div className={cn(
             view === 'grid' 
-              ? "grid gap-4 md:grid-cols-2 lg:grid-cols-3" 
+              ? "grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" 
               : "space-y-2"
           )}>
             {Array.from({ length: 9 }).map((_, i) => (
@@ -182,7 +182,7 @@ function BrandsContent() {
           </div>
         ) : brands.length > 0 ? (
           view === 'grid' ? (
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
               {brands.map((brand) => (
                 <Link key={brand.id} href={`/medicines/brands/${brand.id}`}>
                   <Card className="h-full border-primary/5 hover:border-primary/20 hover:shadow-md transition-all rounded-2xl group">

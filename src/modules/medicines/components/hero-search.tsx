@@ -96,10 +96,10 @@ export function HeroSearch() {
                     </SelectTrigger>
                     <SelectContent className="rounded-xl border-primary/10">
                       <SelectItem value="all">Default Search</SelectItem>
-                      <SelectItem value="brands">Brand Library</SelectItem>
-                      <SelectItem value="generics">Generic Catalog</SelectItem>
+                      <SelectItem value="brands">Brand</SelectItem>
+                      <SelectItem value="generics">Generic</SelectItem>
                       <SelectItem value="herbal">Herbal Medicine</SelectItem>
-                      <SelectItem value="indications">Clinical Indications</SelectItem>
+                      <SelectItem value="indications">Indications</SelectItem>
                       <SelectItem value="companies">Manufacturers</SelectItem>
                     </SelectContent>
                   </Select>

@@ -120,7 +120,7 @@ export default function CompaniesPage() {
         </div>
 
         <div className="space-y-8">
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {showSkeleton ? (
               Array.from({ length: 9 }).map((_, i) => (
                 <Card key={i} className="h-full border-primary/5 rounded-2xl overflow-hidden">
