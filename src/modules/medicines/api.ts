@@ -34,7 +34,15 @@ export async function searchBrands(
   query: string,
   limit = 10,
   page = 1,
-  filters?: { companyId?: number; genericId?: number; indicationId?: number; form?: string },
+  filters?: { 
+    companyId?: number; 
+    genericId?: number; 
+    indicationId?: number; 
+    form?: string;
+    strength?: string;
+    sortBy?: 'name' | 'price';
+    sortOrder?: 'asc' | 'desc';
+  },
 ) {
   const response = await http.get<ApiSuccess<BrandResponse[]>>('/medicines/brands', {
     params: { q: query, limit, page, ...filters },

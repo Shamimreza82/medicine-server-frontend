@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select } from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { EmptyState } from '@/shared/components/empty-state';
 import { formatNullable } from '@/shared/lib/utils';
 import { Pagination } from '@/shared/components/pagination';
@@ -100,18 +100,22 @@ export function LabTestSearch() {
             <div className="space-y-2">
               <Label htmlFor="lab-specimen">Specimen</Label>
               <Select
-                id="lab-specimen"
-                onChange={(event) => {
+                value={specimen || 'all'}
+                onValueChange={(val) => {
                   setPage(1);
-                  setSpecimen(event.target.value);
+                  setSpecimen(val === 'all' ? '' : val);
                 }}
-                value={specimen}
               >
-                <option value="">All specimens</option>
-                <option value="Blood">Blood</option>
-                <option value="Urine">Urine</option>
-                <option value="Stool">Stool</option>
-                <option value="Serum">Serum</option>
+                <SelectTrigger id="lab-specimen" className="bg-white rounded-xl">
+                  <SelectValue placeholder="All specimens" />
+                </SelectTrigger>
+                <SelectContent className="rounded-xl">
+                  <SelectItem value="all">All specimens</SelectItem>
+                  <SelectItem value="Blood">Blood</SelectItem>
+                  <SelectItem value="Urine">Urine</SelectItem>
+                  <SelectItem value="Stool">Stool</SelectItem>
+                  <SelectItem value="Serum">Serum</SelectItem>
+                </SelectContent>
               </Select>
             </div>
           </div>

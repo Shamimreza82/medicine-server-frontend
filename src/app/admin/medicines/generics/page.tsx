@@ -24,13 +24,14 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Select } from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export default function AdminGenericsPage() {
   const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingGeneric, setEditingGeneric] = useState<GenericDetails | null>(null);
+  const [selectedPregnancyCategory, setSelectedPregnancyCategory] = useState<string>('');
 
   const { data: genericsData, isLoading, error } = useGenericSearch(query, 10, page);
   const { data: pregnancyCategories } = usePregnancyCategories();
@@ -52,17 +53,20 @@ export default function AdminGenericsPage() {
 
   const handleOpenAddModal = () => {
     setEditingGeneric(null);
+    setSelectedPregnancyCategory('');
     setIsModalOpen(true);
   };
 
   const handleOpenEditModal = (generic: GenericDetails) => {
     setEditingGeneric(generic);
+    setSelectedPregnancyCategory(generic.pregnancyCategory?.id?.toString() || 'none');
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setEditingGeneric(null);
+    setSelectedPregnancyCategory('');
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -80,7 +84,7 @@ export default function AdminGenericsPage() {
       sideEffect: formData.get('sideEffect') as string,
       interaction: formData.get('interaction') as string,
       modeOfAction: formData.get('modeOfAction') as string,
-      pregnancyCategoryId: formData.get('pregnancyCategoryId') ? Number(formData.get('pregnancyCategoryId')) : null,
+      pregnancyCategoryId: (selectedPregnancyCategory && selectedPregnancyCategory !== 'none') ? Number(selectedPregnancyCategory) : null,
       pregnancyCategoryNote: formData.get('pregnancyCategoryNote') as string,
     };
 
@@ -204,7 +208,7 @@ export default function AdminGenericsPage() {
               </Button>
               <Button 
                 variant="outline" 
-                size="sm"
+                size="sm" 
                 disabled={page * 10 >= (genericsData?.meta?.total ?? 0)}
                 onClick={() => setPage(p => p + 1)}
                 className="rounded-xl border-primary/10 hover:bg-primary/5 active:scale-95"
@@ -307,14 +311,18 @@ export default function AdminGenericsPage() {
                     <div className="space-y-2">
                       <Label htmlFor="pregnancyCategoryId" className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Pregnancy Category</Label>
                       <Select 
-                        id="pregnancyCategoryId" 
-                        name="pregnancyCategoryId" 
-                        defaultValue={editingGeneric?.pregnancyCategory?.id || ''}
+                        value={selectedPregnancyCategory} 
+                        onValueChange={setSelectedPregnancyCategory}
                       >
-                        <option value="">Select Category</option>
-                        {pregnancyCategories?.map((cat: { id: number; name: string }) => (
-                          <option key={cat.id} value={cat.id}>{cat.name}</option>
-                        ))}
+                        <SelectTrigger id="pregnancyCategoryId" className="rounded-xl border-primary/10 focus:ring-primary/20 bg-white">
+                          <SelectValue placeholder="Select Category" />
+                        </SelectTrigger>
+                        <SelectContent className="rounded-xl border-primary/10">
+                          <SelectItem value="none">N/A / Unspecified</SelectItem>
+                          {pregnancyCategories?.map((cat: { id: number; name: string }) => (
+                            <SelectItem key={cat.id} value={cat.id.toString()}>{cat.name}</SelectItem>
+                          ))}
+                        </SelectContent>
                       </Select>
                     </div>
                     <div className="md:col-span-2 space-y-2">

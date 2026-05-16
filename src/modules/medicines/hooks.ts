@@ -45,13 +45,22 @@ export function useBrandSearch(
   query: string,
   limit = 10,
   page = 1,
-  filters?: { companyId?: number; genericId?: number; indicationId?: number; form?: string },
+  filters?: { 
+    companyId?: number; 
+    genericId?: number; 
+    indicationId?: number; 
+    form?: string;
+    strength?: string;
+    letter?: string;
+    sortBy?: 'name' | 'price';
+    sortOrder?: 'asc' | 'desc';
+  },
   enabled = true
 ) {
   return useQuery({
     queryKey: ['medicines', 'brands', query, limit, page, filters],
     queryFn: () => searchBrands(query, limit, page, filters),
-    enabled: enabled && (query.trim().length > 0 || !!filters?.companyId || !!filters?.genericId || !!filters?.indicationId || !!filters?.form || enabled === true),
+    enabled: enabled && (query.trim().length > 0 || !!filters?.companyId || !!filters?.genericId || !!filters?.indicationId || !!filters?.form || !!filters?.strength || !!filters?.letter || enabled === true),
     placeholderData: keepPreviousData,
   });
 }

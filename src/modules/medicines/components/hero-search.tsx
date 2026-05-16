@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Select } from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { cn } from '@/shared/lib/utils';
 import { MedicineFormIcon } from './form-icon';
 
@@ -42,6 +42,30 @@ export function HeroSearch() {
     (activeTab === 'herbal' && herbalBrands.isFetching)
   );
 
+  const getIcon = (tab: string) => {
+    switch (tab) {
+      case 'all': return <Globe className="h-4 w-4" />;
+      case 'brands': return <Tag className="h-4 w-4" />;
+      case 'generics': return <Pill className="h-4 w-4" />;
+      case 'herbal': return <Sprout className="h-4 w-4" />;
+      case 'indications': return <Activity className="h-4 w-4" />;
+      case 'companies': return <Building2 className="h-4 w-4" />;
+      default: return <Globe className="h-4 w-4" />;
+    }
+  };
+
+  const getLabel = (tab: string) => {
+    switch (tab) {
+      case 'all': return 'Default Search';
+      case 'brands': return 'Brand Library';
+      case 'generics': return 'Generic Catalog';
+      case 'herbal': return 'Herbal Medicine';
+      case 'indications': return 'Clinical Indications';
+      case 'companies': return 'Manufacturers';
+      default: return 'Default Search';
+    }
+  };
+
   return (
     <div className="w-full max-w-4xl mx-auto space-y-6">
       {/* Header Context */}
@@ -63,28 +87,25 @@ export function HeroSearch() {
               <div className="flex flex-col md:flex-row items-stretch gap-3">
                 <div className="relative w-full md:w-64 group/select">
                   <div className="absolute inset-0 bg-primary/5 rounded-xl scale-[0.98] group-hover/select:scale-100 transition-transform duration-300 -z-10" />
-                  <Select
-                    value={activeTab}
-                    onChange={(e) => setActiveTab(e.target.value)}
-                    className="h-12 pl-12 bg-transparent border-2 border-transparent focus:border-primary/20 rounded-xl text-[10px] font-black uppercase tracking-widest appearance-none cursor-pointer transition-all"
-                  >
-                    <option value="all">Default Search</option>
-                    <option value="brands">Brand Library</option>
-                    <option value="generics">Generic Catalog</option>
-                    <option value="herbal">Herbal Medicine</option>
-                    <option value="indications">Clinical Indications</option>
-                    <option value="companies">Manufacturers</option>
+                  
+                  <Select value={activeTab} onValueChange={setActiveTab}>
+                    <SelectTrigger className="h-12 pl-12 bg-transparent border-2 border-transparent focus:border-primary/20 rounded-xl text-[10px] font-black uppercase tracking-widest appearance-none cursor-pointer transition-all shadow-none ring-0 focus:ring-0">
+                      <SelectValue>
+                        {getLabel(activeTab)}
+                      </SelectValue>
+                    </SelectTrigger>
+                    <SelectContent className="rounded-xl border-primary/10">
+                      <SelectItem value="all">Default Search</SelectItem>
+                      <SelectItem value="brands">Brand Library</SelectItem>
+                      <SelectItem value="generics">Generic Catalog</SelectItem>
+                      <SelectItem value="herbal">Herbal Medicine</SelectItem>
+                      <SelectItem value="indications">Clinical Indications</SelectItem>
+                      <SelectItem value="companies">Manufacturers</SelectItem>
+                    </SelectContent>
                   </Select>
-                  <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-primary p-1.5 bg-white rounded-lg shadow-sm border border-primary/10 transition-transform group-hover/select:scale-110 pointer-events-none">
-                    {activeTab === 'all' && <Globe className="h-4 w-4" />}
-                    {activeTab === 'brands' && <Tag className="h-4 w-4" />}
-                    {activeTab === 'generics' && <Pill className="h-4 w-4" />}
-                    {activeTab === 'herbal' && <Sprout className="h-4 w-4" />}
-                    {activeTab === 'indications' && <Activity className="h-4 w-4" />}
-                    {activeTab === 'companies' && <Building2 className="h-4 w-4" />}
-                  </div>
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none group-hover/select:text-primary transition-colors">
-                    <ChevronDown className="h-4 w-4" />
+
+                  <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-primary p-1.5 bg-white rounded-lg shadow-sm border border-primary/10 transition-transform group-hover/select:scale-110 pointer-events-none z-10">
+                    {getIcon(activeTab)}
                   </div>
                 </div>
                 

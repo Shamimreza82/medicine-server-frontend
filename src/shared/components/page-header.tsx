@@ -7,9 +7,10 @@ interface PageHeaderProps {
   description: string;
   badge?: string;
   className?: string;
+  actions?: React.ReactNode;
 }
 
-export function PageHeader({ eyebrow, title, description, badge, className }: PageHeaderProps) {
+export function PageHeader({ eyebrow, title, description, badge, className, actions }: PageHeaderProps) {
   return (
     <div className={cn("relative space-y-3 mb-6", className)}>
       <div className="space-y-1">
@@ -19,11 +20,14 @@ export function PageHeader({ eyebrow, title, description, badge, className }: Pa
             <h2 className="text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl">{title}</h2>
             <p className="max-w-2xl text-xs md:text-sm leading-relaxed text-muted-foreground">{description}</p>
           </div>
-          {badge && (
-            <Badge variant="secondary" className="w-fit bg-primary/10 text-primary border-primary/20 font-bold px-2 py-0.5 text-[10px]">
-              {badge}
-            </Badge>
-          )}
+          <div className="flex flex-wrap items-center gap-3">
+            {badge && (
+              <Badge variant="secondary" className="w-fit bg-primary/10 text-primary border-primary/20 font-bold px-2 py-0.5 text-[10px]">
+                {badge}
+              </Badge>
+            )}
+            {actions}
+          </div>
         </div>
       </div>
       <div className="h-0.5 w-16 rounded-full bg-gradient-to-r from-primary to-primary/20" />

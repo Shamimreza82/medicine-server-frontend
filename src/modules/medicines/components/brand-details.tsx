@@ -215,25 +215,55 @@ export function BrandDetailsView({ brandId }: BrandDetailsProps) {
           </SidebarCard>
         )}
 
-        {brand.genericAlternatives && brand.genericAlternatives.length > 0 && (
-          <SidebarCard title="Generic Peer Group" icon={<ArrowRightLeft className="h-4 w-4" />} color="blue">
-            <div className="grid gap-1">
-              {brand.genericAlternatives.map((alt) => (
-                <Link 
-                  key={alt.id} 
-                  href={`/medicines/brands/${alt.id}`}
-                  className="group flex flex-col gap-0.5 rounded-xl border border-transparent p-3 transition-all hover:bg-white hover:shadow-sm hover:ring-1 hover:ring-blue-100"
-                >
-                  <div className="flex items-start justify-between gap-2">
-                    <p className="font-bold text-xs text-foreground/80 group-hover:text-blue-600 transition-colors leading-snug">{alt.name}</p>
-                    <span className="text-[12px] font-black opacity-40 shrink-0 mt-0.5">{alt.price}</span>
-                  </div>
-                  <p className="text-[12px] font-bold text-muted-foreground/50 uppercase tracking-tight leading-normal">{alt.company.name}</p>
-                </Link>
-              ))}
-            </div>
-          </SidebarCard>
-        )}
+        {brand.genericAlternatives && brand.genericAlternatives.length > 0 && (() => {
+          const peerGroup = brand.genericAlternatives
+            .filter(alt => alt.strength === brand.strength && alt.form === brand.form)
+            .sort((a, b) => {
+              const pA = parseFloat(a.price || '0');
+              const pB = parseFloat(b.price || '0');
+              return pA - pB;
+            });
+
+          if (peerGroup.length === 0) return null;
+
+          return (
+            <SidebarCard title="Generic Peer Group" icon={<ArrowRightLeft className="h-4 w-4" />} color="blue">
+              <div className="grid gap-1.5">
+                {peerGroup.map((alt) => {
+                  const isCheaper = brand.price && alt.price && parseFloat(alt.price) < parseFloat(brand.price);
+                  
+                  return (
+                    <Link 
+                      key={alt.id} 
+                      href={`/medicines/brands/${alt.id}`}
+                      className="group flex items-center gap-3 rounded-xl border border-transparent p-2 transition-all hover:bg-white hover:shadow-sm hover:ring-1 hover:ring-blue-100"
+                    >
+                      <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-muted/40 shrink-0 group-hover:bg-blue-50 transition-colors">
+                        <MedicineFormIcon form={alt.form} className="h-4 w-4" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center justify-between gap-2">
+                          <p className="font-bold text-xs text-foreground/80 group-hover:text-blue-600 transition-colors leading-tight truncate">
+                            {alt.name}
+                          </p>
+                          <span className={cn(
+                            "text-[10px] font-black shrink-0 px-1.5 py-0.5 rounded-md",
+                            isCheaper ? "bg-emerald-100 text-emerald-700" : "text-muted-foreground/40"
+                          )}>
+                            ৳ {alt.price}
+                          </span>
+                        </div>
+                        <p className="text-[11px] font-bold text-muted-foreground/50 uppercase tracking-tight leading-normal mt-0.5 truncate">
+                          {alt.company.name}
+                        </p>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </SidebarCard>
+          );
+        })()}
 
         <div className="rounded-3xl bg-slate-900 p-6 text-white shadow-xl">
           <p className="text-[12px] font-black uppercase tracking-[0.4em] text-slate-500 mb-4">Therapeutic Identity</p>

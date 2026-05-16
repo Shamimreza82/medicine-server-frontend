@@ -8,20 +8,24 @@ interface EmptyStateProps {
   description: string;
   actionLabel?: string;
   actionHref?: string;
+  actions?: React.ReactNode;
 }
 
-export function EmptyState({ title, description, actionLabel, actionHref }: EmptyStateProps) {
+export function EmptyState({ title, description, actionLabel, actionHref, actions }: EmptyStateProps) {
   return (
     <Card className="border-dashed">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
       </CardHeader>
-      {actionLabel && actionHref ? (
+      {(actionLabel && actionHref) || actions ? (
         <CardContent>
-          <Link href={actionHref}>
-            <Button variant="outline">{actionLabel}</Button>
-          </Link>
+          {actions}
+          {actionLabel && actionHref && (
+            <Link href={actionHref}>
+              <Button variant="outline">{actionLabel}</Button>
+            </Link>
+          )}
         </CardContent>
       ) : (
         <CardContent />
