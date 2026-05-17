@@ -18,7 +18,9 @@ export default async function GenericDetailsPage({ params }: GenericDetailsPageP
         eyebrow="Generic Details"
         title="Dose template"
       />
-      <GenericDoseTemplateView genericId={genericId} />
+      <div className="px-4 sm:px-6">
+        <GenericDoseTemplateView genericId={genericId} />
+      </div>
     </AppShell>
   );
 }

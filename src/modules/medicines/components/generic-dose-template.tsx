@@ -45,7 +45,7 @@ export function GenericDoseTemplateView({ genericId }: GenericDoseTemplateProps)
       {/* Main Content: Clinical Profile */}
       <div className="flex-1 w-full space-y-6">
         <div className="space-y-1 pb-6 border-b">
-          <h2 className="text-3xl font-black tracking-tight text-green-900 leading-tight">{generic.name}</h2>
+          <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-green-900 leading-tight">{generic.name}</h2>
           <div className="flex flex-wrap items-center gap-2 mt-2">
             <span className="text-[10px] font-bold uppercase tracking-widest text-primary/70 bg-primary/5 px-2 py-0.5 rounded">Clinical Generic Profile</span>
             {generic.therapeuticClass && (
@@ -94,7 +94,7 @@ export function GenericDoseTemplateView({ genericId }: GenericDoseTemplateProps)
           {/* Layer: Pharmacological Summary */}
           <section className="space-y-4 pt-6 border-t border-dashed">
             <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-red-600/70">Pharmacological Summary</h3>
-            <div className="grid gap-6">
+            <div className="flex flex-col gap-6">
                <div>
                   <p className="text-[9px] font-bold uppercase text-muted-foreground/80 mb-1">Side Effects</p>
                   <p className="text-xs leading-relaxed text-slate-600">{formatNullable(generic.sideEffect)}</p>

@@ -121,12 +121,12 @@ function DosageFormsContent() {
         </div>
 
         <div className="space-y-8">
-          <div className="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+          <div className="grid gap-3 sm:gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             {showSkeleton ? (
               Array.from({ length: 12 }).map((_, i) => (
-                <Card key={i} className="h-32 rounded-3xl border-primary/5 overflow-hidden">
-                  <div className="p-6 space-y-3">
-                    <Skeleton className="h-12 w-12 rounded-2xl" />
+                <Card key={i} className="h-28 sm:h-32 rounded-2xl sm:rounded-3xl border-primary/5 overflow-hidden">
+                  <div className="p-4 sm:p-6 space-y-3">
+                    <Skeleton className="h-8 w-8 sm:h-12 sm:w-12 rounded-xl sm:rounded-2xl" />
                     <Skeleton className="h-4 w-3/4" />
                   </div>
                 </Card>
@@ -134,19 +134,19 @@ function DosageFormsContent() {
             ) : forms.length > 0 ? (
               forms.map(({ form, count }) => (
                 <Link key={form} href={`/medicines/brands?form=${encodeURIComponent(form)}`}>
-                  <Card className="group h-full border-primary/5 bg-white/50 backdrop-blur-sm rounded-3xl hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 overflow-hidden">
-                    <CardHeader className="p-4 pb-2">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white shadow-lg border border-primary/5 group-hover:scale-110 transition-transform duration-500">
-                        <MedicineFormIcon form={form} className="h-6 w-6" />
+                  <Card className="group h-full border-primary/5 bg-white/50 backdrop-blur-sm rounded-2xl sm:rounded-3xl hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 overflow-hidden">
+                    <CardHeader className="p-3 sm:p-4 pb-1 sm:pb-2">
+                      <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-xl sm:rounded-2xl bg-white shadow-lg border border-primary/5 group-hover:scale-110 transition-transform duration-500">
+                        <MedicineFormIcon form={form} className="h-5 w-5 sm:h-6 sm:w-6" />
                       </div>
                     </CardHeader>
-                    <CardContent className="p-6 pt-2">
-                      <h3 className="font-black text-foreground group-hover:text-primary transition-colors truncate">
+                    <CardContent className="p-3 sm:p-6 pt-1 sm:pt-2">
+                      <h3 className="text-sm sm:text-base font-black text-foreground group-hover:text-primary transition-colors truncate">
                         {form}
                       </h3>
-                      <div className="flex items-center gap-2 mt-1">
-                        <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground/60">
-                          {count} Brands Available
+                      <div className="flex items-center gap-2 mt-0.5 sm:mt-1">
+                        <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.05em] sm:tracking-[0.1em] text-muted-foreground/60">
+                          {count} Brands
                         </p>
                       </div>
                     </CardContent>
@@ -188,9 +188,9 @@ export default function DosageFormsPage() {
       <Suspense fallback={
         <div className="space-y-6">
           <Skeleton className="h-32 w-full rounded-3xl" />
-          <div className="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+          <div className="grid gap-3 sm:gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             {Array.from({ length: 10 }).map((_, i) => (
-              <Skeleton key={i} className="h-32 rounded-3xl" />
+              <Skeleton key={i} className="h-28 sm:h-32 rounded-2xl sm:rounded-3xl" />
             ))}
           </div>
         </div>
