@@ -12,7 +12,7 @@ interface PageHeaderProps {
 
 export function PageHeader({ eyebrow, title, description, badge, className, actions }: PageHeaderProps) {
   return (
-    <div className={cn("relative space-y-3 mb-6", className)}>
+    <div className={cn("hidden md:block relative space-y-3 mb-6", className)}>
       <div className="space-y-1">
         <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-primary/70">{eyebrow}</p>
         <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">

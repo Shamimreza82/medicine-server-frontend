@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useDeferredValue, useEffect } from 'react';
-import { Search, Loader2, ArrowRight, X, LayoutGrid, List } from 'lucide-react';
+import { Search, Loader2, ArrowRight, X, LayoutGrid, List, Pill } from 'lucide-react';
 import Link from 'next/link';
 
 import { Input } from '@/components/ui/input';
@@ -13,6 +13,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useGenericSearch } from '@/modules/medicines/hooks';
 import { cn } from '@/shared/lib/utils';
 import { Pagination } from '@/shared/components/pagination';
+import { Badge } from '@/components/ui/badge';
 
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
@@ -189,9 +190,17 @@ export default function GenericsPage() {
                         </div>
                       </CardHeader>
                       <CardContent className="px-5 pb-5 mt-auto">
-                        <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed italic">
-                          {generic.indication || "No indication data available for this generic."}
-                        </p>
+                        <div className="space-y-3">
+                          <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed italic">
+                            {generic.indication || "No indication data available for this generic."}
+                          </p>
+                          <div className="flex items-center gap-2 pt-2 border-t border-primary/5">
+                            <div className="flex items-center gap-1.5 text-[10px] font-bold text-primary bg-primary/5 px-2 py-0.5 rounded-full">
+                              <Pill className="h-3 w-3" />
+                              {generic._count?.brands || 0} BRANDS
+                            </div>
+                          </div>
+                        </div>
                       </CardContent>
                     </Card>
                   </Link>
@@ -205,6 +214,7 @@ export default function GenericsPage() {
                       <tr className="bg-muted/50 text-[10px] font-bold uppercase tracking-wider text-muted-foreground border-b border-primary/5">
                         <th className="px-6 py-4">Generic Name</th>
                         <th className="px-6 py-4">Therapeutic Class</th>
+                        <th className="px-6 py-4">Brands</th>
                         <th className="px-6 py-4">Common Indications</th>
                         <th className="px-6 py-4 text-right">Action</th>
                       </tr>
@@ -222,6 +232,11 @@ export default function GenericsPage() {
                             <div className="text-xs font-bold text-primary/70 uppercase tracking-tight">
                               {generic.therapeuticClass || "General"}
                             </div>
+                          </td>
+                          <td className="px-6 py-4">
+                            <Badge variant="secondary" className="bg-primary/5 text-primary border-none hover:bg-primary/10 text-[10px] font-bold">
+                              {generic._count?.brands || 0} BRANDS
+                            </Badge>
                           </td>
                           <td className="px-6 py-4">
                             <div className="text-xs text-muted-foreground line-clamp-1 italic max-w-xs">

@@ -117,6 +117,7 @@ export default function AdminIndicationsPage() {
               <tr className="border-b border-primary/5">
                 <th className="px-6 py-4 text-xs font-bold text-muted-foreground uppercase tracking-wider">ID</th>
                 <th className="px-6 py-4 text-xs font-bold text-muted-foreground uppercase tracking-wider">Indication Name</th>
+                <th className="px-6 py-4 text-xs font-bold text-muted-foreground uppercase tracking-wider">Generics</th>
                 <th className="px-6 py-4 text-xs font-bold text-muted-foreground uppercase tracking-wider text-right">Actions</th>
               </tr>
             </thead>
@@ -126,6 +127,7 @@ export default function AdminIndicationsPage() {
                   <tr key={i} className="animate-pulse">
                     <td className="px-6 py-4"><div className="h-4 bg-muted rounded w-12" /></td>
                     <td className="px-6 py-4"><div className="h-4 bg-muted rounded w-48" /></td>
+                    <td className="px-6 py-4"><div className="h-4 bg-muted rounded w-16" /></td>
                     <td className="px-6 py-4"><div className="h-8 bg-muted rounded w-8 ml-auto" /></td>
                   </tr>
                 ))
@@ -134,6 +136,11 @@ export default function AdminIndicationsPage() {
                   <td className="px-6 py-4 text-sm font-bold text-muted-foreground">#{indication.id}</td>
                   <td className="px-6 py-4">
                     <span className="font-bold text-primary group-hover:text-primary/80 transition-colors">{indication.name}</span>
+                  </td>
+                  <td className="px-6 py-4">
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-primary/10 text-primary">
+                      {indication._count?.indicationGenerics ?? 0} Generics
+                    </span>
                   </td>
                   <td className="px-6 py-4 text-right">
                     <Button 

@@ -138,17 +138,22 @@ export default function IndicationsPage() {
                 <Link key={indication.id} href={`/medicines/indications/${indication.id}`}>
                   <Card className="h-full border-primary/5 hover:border-primary/20 hover:shadow-md transition-all rounded-2xl group">
                     <CardHeader className="p-5">
-                      <div className="flex items-center justify-between gap-3">
-                        <div className="flex items-center gap-3 min-w-0">
-                          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/5 text-primary group-hover:bg-primary group-hover:text-white transition-all flex-shrink-0">
-                            <Activity className="h-4 w-4" />
+                      <div className="flex flex-col gap-3">
+                        <div className="flex items-center justify-between gap-3">
+                          <div className="flex items-center gap-3 min-w-0">
+                            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/5 text-primary group-hover:bg-primary group-hover:text-white transition-all flex-shrink-0">
+                              <Activity className="h-4 w-4" />
+                            </div>
+                            <CardTitle className="text-sm font-bold truncate group-hover:text-primary transition-colors">
+                              {indication.name}
+                            </CardTitle>
                           </div>
-                          <CardTitle className="text-sm font-bold truncate group-hover:text-primary transition-colors">
-                            {indication.name}
-                          </CardTitle>
+                          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/5 text-primary group-hover:bg-primary group-hover:text-white transition-all shrink-0">
+                            <ArrowRight className="h-3.5 w-3.5" />
+                          </div>
                         </div>
-                        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/5 text-primary group-hover:bg-primary group-hover:text-white transition-all shrink-0">
-                          <ArrowRight className="h-3.5 w-3.5" />
+                        <div className="flex items-center gap-2 mt-1 ml-5">
+                          <span className="text-[11px] uppercase font-black tracking-widest text-muted-foreground/60 group-hover:text-primary/60 transition-colors">{indication._count?.indicationGenerics ?? 0} Available Generics</span>
                         </div>
                       </div>
                     </CardHeader>

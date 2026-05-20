@@ -47,6 +47,9 @@ export interface GenericResponse {
   childDose: string | null;
   renalDose: string | null;
   therapeuticClass?: string | null;
+  _count?: {
+    brands: number;
+  };
   therapeuticGenerics?: Array<{
     therapeutic: {
       id: number;
@@ -90,6 +93,9 @@ export interface CompanyDetails extends CompanyResponse {
 export interface IndicationResponse {
   id: number;
   name: string;
+  _count?: {
+    indicationGenerics: number;
+  };
 }
 
 export interface IndicationDetails extends IndicationResponse {
