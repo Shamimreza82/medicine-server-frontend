@@ -79,6 +79,11 @@ export interface GenericRequest {
 export interface CompanyResponse {
   id: number;
   name: string;
+  _count?: {
+    brands: number;
+    herbalBrands: number;
+    generics?: number;
+  };
 }
 
 export interface CompanyDetails extends CompanyResponse {

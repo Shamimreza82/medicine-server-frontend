@@ -135,8 +135,8 @@ export default function CompaniesPage() {
             ) : companies.length > 0 ? (
               companies.map((company) => (
                 <Link key={company.id} href={`/medicines/companies/${company.id}`}>
-                  <Card className="h-full border-primary/5 hover:border-primary/20 hover:shadow-md transition-all rounded-2xl group">
-                    <CardHeader className="p-5">
+                  <Card className="h-full border-primary/5 hover:border-primary/20 hover:shadow-md transition-all rounded-2xl group flex flex-col">
+                    <CardHeader className="p-5 pb-2">
                       <div className="flex items-center justify-between gap-3">
                         <div className="flex items-center gap-3 min-w-0">
                           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/5 text-primary group-hover:bg-primary group-hover:text-white transition-all flex-shrink-0">
@@ -151,6 +151,21 @@ export default function CompaniesPage() {
                         </div>
                       </div>
                     </CardHeader>
+                    <CardContent className="px-5 pb-5 pt-2 mt-auto">
+                      <div className="flex flex-wrap gap-2">
+                        <div className="px-2.5 py-1 rounded-lg bg-muted/50 text-[10px] font-bold text-muted-foreground uppercase tracking-wider group-hover:bg-primary/5 group-hover:text-primary transition-colors">
+                          {company._count?.brands || 0} Brands
+                        </div>
+                        <div className="px-2.5 py-1 rounded-lg bg-muted/50 text-[10px] font-bold text-muted-foreground uppercase tracking-wider group-hover:bg-primary/5 group-hover:text-primary transition-colors">
+                          {company._count?.generics || 0} Generics
+                        </div>
+                        {((company._count?.herbalBrands || 0) > 0) && (
+                          <div className="px-2.5 py-1 rounded-lg bg-emerald-50 text-[10px] font-bold text-emerald-600 uppercase tracking-wider">
+                            {company._count?.herbalBrands} Herbal
+                          </div>
+                        )}
+                      </div>
+                    </CardContent>
                   </Card>
                 </Link>
               ))
